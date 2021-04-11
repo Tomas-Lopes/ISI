@@ -1,5 +1,6 @@
 const User = require("../Models/User");
 const Bcrypt = require("bcryptjs");
+const clientCookie = require("../Config/cookie");
 
 async function Login(req, res) {
   try {
@@ -9,7 +10,10 @@ async function Login(req, res) {
       req.body.password,
       user.password
     );
-    if (!validPassword) return res.send("Password not valid");
+    if (!validPassword) {
+    return res.send("Password not valid");
+    }
+    clientCookie.setCookie(req,res,user);
     return res.send({
       message: "Logged in sucessfully",
       user: user,
@@ -43,31 +47,48 @@ async function Register(req, res) {
   }
 }
 
+async function Logout(req, res){
+  clientCookie.deleteCookie(req, res);
+  res.status(200).send("ok");
+}
+
 async function EditUser(req, res) {
   try {
     const nome = req.body.nome;
     const email = req.body.email;
-    const password = req.body.password;
     const numTel = req.body.numTel;
     const morada = req.body.morada;
     const localidade = req.body.localidade;
+    const nif = req.body.nif;
 
     if (
       nome != null && email != null && numTel != null && morada != null && localidade != null) {
-      const updatedUser = new User({
-        nome: req.body.nome,
-        email: req.body.email,
-        password: hashedPassword,
-        nif: req.body.nif,
-        numTel: req.body.numTel,
-        morada: req.body.morada,
-        localidade: req.body.localidade,
-      });
-      updatedUser.save();
-      return res.send("User editado com sucesso");
+        clientCookie.readCookie(req, async function (cb){
+          if (cb) {
+            const mongoUser = await User.findById(cb._id);
+            if (!mongoUser) {
+              return res.status(400).send("Nao existe user com esse id")
+            }
+            console.log("estou aqui")
+            mongoUser.set({
+              nome: nome,
+              email: email,
+              nif: nif,
+              numTel: numTel,
+              morada: morada,
+              localidade: localidade
+            })
+            console.log("continuo aqui")
+            await mongoUser.save();
+          return res.send("User editado com sucesso");      
+          } else {
+              return res.status(400).send("User nao esta logado");
+          }
+      })
+        
     }
   } catch (error) {
-    return res.send(error);
+    return res.send("fds po erro");
   }
 }
 
@@ -75,4 +96,5 @@ module.exports = {
   Login: Login,
   Register: Register,
   EditUser: EditUser,
+  Logout: Logout
 };
