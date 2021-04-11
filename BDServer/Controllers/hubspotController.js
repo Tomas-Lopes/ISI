@@ -27,9 +27,12 @@ request (options, async (error,response,body) => {
 }
 
 function addClient (req, res) {
-    let json = {
-        'properties': properties
-    };
+    let user = {};
+
+    user["firstname"] = req.body.firstname;
+    user["lastname"] = req.body.lastname;
+    user["phone"] = req.body.phone;
+    user["email"] = req.body.email;
     
     let options = {
         method: "POST",
@@ -37,7 +40,7 @@ function addClient (req, res) {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
-        body: req       
+        form: user   
     }
  };
 
