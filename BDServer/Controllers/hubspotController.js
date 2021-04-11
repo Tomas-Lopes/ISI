@@ -7,7 +7,9 @@ function getClients (req, res) {
     let options = {
         method: "GET",
         url:"https://api.hubapi.com/crm/v3/objects/contacts?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
-        headers: {accept: 'application/json'}
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
     };
 
 request (options, async (error,response,body) => {
@@ -25,38 +27,36 @@ request (options, async (error,response,body) => {
 }
 
 function addClient (req, res) {
+    let json = {
+        'properties': properties
+    };
+    
     let options = {
         method: "POST",
         url:"https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
-        headers: {accept: 'application/json', 'content-type': 'application/json'},
-         body: {
-            properties: {
-            company: 'Biglytics',
-            email: 'bcooper@biglytics.net',
-            firstname: 'Bryan',
-            lastname: 'Cooper',
-            phone: '(877) 929-0687',
-            website: 'biglytics.net'
-            }
-         },
-    json: true
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: req       
     }
  };
 
-request(options, async (error,response,body) => {
-    if (error) {
-        res.status (400).send({
-            message: "Error",
-            error: error,
-        });
+ req.post(options, (err, res) => {
+    if (!err && res.statusCode == 200) {
+        callback({
+            'statusCode': 200,
+            body: {
+                'user_id': JSON.parse(res.body).vid
+            }
+        })
     } else {
-        const json = JSON.parse(body);
-        res.send(json);
+        callback({
+            'statusCode': res.statusCode,
+            'body': JSON.parse(res.body)
+        })
     }
-});
+})
     
-
-
 function getClientByID (req, res) {
     let options = {
         method: "POST",
@@ -82,7 +82,7 @@ module.exports = {
     getClients:getClients,
     getClientByID: getClientByID,
     //existsClientNif: existsClientNif,
-    addClient: addClient,
+    addClient: addClient
     //updateClient: updateClient
 };
 
