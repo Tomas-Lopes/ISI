@@ -27,20 +27,21 @@ request (options, async (error,response,body) => {
 }
 
 function addClient (req, res) {
+    /*
     let user = {};
 
     user["firstname"] = req.body.firstname;
     user["lastname"] = req.body.lastname;
     user["phone"] = req.body.phone;
     user["email"] = req.body.email;
-    
+    */
     let options = {
-        method: "POST",
+        //method: "POST",
         url:"https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
-        form: user   
+        body: req   
     }
  };
 
