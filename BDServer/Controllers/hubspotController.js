@@ -63,3 +63,12 @@ request (options, async (error,response,body) => {
     
 }
 
+module.exports = {
+    getClients:getClients,
+    getClientByID: getClientByID,
+    //existsClientNif: existsClientNif,
+    addClient: addClient,
+    //updateClient: updateClient
+};
+
+
