@@ -37,10 +37,10 @@ function addClient (req, res) {
     */
     let options = {
         //method: "POST",
-        url:"https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
+        url:"https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
         body: req   
     }
  };
@@ -51,6 +51,7 @@ function addClient (req, res) {
             'statusCode': 200,
             body: {
                 'user_id': JSON.parse(res.body).vid
+                
             }
         })
     } else {
@@ -59,7 +60,9 @@ function addClient (req, res) {
             'body': JSON.parse(res.body)
         })
     }
+    console.log("estou aqui")
 })
+
     
 function getClientByID (req, res) {
     let options = {
