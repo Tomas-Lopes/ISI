@@ -85,12 +85,33 @@ request (options, async (error,response,body) => {
     
 }
 
+function updateClient (req, res) {
+    let options = {
+        //method: "POST",
+        url:"https://api.hubapi.com/contacts/v1/contact/vid/${user_id}/profile?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
+        headers: {accept: 'application/json'}
+    };
+
+request (options, async (error,response,body) => {
+    if (error) {
+        res.status (400).send({
+            message: "Error",
+            error: error,
+        });
+    } else {
+        const json = JSON.parse(body);
+        res.send(json);
+    }
+});
+    
+}
+
 module.exports = {
     getClients:getClients,
     getClientByID: getClientByID,
     //existsClientNif: existsClientNif,
-    addClient: addClient
-    //updateClient: updateClient
+    addClient: addClient,
+    updateClient: updateClient
 };
 
 
