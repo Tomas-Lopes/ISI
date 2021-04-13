@@ -24,7 +24,7 @@ async function Login(req, res) {
   }
 }
 
-async function Register(req, res) {
+async function Register(req, resp) {
 
   const nome = req.body.nome;
   const apelido = req.body.apelido;
@@ -68,13 +68,16 @@ async function Register(req, res) {
     }`;
     
     hubspot.addClient(properties, (res) => {
-      console.log(res.statusCode)
+      console.log(resp.statusCode)
       if (res.statusCode == 200) {
         user.save();
-        res.status(200).send("Criado com sucesso");
+        resp.send("Criado com sucesso");
         
       } else {
-        res.status(400).send("Utilizador não criado devido a um erro");
+        if (res.statusCode == 400) {
+          resp.send("Utilizador não criado devido a um erro");
+        }
+        
       }
     });
 

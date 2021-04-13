@@ -26,7 +26,7 @@ function getClients(req, res) {
   });
 }
 
-function addClient(properties) {
+function addClient(properties, res) {
     const user = {
         "properties": properties
     }
@@ -50,7 +50,7 @@ function addClient(properties) {
         },
       });
     } else {
-      if (resp.statusCode == 409) {
+      if (resp.statusCode == 400) {
         res({
           'statusCode': resp.statusCode,
           'body': JSON.parse(resp.body),
