@@ -1,7 +1,7 @@
 const User = require("../Models/User");
 const Bcrypt = require("bcryptjs");
 const clientCookie = require("../Config/cookie");
-var { hubspot } = require('./hubspotController');
+const hubspot = require('./hubspotController');
 
 async function Login(req, res) {
   try {
@@ -42,7 +42,7 @@ async function Register(req, res) {
       return res.send("Passwords do not match");
     const salt = await Bcrypt.genSalt(10);
     const hashedPassword = await Bcrypt.hash(req.body.password, salt);
-    console.log("hello")
+    
     const user = new User({
       nome: req.body.nome,
       apelido: req.body.apelido,
@@ -66,8 +66,8 @@ async function Register(req, res) {
             "localidade": "${localidade}"
           }
     }`;
-    console.log(properties)
-    hubspotController.addClient(properties, (res) => {
+    
+    hubspot.addClient(properties, (res) => {
       console.log(res.statusCode)
       if (res.statusCode == 200) {
         user.save();

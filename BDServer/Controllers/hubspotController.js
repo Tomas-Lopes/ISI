@@ -27,9 +27,8 @@ request.get (options, async (error,response,body) => {
 }
 
 function addClient (req, res) {
-   
     let options = {
-        //method: "POST",
+        method: "POST",
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
@@ -37,24 +36,31 @@ function addClient (req, res) {
         body: req   
     }
  
- request.post(options, (err, res) => {
-    if (!err && res.statusCode == 200) {
-        callback({
+ request.post(options, (err, resp) => {
+    if (!err && resp.statusCode == 200) {
+        res({
             'statusCode': 200,
-            body: {
-                'user_id': JSON.parse(res.body).id
+            'body': {
+                'user_id': JSON.parse(resp.body).id
                 
             }
         })
     } else {
-        callback({
-            'statusCode': res.statusCode,
-            'body': JSON.parse(res.body)
+        if (resp.statusCode == 409) {
+        res({
+            'statusCode': resp.statusCode,
+            'body': JSON.parse(resp.body)
         })
-    }
-    console.log("estou aqui")
-})
-}
+    
+    } else {
+        res({
+            'statusCode': resp.statusCode,
+            'body': JSON.parse(resp.body)
+    })
+    }   
+    })
+ }
+
     
 function getClientByID (req, res) {
     let options = {
