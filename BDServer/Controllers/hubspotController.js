@@ -12,7 +12,7 @@ function getClients (req, res) {
         }
     };
 
-request (options, async (error,response,body) => {
+request.get (options, async (error,response,body) => {
     if (error) {
         res.status (400).send({
             message: "Error",
@@ -27,14 +27,7 @@ request (options, async (error,response,body) => {
 }
 
 function addClient (req, res) {
-    /*
-    let user = {};
-
-    user["firstname"] = req.body.firstname;
-    user["lastname"] = req.body.lastname;
-    user["phone"] = req.body.phone;
-    user["email"] = req.body.email;
-    */
+   
     let options = {
         //method: "POST",
         headers: {
@@ -43,14 +36,13 @@ function addClient (req, res) {
         url:"https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
         body: req   
     }
- };
-
- req.post(options, (err, res) => {
+ 
+ request.post(options, (err, res) => {
     if (!err && res.statusCode == 200) {
         callback({
             'statusCode': 200,
             body: {
-                'user_id': JSON.parse(res.body).vid
+                'user_id': JSON.parse(res.body).id
                 
             }
         })
@@ -62,7 +54,7 @@ function addClient (req, res) {
     }
     console.log("estou aqui")
 })
-
+}
     
 function getClientByID (req, res) {
     let options = {
@@ -71,7 +63,7 @@ function getClientByID (req, res) {
         headers: {accept: 'application/json'}
     };
 
-request (options, async (error,response,body) => {
+request.get (options, async (error,response,body) => {
     if (error) {
         res.status (400).send({
             message: "Error",
@@ -92,7 +84,7 @@ function updateClient (req, res) {
         headers: {accept: 'application/json'}
     };
 
-request (options, async (error,response,body) => {
+request.put (options, async (error,response,body) => {
     if (error) {
         res.status (400).send({
             message: "Error",

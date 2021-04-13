@@ -1,6 +1,7 @@
 const User = require("../Models/User");
 const Bcrypt = require("bcryptjs");
 const clientCookie = require("../Config/cookie");
+var { hubspot } = require('./hubspotController');
 
 async function Login(req, res) {
   try {
@@ -33,15 +34,49 @@ async function Register(req, res) {
     const hashedPassword = await Bcrypt.hash(req.body.password, salt);
     const user = new User({
       nome: req.body.nome,
+      apelido: req.body.apelido,
       email: req.body.email,
       password: hashedPassword,
       nif: req.body.nif,
       numTel: req.body.numTel,
       morada: req.body.morada,
       localidade: req.body.localidade,
+
+    }).then(() => {
+    const properties = `{
+          "properties":  {
+            "firstname": "${nome}",
+            "lastname": "${apelido}",
+            "email": "${email}",
+            "password": "${hashedPassword}",
+            "nif": "${nif}",
+            "phone": "${numTel}",
+            "morada": "${morada}",
+            "localidade": "${localidade}"
+          }
+    }`;
+
+    hubspotController.addClient(properties, (res) => {
+      console.log(res.statusCode)
+      if (res.statusCode == 200) {
+        user.save();
+        return res.send({
+          'statusCode': 200,
+          'body': {
+            'message': 'Criado com sucesso'
+          }
+        });
+        
+      } else {
+        return res.send("Couldn't create client");
+      }
     });
-    user.save();
-    return res.send("User Created Sucessfully");
+
+  }).catch(error => {
+    console.log(error)
+    res.status(500).send({ error: error })
+})
+
   } catch (error) {
     return res.send(error);
   }
