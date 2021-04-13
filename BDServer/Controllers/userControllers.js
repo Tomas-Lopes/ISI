@@ -25,7 +25,7 @@ async function Login(req, res) {
 }
 
 async function Register(req, res) {
-  /*
+
   const nome = req.body.nome;
   const apelido = req.body.apelido;
   const password = req.body.password;
@@ -34,7 +34,7 @@ async function Register(req, res) {
   const numTel = req.body.numTel;
   const morada = req.body.morada;
   const localidade = req.body.localidade;
-*/
+
   try {
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) return res.send("Email already exists in DataBase");
@@ -71,15 +71,10 @@ async function Register(req, res) {
       console.log(res.statusCode)
       if (res.statusCode == 200) {
         user.save();
-        return res.send({
-          'statusCode': 200,
-          'body': {
-            'message': 'Criado com sucesso'
-          }
-        });
+        res.status(200).send("Criado com sucesso");
         
       } else {
-        return res.send("Couldn't create client");
+        res.status(400).send("Utilizador não criado devido a um erro");
       }
     });
 
