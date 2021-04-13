@@ -25,6 +25,16 @@ async function Login(req, res) {
 }
 
 async function Register(req, res) {
+  /*
+  const nome = req.body.nome;
+  const apelido = req.body.apelido;
+  const password = req.body.password;
+  const email = req.body.email;
+  const nif = req.body.nif;
+  const numTel = req.body.numTel;
+  const morada = req.body.morada;
+  const localidade = req.body.localidade;
+*/
   try {
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) return res.send("Email already exists in DataBase");
