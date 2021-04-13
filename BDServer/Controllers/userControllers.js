@@ -42,6 +42,7 @@ async function Register(req, res) {
       return res.send("Passwords do not match");
     const salt = await Bcrypt.genSalt(10);
     const hashedPassword = await Bcrypt.hash(req.body.password, salt);
+    console.log("hello")
     const user = new User({
       nome: req.body.nome,
       apelido: req.body.apelido,
@@ -52,7 +53,7 @@ async function Register(req, res) {
       morada: req.body.morada,
       localidade: req.body.localidade,
 
-    }).then(() => {
+    })
     const properties = `{
           "properties":  {
             "firstname": "${nome}",
@@ -65,7 +66,7 @@ async function Register(req, res) {
             "localidade": "${localidade}"
           }
     }`;
-
+    console.log(properties)
     hubspotController.addClient(properties, (res) => {
       console.log(res.statusCode)
       if (res.statusCode == 200) {
@@ -81,11 +82,6 @@ async function Register(req, res) {
         return res.send("Couldn't create client");
       }
     });
-
-  }).catch(error => {
-    console.log(error)
-    res.status(500).send({ error: error })
-})
 
   } catch (error) {
     return res.send(error);
