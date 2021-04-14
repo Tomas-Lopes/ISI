@@ -76,7 +76,7 @@ function addClient(properties, res) {
 
 function getClientByID(req, res) {
   let options = {
-    method: "POST",
+    method: "GET",
     url:
       "https://api.hubapi.com/crm/v3/objects/contacts/contactId?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
     headers: { accept: "application/json" },
@@ -116,10 +116,38 @@ function updateClient(req, res) {
   });
 }
 
+/*Função que confirma se já existe um cliente com aquele NIF*/
+function existsClientNif(nif, res) {
+  let options = {
+      url: `https://api.hubapi.com/contacts/v1/search/query?q=&property=nif&hapikey=2f347fca-4639-40c7-af20-c2090d8649b5`
+  }
+  req.get(options, (err, resp) => {
+      if (!err && resp.statusCode == 200) {
+          let users = JSON.parse(resp.body).contacts;
+          let exists = false;
+          for (let i = 0; i < users.length; i++) {
+              let data = users[i].properties;
+
+              if (nif == data.nif.value) {
+                  exists = true;
+              }
+          }
+          res({
+              'exists': exists
+          })
+      } else {
+          res({
+              'statusCode': res.statusCode,
+              'body': JSON.parse(res.body)
+          })
+      }
+  })
+}
+
 module.exports = {
   getClients: getClients,
   getClientByID: getClientByID,
-  //existsClientNif: existsClientNif,
+  existsClientNif: existsClientNif,
   addClient: addClient,
   updateClient: updateClient,
 };

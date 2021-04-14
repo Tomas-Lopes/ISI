@@ -4,6 +4,8 @@ const clientCookie = require("../Config/cookie");
 const hubspot = require('./hubspotController');
 
 async function Login(req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.send("User doesnt exist in DataBase");
@@ -11,6 +13,25 @@ async function Login(req, res) {
       req.body.password,
       user.password
     );
+    /*
+    hubspot.getClientByID (user.email, (res) => {
+      if (res.user) {
+        let userF = {
+          user_id: user.idUtilizador,
+          email: user.email,
+          nome: res.user.nome,
+          apelido: res.user.apelido,
+          numero_telefone: res.user.numero_telefone,
+          nif: res.user.nif,
+      }
+      return done(null, userF);
+  } else {
+      done(null, false, {
+          'message': `user not found`
+      })
+      }
+    })
+*/
     if (!validPassword) {
     return res.send("Password not valid");
     }
@@ -24,7 +45,7 @@ async function Login(req, res) {
   }
 }
 
-async function Register(req, resp) {
+async function Register(req, res) {
 
   const nome = req.body.nome;
   const apelido = req.body.apelido;
@@ -67,15 +88,15 @@ async function Register(req, resp) {
           }
     }`;
 
-    hubspot.addClient(properties, (res) => {
-      console.log(res.statusCode)
-      if (res.statusCode == 200) {
+    hubspot.addClient(properties, (resp) => {
+      console.log(resp.statusCode)
+      if (resp.statusCode == 200) {
         user.save();
         resp.send("Criado com sucesso");
         
       } else {
-        if (res.statusCode == 400) {
-          resp.send("Utilizador não criado devido a um erro");
+        if (resp.statusCode == 400) {
+          res.send("Utilizador não criado devido a um erro");
         }
         
       }
