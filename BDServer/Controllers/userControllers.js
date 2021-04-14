@@ -66,9 +66,9 @@ async function Register(req, resp) {
             "localidade": "${localidade}"
           }
     }`;
-    
+
     hubspot.addClient(properties, (res) => {
-      console.log(resp.statusCode)
+      console.log(res.statusCode)
       if (res.statusCode == 200) {
         user.save();
         resp.send("Criado com sucesso");

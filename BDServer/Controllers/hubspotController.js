@@ -30,7 +30,7 @@ function addClient(properties, res) {
     const user = {
         "properties": properties
     }
-
+    
   let options = {
     method: "POST",
     headers: {
@@ -42,28 +42,37 @@ function addClient(properties, res) {
   };
 
   request.post(options, (err, resp) => {
-    if (!err && resp.statusCode == 200) {
+    if (!err) {
+     if(resp.statusCode == 200) {
       res({
         'statusCode': 200,
         'body': {
           'user_id': JSON.parse(resp.body).id,
-        },
-      });
+        }
+      })
     } else {
       if (resp.statusCode == 400) {
         res({
           'statusCode': resp.statusCode,
           'body': JSON.parse(resp.body),
-        });
+        })
       } else {
         res({
           'statusCode': resp.statusCode,
           'body': JSON.parse(resp.body),
-        });
+        })
       }
     }
-  });
+  } else {
+    res({
+      'statusCode': resp.statusCode,
+      'body': JSON.parse(resp.body),
+    })
+  }
+})
 }
+    
+
 
 function getClientByID(req, res) {
   let options = {
