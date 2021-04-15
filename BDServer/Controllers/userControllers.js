@@ -153,7 +153,7 @@ async function EditUser(req, res) {
 }
 
 function getUsers(req, res) {
-  const user_id = req.user.user_id;
+  const user_id = req.user.email;
 
   hubspot.getClients((resp) => {
       if (resp.users) {
@@ -207,6 +207,7 @@ const validPassword = async function (userpass, password) {
   Login: Login,
   Register: Register,
   EditUser: EditUser,
-  Logout: Logout
+  Logout: Logout,
+  getUsers: getUsers
 };
 

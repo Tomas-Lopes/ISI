@@ -159,4 +159,5 @@ module.exports = {
   existsClientNif: existsClientNif,
   addClient: addClient,
   updateClient: updateClient,
+  getClients: getClients
 };
