@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 //Métodos GET Hubspot
 
-function getClients(req, res) {
+function getClients(res) {
   let options = {
     method: "GET",
     url:
@@ -13,15 +13,23 @@ function getClients(req, res) {
     },
   };
 
-  request.get(options, async (error, response, body) => {
-    if (error) {
-      res.status(400).send({
-        message: "Error",
-        error: error,
-      });
+  request.get(options, (error, res) => {
+    if (!error) {
+      if(resp.statusCode == 200) {
+        const users = JSON.parse(resp.body).contacts;
+        resp.send(users);
+      } else {
+        res({
+          'statusCode': resp.statusCode,
+          'body': JSON.parse(resp.body),
+        })
+    } 
     } else {
-      const json = JSON.parse(body);
-      res.send(json);
+      console.log(error);
+      res({
+        'statusCode': resp.statusCode,
+        'body': JSON.parse(resp.body),
+      })
     }
   });
 }
@@ -82,7 +90,7 @@ function getClientByID(req, res) {
     headers: { accept: "application/json" },
   };
 
-  request.get(options, async (error, response, body) => {
+  request.get(options, async (error, res, body) => {
     if (error) {
       res.status(400).send({
         message: "Error",
@@ -147,6 +155,7 @@ function existsClientNif(nif, res) {
 module.exports = {
   getClients: getClients,
   getClientByID: getClientByID,
+  //existsClientEmail: existsClientEmail,
   existsClientNif: existsClientNif,
   addClient: addClient,
   updateClient: updateClient,

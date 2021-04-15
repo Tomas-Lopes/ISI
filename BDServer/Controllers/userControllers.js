@@ -6,40 +6,40 @@ const hubspot = require('./hubspotController');
 async function Login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
+  
   try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.send("User doesnt exist in DataBase");
-    const validPassword = await Bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    /*
-    hubspot.getClientByID (user.email, (res) => {
-      if (res.user) {
-        let userF = {
-          user_id: user.idUtilizador,
-          email: user.email,
-          nome: res.user.nome,
-          apelido: res.user.apelido,
-          numero_telefone: res.user.numero_telefone,
-          nif: res.user.nif,
+    const user = await User.findOne({ email: email });
+    //const userpass = user.password;
+    if (!user) {
+      return res.send("User doesnt exist in DataBase");
+    } else {
+      const validPassword = async function (userpass, password) {
+        return await Bcrypt.compare(password, userpass);
       }
-      return done(null, userF);
+        if (await validPassword (user.password, password)) {
+          hubspot.getClientByID (user.email, (res) => {
+            if (res.user) {
+              let userF = {
+                user_id: user.idUtilizador,
+                email: user.email,
+                nome: res.user.nome,
+                apelido: res.user.apelido,
+                numero_telefone: res.user.numero_telefone,
+                nif: res.user.nif,
+            }
+            clientCookie.setCookie(req,res,user);
+            return res.send({
+              message: "Logged in sucessfully",
+              user: userF,
+            });
   } else {
-      done(null, false, {
-          'message': `user not found`
-      })
+      res.send("User not found")
       }
-    })
-*/
-    if (!validPassword) {
-    return res.send("Password not valid");
+      })
+  } else {
+    res.send("Password invalid")
     }
-    clientCookie.setCookie(req,res,user);
-    return res.send({
-      message: "Logged in sucessfully",
-      user: user,
-    });
+  }
   } catch (error) {
     return res.send(error);
   }
@@ -152,9 +152,61 @@ async function EditUser(req, res) {
   }
 }
 
-module.exports = {
+function getUsers(req, res) {
+  const user_id = req.user.user_id;
+
+  hubspot.getClients((resp) => {
+      if (resp.users) {
+          const users = resp.users;
+          let usersF = [];
+
+          for (let i = 0; i < users.length; i++) {
+              if (user_id != users[i].id) {
+                  usersF.push(users[i]);
+              }
+          }
+          res.status(200).send({
+              'users': usersF
+          })
+      } else {
+          res.status(resp.statusCode).send(resp.body);
+      }
+  })
+}
+
+/* ACABAR DEPOIS
+function recoverPass (req, res) {
+  const email = req.sanitize ('email').escape();
+  const emailExists = User.findOne ({email: email});
+
+  if (!err) {
+    hubspot.getClientByID()
+    if (res.user) {
+      const link = generateLink();
+      let validade = new Date();
+      validade.setMinutes(validade.getMinutes() + 15);
+      const post = {
+        idUtilizador: res.user.user_id,
+        link: link,
+        validade: validade
+      }
+    }
+  }
+
+}
+*/
+/* 
+Função que verifica se a password é válida
+*/
+/*
+const validPassword = async function (userpass, password) {
+  return await Bcrypt.compare(password, userpass);
+}
+*/
+  module.exports = {
   Login: Login,
   Register: Register,
   EditUser: EditUser,
   Logout: Logout
 };
+
