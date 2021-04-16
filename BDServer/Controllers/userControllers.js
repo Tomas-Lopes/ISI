@@ -73,22 +73,25 @@ async function Register(req, res) {
       numTel: req.body.numTel,
       morada: req.body.morada,
       localidade: req.body.localidade,
-
     })
-    const properties = `{
-          "properties":  {
-            "firstname": "${nome}",
-            "lastname": "${apelido}",
-            "email": "${email}",
-            "password": "${hashedPassword}",
-            "nif": "${nif}",
-            "phone": "${numTel}",
-            "morada": "${morada}",
-            "localidade": "${localidade}"
-          }
-    }`;
+    const properties = {
+            "firstname": req.body.nome,
+            "lastname": req.body.apelido,
+            "email": req.body.email,
+            "company": "MCA Group",
+            "website": "vgbhjjk",
+            "phone": req.body.numTel,             
+    };
+    /* campos que faltam q temos na base de dados
+     "lastname": req.body.apelido,
+      "company": "MCA Group",
+            "website": "vgbhjjk",
+            "phone": req.body.numTel, 
+    "nif": "${nif}",
+    "morada": "${morada}",
+    "localidade": "${localidade}"*/
 
-    hubspot.addClient(properties, (resp) => {
+    /*hubspot.addClient(properties, (resp) => {
       console.log(resp.statusCode)
       if (resp.statusCode == 200) {
         user.save();
@@ -100,7 +103,8 @@ async function Register(req, res) {
         }
         
       }
-    });
+    });*/
+    hubspot.addClient(properties, res);
 
   } catch (error) {
     return res.send(error);

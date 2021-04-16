@@ -35,7 +35,7 @@ function getClients(res) {
 }
 
 function addClient(properties, res) {
-    const user = {
+   /* const user = {
         "properties": properties
     }
     
@@ -77,7 +77,31 @@ function addClient(properties, res) {
       'body': JSON.parse(resp.body),
     })
   }
-})
+})*/
+
+
+ const user = {
+        "properties": properties
+    }
+console.log(user);
+var options = {
+  method: 'POST',
+  url: 'https://api.hubapi.com/crm/v3/objects/contacts?hapikey=' + '4e320bb8-9cfd-4078-be5a-f383bc135310',
+  body: JSON.stringify(user),
+  headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+  }
+};
+
+request(options, function (error, response, body) {
+  if (error){
+    res.status(400).send(error);
+  } else {
+    const resposta = JSON.parse(body);
+    res.status(200).send(resposta);
+  }
+});
 }
     
 
