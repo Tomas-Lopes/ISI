@@ -17,10 +17,10 @@ async function Login(req, res) {
         return await Bcrypt.compare(password, userpass);
       }
         if (await validPassword (user.password, password)) {
-          hubspot.getClientByID (user.email, (res) => {
+          hubspot.getClientByID (user._id, (res) => {
             if (res.user) {
               let userF = {
-                user_id: user.idUtilizador,
+                contactId: user._id,
                 email: user.email,
                 nome: res.user.nome,
                 apelido: res.user.apelido,
@@ -93,6 +93,7 @@ async function Register(req, res) {
     "morada": "${morada}",
     "localidade": "${localidade}"*/
     hubspot.addClient(properties, res);
+    user.save();
 
   } catch (error) {
     return res.send(error);
