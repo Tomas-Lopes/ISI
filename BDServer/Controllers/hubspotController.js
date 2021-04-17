@@ -35,51 +35,6 @@ function getClients(res) {
 }
 
 function addClient(properties, res) {
-   /* const user = {
-        "properties": properties
-    }
-    
-  let options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    url:
-      "https://api.hubapi.com/crm/v3/objects/contacts/search?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
-    body: JSON.stringify(user),
-  };
-
-  request.post(options, (err, resp) => {
-    if (!err) {
-     if(resp.statusCode == 200) {
-      res({
-        'statusCode': 200,
-        'body': {
-          'user_id': JSON.parse(resp.body).id,
-        }
-      })
-    } else {
-      if (resp.statusCode == 400) {
-        res({
-          'statusCode': resp.statusCode,
-          'body': JSON.parse(resp.body),
-        })
-      } else {
-        res({
-          'statusCode': resp.statusCode,
-          'body': JSON.parse(resp.body),
-        })
-      }
-    }
-  } else {
-    res({
-      'statusCode': resp.statusCode,
-      'body': JSON.parse(resp.body),
-    })
-  }
-})*/
-
-
  const user = {
         "properties": properties
     }
@@ -110,7 +65,7 @@ function getClientByID(req, res) {
   let options = {
     method: "GET",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts/contactId?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
+      "https://api.hubapi.com/crm/v3/objects/contacts/contactId?hapikey=4e320bb8-9cfd-4078-be5a-f383bc135310",
     headers: { accept: "application/json" },
   };
 

@@ -80,6 +80,8 @@ async function Register(req, res) {
             "email": req.body.email,
             "company": "MCA Group",
             "website": "vgbhjjk",
+            "nif" : req.body.nif,
+            "address" : req.body.morada,
             "phone": req.body.numTel,             
     };
     /* campos que faltam q temos na base de dados
@@ -90,20 +92,6 @@ async function Register(req, res) {
     "nif": "${nif}",
     "morada": "${morada}",
     "localidade": "${localidade}"*/
-
-    /*hubspot.addClient(properties, (resp) => {
-      console.log(resp.statusCode)
-      if (resp.statusCode == 200) {
-        user.save();
-        resp.send("Criado com sucesso");
-        
-      } else {
-        if (resp.statusCode == 400) {
-          res.send("Utilizador não criado devido a um erro");
-        }
-        
-      }
-    });*/
     hubspot.addClient(properties, res);
 
   } catch (error) {
