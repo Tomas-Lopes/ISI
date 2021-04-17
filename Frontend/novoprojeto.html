@@ -7,8 +7,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" href="assets/img/mini.png">
+		<link rel="shortcut icon"  href="assets/img/mini.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="grid/simple-grid.min.css" rel="stylesheet">
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -65,20 +66,18 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav> 
                                         <ul id="navigation">                                                                                                                   
-                                            <li><a href="#top"></a></li>
-                                            <li><a href="#description"></a></li>
-                                            <li><a href="#contactos"></a></li>
-                                            <li><a href="#sobreNOS"></a></li>
+                                          <li><a href="#top" style="padding-right:220px;">Visualizar Pedidos</a></li>
 
                                     </nav>
                                 </div>
                             </div>             
                             <div class="col-xl-2 col-lg-2 col-md-3">
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <a href="login.html" class="btn">Login
-                                                                         </a>
-                                </div>
+                              <div class="header-right-btn f-right d-none d-lg-block">
+                                <a href="#">
+                                <button class="btn"><i class="fas fa-user"></i></button></a>
                             </div>
+                                </div>
+                           
                             <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
@@ -91,110 +90,106 @@
         <!-- Header End -->
     </header>
     <main>
-
-        <div id="registerDiv" class="container mt--8 pb-5" style="padding-top: 50px;">
-            <!-- Table -->
-            <div class="row justify-content-center">
-              <div class="col-lg-6 col-md-8">
-                <div class="card bg-secondary border-0" style="background-color: #191a33!important;">
-                  <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                      <h5 style="color: white;">Registar</h5>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="registerDiv" class="container mt--8 pb-5" style="padding-top: 50px;">
+              <!-- Table -->
+              <div class="row justify-content-left">
+                <div class="col-lg-12">
+                  <div class="card bg-secondary border-0" style="background-color: #191a33!important;">
+                    <div class="card-body px-lg-5 py-lg-5">
+                      <div class="text-center text-muted mb-4">
+                        <h5 style="color: white;">Novo Projeto</h5>
+                      </div>
+                      <form role="form">
+                        <div class="form-group">
+                          <div class="input-group input-group-merge input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i     
+                                ></span>
+                            </div>
+                            <input class="form-control" placeholder="Localização do Pedido" type="text" id="registerName" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group input-group-merge input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-wrench"></i></span>
+                            </div>
+                          <select name="Tipo de Pedido" id="tipoPedido">
+                            <option value="volvo">Obras rodoviárias</option>
+                            <option value="saab">Obras Marítimas</option>
+                            <option value="opel">Habitação e construção civil</option>
+                            <option value="audi">Requalificação urbana</option>
+                            <option value="opel">Centros logísticos</option>
+                            <option value="opel">Complexos desportivos</option>
+                          </select>
+                             </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group input-group-merge input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                            </div>
+                            <input type="tel" placeholder="Descrição do Pedido" class="form-control bfh-phone" data-country="countries_phone1" id="registerTelefone" />
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <div class="input-group input-group-merge input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Orçamento" type="text" id="registerResponsible" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group input-group-merge input-group-alternative mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-calendar-minus"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Data Limite" type="number" id="registerNif" />
+                          </div>
+                        </div>
+                  
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-6" style="align-self: left;">
+                              <div class="text-center">
+                          <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Submeter</button>
+                        </div>
+                      </div>
+                        <div class="col-md-6" style="align-self: right;">
+                        <div class="text-center">
+                          <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Cancelar Pedido</button>
+                        </div>                           
+                          </div>
+                        </div>
                     </div>
-                    <form role="form">
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Nome" type="text" id="registerName" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Email" type="email" id="registerEmail" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i
-                              ></span>
-                          </div>
-                          <input type="tel" placeholder="Telefone" class="form-control bfh-phone" data-country="countries_phone1" id="registerTelefone" />
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Data Nascimento" type="text" id="registerResponsible" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                          </div>
-                          <input class="form-control" placeholder="NIF" type="number" id="registerNif" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                          </div>
-                          <input class="form-control" id="registerPassword" onkeyup="CheckPasswordStrength(this.value); return this.passed" placeholder="Password" type="password" />
-                          <button type="button" onclick="visible()"  class="btn btn-secondary btn-sm" style="padding: 0px 12px;">
-                              <i id="eye" class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" type="password" id="registerRepeatPassword" placeholder="Confirmar Password" type="passwordConfirm" />
-                        </div>
-                      </div>
-                      <div class="text-muted font-italic">
-                        <small>Requisitos:
-                            <span
-                              id=""
-                              class="badge badge-pill badge-warning font-weight-700"
-                              >8 dígitos, Letra Maíuscula e minúscula</span
-                            ></small
-                          >
-                        </div>
-                        <div class="text-muted font-italic">
-                          <small
-                            >Força da password:
-                            <span
-                              id="password_strength"
-                              class="font-weight-700"
-                            ></span
-                          ></small>
-                      </div>
-                      <div class="text-center">
-                        <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Criar conta</button>
-                      </div>
-                    </form>
+                        
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="col-md-6" style="align-self: center;">
+          <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card border-0">
+                <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d95680.83561213527!2d-8.377106390008406!3d41.46034895842295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24f0191ff06bb3%3A0x53e284e8981c154a!2sGuimar%C3%A3es!5e0!3m2!1spt-PT!2spt!4v1618494544796!5m2!1spt-PT!2spt" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+              </div>
+            </div>
+          </div>
         </div>
+        </div>
+        </div>
+      </div>
+          
     </main>
     <footer>
         <!-- Footer Start-->

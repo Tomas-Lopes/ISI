@@ -7,8 +7,11 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" href="assets/img/mini.png">
+		<link rel="shortcut icon"  href="assets/img/mini.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="./style.css" />
+        <script src="./index.js"></script>
+    
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -38,12 +41,27 @@
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
-       <div class="header-area">
-            <div class="main-header header-sticky " style="background-color: #191a33!important;">
+       <div class="header-area header-transparent" style="background-color: #191a33!important;">
+            <div class="main-header ">
+               
                    <div class="container-fluid">
-                       <div class="col-xl-12 header-sticky">
+                       <div class="col-xl-12">
                             <div class="row d-flex justify-content-between align-items-center">
-                              
+                                <!-- <div class="header-info-left">
+                                    <ul>     
+                                        <li>+(123) 1234-567-8901</li>
+                                        <li>info@domain.com</li>
+                                        <li>Mon - Sat 8:00 - 17:30, Sunday - CLOSED</li>
+                                    </ul>
+                                </div>
+                                <div class="header-info-right">
+                                    <ul class="header-social">    
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                       <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                    </ul>
+                                </div> -->
                             </div>
                        </div>
                    </div>
@@ -52,7 +70,7 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2 col-md-1 ">
+                            <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
                                     <!-- logo-1 -->
                                     <a href="index.html" class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
@@ -65,20 +83,39 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav> 
                                         <ul id="navigation">                                                                                                                   
-                                            <li><a href="#top"></a></li>
-                                            <li><a href="#description"></a></li>
-                                            <li><a href="#contactos"></a></li>
-                                            <li><a href="#sobreNOS"></a></li>
-
+                                            <li><a href="#top" style="padding-right:220px;">Visualizar Pedidos</a></li>
+                                           <!-- <li><a href="blog.html">Blog</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="single-blog.html">Blog Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Pages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="elements.html">Element</a></li>
+                                                    <li><a href="project_details.html">Projects Details</a></li>
+                                                    <li><a href="services_details.html">Services Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>-->
                                     </nav>
                                 </div>
                             </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-3">
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <a href="login.html" class="btn">Login
-                                                                         </a>
+                                
+                           
+                                <div class="col-xl-2 col-lg-2 col-md-3">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary " data-toggle="dropdown" ><i class="fas fa-user"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                          <a class="dropdown-item" href="#"> Área Cliente</a>
+                                          <a class="dropdown-item" href="#">Pedidos</a>
+                                          <a class="dropdown-item" href="#">Terminar Sessão</a>
+                                        </div>
+                                      </div>
                                 </div>
-                            </div>
+    
                             <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
@@ -91,110 +128,88 @@
         <!-- Header End -->
     </header>
     <main>
-
-        <div id="registerDiv" class="container mt--8 pb-5" style="padding-top: 50px;">
-            <!-- Table -->
-            <div class="row justify-content-center">
-              <div class="col-lg-6 col-md-8">
-                <div class="card bg-secondary border-0" style="background-color: #191a33!important;">
-                  <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                      <h5 style="color: white;">Registar</h5>
+        <div class="row"> 
+            <div class="col-4" style="padding-top: 150px;">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-auto">
+                        <h5>7</h5>
+                      </div>
+                    <div class="col-auto">
+                      <h5 class="card-title text-uppercase text-muted mb-0" style="text-align: center">Número de Pedidos</h5>
+                      <span id="numEmpresas" class="h2 font-weight-bold mb-0"></span>
                     </div>
-                    <form role="form">
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Nome" type="text" id="registerName" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Email" type="email" id="registerEmail" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i
-                              ></span>
-                          </div>
-                          <input type="tel" placeholder="Telefone" class="form-control bfh-phone" data-country="countries_phone1" id="registerTelefone" />
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" placeholder="Data Nascimento" type="text" id="registerResponsible" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                          </div>
-                          <input class="form-control" placeholder="NIF" type="number" id="registerNif" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                          </div>
-                          <input class="form-control" id="registerPassword" onkeyup="CheckPasswordStrength(this.value); return this.passed" placeholder="Password" type="password" />
-                          <button type="button" onclick="visible()"  class="btn btn-secondary btn-sm" style="padding: 0px 12px;">
-                              <i id="eye" class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i
-                              ></span>
-                          </div>
-                          <input class="form-control" type="password" id="registerRepeatPassword" placeholder="Confirmar Password" type="passwordConfirm" />
-                        </div>
-                      </div>
-                      <div class="text-muted font-italic">
-                        <small>Requisitos:
-                            <span
-                              id=""
-                              class="badge badge-pill badge-warning font-weight-700"
-                              >8 dígitos, Letra Maíuscula e minúscula</span
-                            ></small
-                          >
-                        </div>
-                        <div class="text-muted font-italic">
-                          <small
-                            >Força da password:
-                            <span
-                              id="password_strength"
-                              class="font-weight-700"
-                            ></span
-                          ></small>
-                      </div>
-                      <div class="text-center">
-                        <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Criar conta</button>
-                      </div>
-                    </form>
+                    <div class="col-auto">
+                        <i class="fas fa-tasks"></i>
+                       </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="col-4" style="padding-top: 150px;">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                        <h5>7</h5>
+                      </div>
+                    <div class="col">
+                      <h5 class="card-title text-muted " style="text-align: center" >Número de projetos</h5>
+                      <span id="numCamaras" class="h2 font-weight-bold mb-0"></span>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-tasks"></i>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+            <!--Google map-->
+               </div>         
+
+            
+            <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card border-0">
+                      <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d95680.83561213527!2d-8.377106390008406!3d41.46034895842295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24f0191ff06bb3%3A0x53e284e8981c154a!2sGuimar%C3%A3es!5e0!3m2!1spt-PT!2spt!4v1618494544796!5m2!1spt-PT!2spt" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          
+              
+              
+           
+           
+
+        <!-- slider Area End-->
+        <!-- Services Area Start -->
+        <div class="botao" id = "description" style="padding-top:30px; padding-bottom: 60px;">
+            <div class="container">
+                <!-- section tittle -->
+                <div class="row">
+                    <div class="col-lg" style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;"
+                >
+                        <button type="button" class="btn" > <a  href="novoprojeto.html" style="color:white">
+                            Novo Projeto </a> </button>
+                            </div>
+                </div>
+            </div>
         </div>
+        <!-- Services Area End -->
+        <!-- About Area Start -->
+       
+        
     </main>
     <footer>
         <!-- Footer Start-->
@@ -258,7 +273,10 @@
     </footer>
    
 	<!-- JS here -->
-	
+	  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+   
+        
+        
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 		<!-- Jquery, Popper, Bootstrap -->
@@ -286,6 +304,7 @@
         <!-- counter , waypoint -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
         <script src="./assets/js/jquery.counterup.min.js"></script>
+       
 
         <!-- contact js -->
         <script src="./assets/js/contact.js"></script>
