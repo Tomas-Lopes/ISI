@@ -45,7 +45,7 @@ async function Login(req, res) {
   }
 }
 
-async function Register(req, res) {
+function Register(req, resp) {
 
   const nome = req.body.nome;
   const apelido = req.body.apelido;
@@ -54,50 +54,80 @@ async function Register(req, res) {
   const nif = req.body.nif;
   const numTel = req.body.numTel;
   const morada = req.body.morada;
-  const localidade = req.body.localidade;
+  //const localidade = req.body.localidade;
 
-  try {
-    const emailExists = await User.findOne({ email: req.body.email });
-    if (emailExists) return res.send("Email already exists in DataBase");
-    if (req.body.password != req.body.passwordConf)
-      return res.send("Passwords do not match");
-    const salt = await Bcrypt.genSalt(10);
-    const hashedPassword = await Bcrypt.hash(req.body.password, salt);
-    
-    const user = new User({
-      nome: req.body.nome,
-      apelido: req.body.apelido,
-      email: req.body.email,
-      password: hashedPassword,
-      nif: req.body.nif,
-      numTel: req.body.numTel,
-      morada: req.body.morada,
-      localidade: req.body.localidade,
-    })
-    const properties = {
-            "firstname": req.body.nome,
-            "lastname": req.body.apelido,
-            "email": req.body.email,
-            "company": "MCA Group",
-            "website": "vgbhjjk",
-            "nif" : req.body.nif,
-            "address" : req.body.morada,
-            "phone": req.body.numTel,             
-    };
-    /* campos que faltam q temos na base de dados
-     "lastname": req.body.apelido,
-      "company": "MCA Group",
-            "website": "vgbhjjk",
-            "phone": req.body.numTel, 
-    "nif": "${nif}",
-    "morada": "${morada}",
-    "localidade": "${localidade}"*/
-    hubspot.addClient(properties, res);
-    user.save();
-
-  } catch (error) {
-    return res.send(error);
-  }
+  hubspot.existsClientByEmail(email, (res) => {
+    if (!res.exists) {
+      hubspot.existsClientNif(nif, (res) => {
+        if (!res.exists) {
+          let pass = "";
+          Bcrypt.genSalt(10, function(err, salt) {
+            Bcrypt.hash(password, salt, function (err, hash) {
+              pass = hash;
+              const properties = `{
+                "properties": {
+                  "firstname": "${nome}",
+                  "lastname": "${apelido}",
+                  "email": "${email}",
+                  "password": "${pass}",
+                  "company": "MCA Group",
+                  "website": "vgbhjjk",
+                  "nif" : "${nif}",
+                  "address" : "${morada}",
+                  "phone": "${numTel}",
+                }
+              }`;
+     
+    hubspot.addClient(properties, (res) => {
+      if(res.statusCode == 201) {
+        const user = new User({
+          nome: req.body.nome,
+          apelido: req.body.apelido,
+          email: req.body.email,
+          password: hashedPassword,
+          nif: req.body.nif,
+          numTel: req.body.numTel,
+          morada: req.body.morada,
+          localidade: req.body.localidade,
+        })
+        user.save();
+        resp.send({
+          'statusCode': 201,
+          'body': {
+            'message': 'Criado com sucesso'
+          }
+        });
+      } else {
+        if(res.statusCode == 400) {
+          resp.send({
+            'statusCode': 400,
+            'body': {
+            'message': 'Contacto existente'
+            }
+          });
+        }
+      }
+    });
+            });
+          });
+        } else {
+          resp.status ({
+            'statusCode': 400,
+            'body': {
+            'message': 'Nif em uso'
+            }
+          });
+        }
+      });
+    } else {
+      resp.status ({
+        'statusCode': 409,
+        'body': {
+        'message': 'Email em uso'
+        }
+      });
+    }
+  })
 }
 
 async function Logout(req, res){
