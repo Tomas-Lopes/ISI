@@ -135,44 +135,43 @@ async function Logout(req, res){
   res.status(200).send("ok");
 }
 
-async function EditUser(req, res) {
-  try {
+function EditUser(req, res) {
+  
     const nome = req.body.nome;
+    const apelido = req.body.apelido;
     const email = req.body.email;
+    //const password = req.body.password;
+    const nif = req.body.nif;
     const numTel = req.body.numTel;
     const morada = req.body.morada;
     const localidade = req.body.localidade;
-    const nif = req.body.nif;
 
-    if (
-      nome != null && email != null && numTel != null && morada != null && localidade != null) {
-        clientCookie.readCookie(req, async function (cb){
-          if (cb) {
-            const mongoUser = await User.findById(cb._id);
-            if (!mongoUser) {
-              return res.status(400).send("Nao existe user com esse id")
-            }
-            console.log("estou aqui")
-            mongoUser.set({
-              nome: nome,
-              email: email,
-              nif: nif,
-              numTel: numTel,
-              morada: morada,
-              localidade: localidade
-            })
-            console.log("continuo aqui")
-            await mongoUser.save();
-          return res.send("User editado com sucesso");      
-          } else {
-              return res.status(400).send("User nao esta logado");
-          }
-      })
-        
+    const user_id = req.user.user_id;
+
+    const updateData  = [{
+      'property': 'firstname',
+      'value': nome
+  }, {
+      'property': 'lastname',
+      'value': apelido
+  }, {
+      'property': 'email',
+      'value': email
+  }, {
+      'property': 'nif',
+      'value': nif
+  }];
+
+  hubspot.updateClient(user_id, updateData, (res) => {
+    if (res.statusCode == 200) {
+        response.status(200).send({
+            'message': 'Data updated with success'
+        })
+    } else {
+        response.status(res.statusCode).send(res.body);
     }
-  } catch (error) {
-    return res.send("fds po erro");
-  }
+})
+
 }
 
 function getUsers(req, res) {
