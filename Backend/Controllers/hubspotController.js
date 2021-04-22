@@ -121,15 +121,16 @@ function getClientByID(user_id, res) {
   
 }
 
+//Função que altera os dados do cliente
 function updateClient(req, res) {
   let options = {
-    //method: "POST",
+    method: "PATCH",
     url:
-      "https://api.hubapi.com/contacts/v1/contact/vid/${user_id}/profile?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
+      'https://api.hubapi.com/crm/v3/objects/contacts/contactId?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971',
     headers: { accept: "application/json" },
   };
 
-  request.put(options, async (error, response, body) => {
+  request.patch(options, async (error, response, body) => {
     if (error) {
       res.status(400).send({
         message: "Error",
