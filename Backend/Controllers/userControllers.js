@@ -226,6 +226,8 @@ const validPassword = async function (userpass, password) {
   return await Bcrypt.compare(password, userpass);
 }
 */
+
+
   module.exports = {
   Login: Login,
   Register: Register,

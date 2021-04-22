@@ -224,6 +224,28 @@ function existsClientByEmail(req, res) {
   })
 }
 
+function addDeal(properties, res) {
+  const deal = {
+    properties: properties,
+  };
+  var request = require("request");
+
+  var options = {
+    method: "POST",
+    url: "https://api.hubapi.com/crm/v3/objects/deals",
+
+    headers: { accept: "application/json", "content-type": "application/json" },
+    body: JSON.stringify(deal),
+    json: true,
+  };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+  });
+}
+
 module.exports = {
   getClients: getClients,
   getClientByID: getClientByID,
@@ -231,5 +253,6 @@ module.exports = {
   existsClientNif: existsClientNif,
   addClient: addClient,
   updateClient: updateClient,
-  getClients: getClients
+  getClients: getClients,
+  addDeal: addDeal
 };
