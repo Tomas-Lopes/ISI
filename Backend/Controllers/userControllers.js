@@ -9,24 +9,26 @@ async function Login(req, res) {
   
   try {
     const user = await User.findOne({ email: email });
-    //const userpass = user.password;
+    
     if (!user) {
-      return res.send("User doesnt exist in DataBase");
+      return res.send("User doesn't exist in DataBase");
     } else {
       const validPassword = async function (userpass, password) {
         return await Bcrypt.compare(password, userpass);
       }
         if (await validPassword (user.password, password)) {
-          hubspot.getClientByID (user._id, (res) => {
+          hubspot.getClientByID (user_id, (resp) => {
             if (res.user) {
               let userF = {
-                contactId: user._id,
+                contactId: user_id,
                 email: user.email,
-                nome: res.user.nome,
-                apelido: res.user.apelido,
-                numero_telefone: res.user.numero_telefone,
-                nif: res.user.nif,
+                nome: resp.user.nome,
+                apelido: resp.user.apelido,
+                numero_telefone: resp.user.numero_telefone,
+                morada: resp.user.morada,
+                nif: resp.user.nif,
             }
+            
             clientCookie.setCookie(req,res,user);
             return res.send({
               message: "Logged in sucessfully",

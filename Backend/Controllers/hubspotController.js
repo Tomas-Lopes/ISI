@@ -105,21 +105,47 @@ function getClientByID(user_id, res) {
   let options = {
     method: "GET",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts/&{user_id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
+      "https://api.hubapi.com/crm/v3/objects/contacts/${user_id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
 
     headers: { accept: "application/json" },
 
   };
 
 
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    let user = JSON.parse(res.body);
-    let data = user.properties;
-    console.log(data);
-  });
-  
+  request(options,  (error, resp) => {
+    if (!error) {
+      if (resp.statusCode == 200) {
+        let user = JSON.parse(resp.body);
+        let data = user.properties;
+
+        const result = {
+          'user_id': data.user_id.value,
+          'nome': data.firstname.value,
+          'apelido': data.lastname.value,
+          'email': data.email.value,
+          'nif': data.nif.value,
+          'morada': data.morada.value,
+          'telemovel': data.numTel.value
+        }
+       res ({
+        'user': result
+      });
+    } else {
+      res({
+        'statusCode': resp.statusCode,
+        'body': JSON.parse(res.body)
+      })
+    } 
+  } else {
+      console.log(error);
+      res({
+            'statusCode': 400,
+             'body': 'erro'
+    });
+ }
+})
 }
+
 
 function updateClient(req, res) {
   let options = {
