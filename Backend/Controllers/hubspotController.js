@@ -232,20 +232,19 @@ function addDeal(properties, res) {
   var request = require("request");
 
   var options = {
-    method: "POST",
-    url: "https://api.hubapi.com/crm/v3/objects/deals",
-
-    headers: { accept: "application/json", "content-type": "application/json" },
-    body: JSON.stringify(deal),
-    json: true,
+    method: 'GET',
+    url: 'https://api.hubapi.com/crm/v3/objects/deals',
+    qs: {limit: '10', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
+    headers: {accept: 'application/json'}
   };
-
+  
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-
+  
     console.log(body);
   });
 }
+  
 
 module.exports = {
   getClients: getClients,
