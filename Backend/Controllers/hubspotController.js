@@ -148,6 +148,7 @@ function updateClient(user_id, properties, res) {
     url:
       `https://api.hubapi.com/contacts/v1/contact/vid/${user_id}/profile?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
+    body: JSON.stringify(json)
   };
 
   request.put(options, async (error, response, body) => {
