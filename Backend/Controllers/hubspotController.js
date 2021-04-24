@@ -151,7 +151,7 @@ function updateClient(user_id, properties, res) {
     body: JSON.stringify(json)
   };
 
-  request.put(options, async (error, response, body) => {
+  request.patch(options, async (error, response, body) => {
     if (error) {
       res.status(400).send(error);
     } else {
@@ -242,6 +242,27 @@ function existsClientByEmail(req, res) {
       }
   })
 }
+
+function addDeal(properties, res) {
+  const deal = {
+    properties: properties,
+  };
+  var request = require("request");
+
+  var options = {
+    method: 'GET',
+    url: 'https://api.hubapi.com/crm/v3/objects/deals',
+    qs: {limit: '10', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
+    headers: {accept: 'application/json'}
+  };
+  
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+  
+    console.log(body);
+  });
+}
+  
 
 module.exports = {
   getClients: getClients,

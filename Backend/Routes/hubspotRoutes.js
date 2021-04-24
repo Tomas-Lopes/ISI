@@ -3,6 +3,6 @@ const hubspotController = require ('../Controllers/hubspotController.js');
 
 router.get('/listusers', hubspotController.getClients);
 router.post('/adduser', hubspotController.addClient);
-router.put('/updateuser', hubspotController.updateClient)
+router.patch('/updateuser', hubspotController.updateClient)
 
 module.exports = router;

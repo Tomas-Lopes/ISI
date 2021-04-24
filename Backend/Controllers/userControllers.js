@@ -87,6 +87,7 @@ async function Logout(req, res) {
 
 async function EditUser(req, res) {
     const nome = req.body.nome;
+    const apelido = req.body.apelido;
     const email = req.body.email;
     const numTel = req.body.phone;
     const morada = req.body.address;
