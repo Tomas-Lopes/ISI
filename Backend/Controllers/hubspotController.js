@@ -34,78 +34,39 @@ function getClients(res) {
   });
 }
 
-function addClient(req, res) {
+function addClient(properties, res) {
+  const user = {
+    "properties": properties
+  }
  
     var options = {
       method: 'POST',
       url: 'https://api.hubapi.com/crm/v3/objects/contacts?hapikey=' + 'ffdfdd87-f540-403c-8427-acc9eb296971',
-      body: req,
+      body: JSON.stringify(user),
       headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
       }
     };
 
-request.post(options, (err, resp) => {
+request(options, function (err, resp, body) {
   if (!err){
-    if(resp.statusCode == 201) {
-      res({
-        'statusCode': 201,
-        'body': {
-          'user_id': JSON.parse(resp.body).vid
-        }
-      })
-    } else {
-      if(resp.statusCode == 400) {
-        res({
-          'statusCode': 400,
-          'body': JSON.parse(resp.body)
-        })
-    } else {
-      res({
-        'statusCode': resp.statusCode,
-        'body': JSON.parse(resp.body)
-      })
-    }
-  }
-  }
-}) 
+      const resposta = JSON.parse(body);
+      console.log(resposta);
 
-/*
-function addClient(properties, res) {
- const user = {
-        "properties": properties
-    }
-console.log(user);
-var options = {
-  method: 'POST',
-  url: 'https://api.hubapi.com/crm/v3/objects/contacts?hapikey=' + '4e320bb8-9cfd-4078-be5a-f383bc135310',
-  body: JSON.stringify(user),
-  headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-  }
-};
-
-request(options, function (error, response, body) {
-  if (error){
-    res.status(400).send(error);
+      res.status(201).send(resposta);
   } else {
-    const user_id = JSON.parse(resp.body).id;
-    
-    const resposta = JSON.parse(body);
-    res.status(200).send(resposta);
-  }
-});
-}
-*/
+      
+        res.status(400).send(err);
+    } 
+  }) 
 }
 
 function getClientByID(user_id, res) {
   let options = {
     method: "GET",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts/${user_id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
+      "https://api.hubapi.com/crm/v3/objects/contacts/{user_id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
 
     headers: { accept: "application/json" },
 
@@ -146,24 +107,55 @@ function getClientByID(user_id, res) {
 })
 }
 
-
-function updateClient(req, res) {
+function getClientByEmail (email, res) {
   let options = {
-    //method: "POST",
+    method: "GET",
     url:
-      "https://api.hubapi.com/contacts/v1/contact/vid/${user_id}/profile?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971",
+      `https://api.hubapi.com/contacts/v1/contact/email/${email}/profile?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+
+    headers: { accept: "application/json" },
+
+  };
+
+  request(options, (error, resp) => {
+    if (!error) {
+
+        let user = JSON.parse(resp.body);
+        let data = user.properties;
+
+        const result = {
+          'nome': data.firstname.value,
+          'apelido': data.lastname.value,
+          'email': data.email.value,
+          'nif': data.nif.value,
+          'morada': data.address.value,
+          'telemovel': data.phone.value,
+          'password': data.password.value
+        }
+       res.status(200).send(result);
+    } else {
+      res.status(400).send(error);
+    } 
+})
+}
+
+
+function updateClient(user_id, properties, res) {
+  let json = {
+    'properties': properties
+}
+  let options = {
+    url:
+      `https://api.hubapi.com/contacts/v1/contact/vid/${user_id}/profile?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
   };
 
   request.put(options, async (error, response, body) => {
     if (error) {
-      res.status(400).send({
-        message: "Error",
-        error: error,
-      });
+      res.status(400).send(error);
     } else {
       const json = JSON.parse(body);
-      res.send(json);
+      res.status(200).send(json);
     }
   });
 }
@@ -257,5 +249,6 @@ module.exports = {
   existsClientNif: existsClientNif,
   addClient: addClient,
   updateClient: updateClient,
-  getClients: getClients
+  getClients: getClients,
+  getClientByEmail: getClientByEmail
 };
