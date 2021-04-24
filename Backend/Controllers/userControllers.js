@@ -1,18 +1,18 @@
 const User = require("../Models/User");
 const Bcrypt = require("bcryptjs");
 const clientCookie = require("../Config/cookie");
-const hubspot = require('./hubspotController');
+const hubspot = require("./hubspotController");
 const { getClientByEmail } = require("./hubspotController");
 
 async function Login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  
+
   const user = hubspot.getClientByEmail(email, res);
-  console.log (user);
+  console.log(user);
   const validPassword = async function (userpass, password) {
     return await Bcrypt.compare(password, userpass);
-  }
+  };
   if (await validPassword(user.password, password)) {
     hubspot.getClientByEmail(email, (res) => {
       if (res.user) {
@@ -24,7 +24,7 @@ async function Login(req, res) {
           numero_telefone: resp.user.numero_telefone,
           morada: resp.user.morada,
           nif: resp.user.nif,
-        }
+        };
 
         clientCookie.setCookie(req, res, user);
         return res.send({
@@ -32,16 +32,15 @@ async function Login(req, res) {
           user: userF,
         });
       } else {
-        res.send("User not found")
+        res.send("User not found");
       }
-    })
+    });
   } else {
-    res.send("Password invalid")
+    res.send("Password invalid");
   }
 }
 
 function Register(req, res) {
-
   const nome = req.body.firstname;
   const apelido = req.body.lastname;
   const password = req.body.password;
@@ -68,16 +67,16 @@ function Register(req, res) {
                 website: "vgbhjjk",
                 nif: nif,
                 address: morada,
-                phone: numTel
+                phone: numTel,
               };
 
               hubspot.addClient(properties, res);
-            })
-          })
+            });
+          });
         }
-      })
+      });
     }
-  })
+  });
 }
 
 async function Logout(req, res) {
@@ -86,45 +85,48 @@ async function Logout(req, res) {
 }
 
 async function EditUser(req, res) {
-    const nome = req.body.nome;
-    const apelido = req.body.apelido;
-    const email = req.body.email;
-    const numTel = req.body.phone;
-    const morada = req.body.address;
-    const nif = req.body.nif;
-    const user_id = req.user.user_id;
+  const nome = req.body.nome;
+  const apelido = req.body.apelido;
+  const email = req.body.email;
+  const numTel = req.body.phone;
+  const morada = req.body.address;
+  const nif = req.body.nif;
+  const user_id = req.user.user_id;
 
-    if (
-      nome != null && email != null && numTel != null && morada != null && localidade != null) {
-      clientCookie.readCookie(req, async function (cb) {
-        if (cb) {
-          const user = getClientByID(user_id, res);
-          console.log(user_id);
-          if (!user) {
-            return res.status(400).send("Nao existe user com esse id")
-          } else {
-
-            const properties = {
-              firstname: nome,
-              lastname: apelido,
-              email: email,
-              password: pass,
-              company: "MCA Group",
-              website: "vgbhjjk",
-              nif: nif,
-              address: morada,
-              phone: numTel
-            };
-
-            hubspot.updateClient(user_id, properties, res);
-            return res.send("User editado com sucesso");
-          }
+  if (
+    nome != null &&
+    email != null &&
+    numTel != null &&
+    morada != null &&
+    localidade != null
+  ) {
+    clientCookie.readCookie(req, async function (cb) {
+      if (cb) {
+        const user = getClientByID(user_id, res);
+        console.log(user_id);
+        if (!user) {
+          return res.status(400).send("Nao existe user com esse id");
         } else {
-          return res.status(400).send("User nao esta logado");
-        }
-      })
+          const properties = {
+            firstname: nome,
+            lastname: apelido,
+            email: email,
+            password: pass,
+            company: "MCA Group",
+            website: "vgbhjjk",
+            nif: nif,
+            address: morada,
+            phone: numTel,
+          };
 
-    }
+          hubspot.updateClient(user_id, properties, res);
+          return res.send("User editado com sucesso");
+        }
+      } else {
+        return res.status(400).send("User nao esta logado");
+      }
+    });
+  }
 }
 
 function getUsers(req, res) {
@@ -141,12 +143,12 @@ function getUsers(req, res) {
         }
       }
       res.status(200).send({
-        'users': usersF
-      })
+        users: usersF,
+      });
     } else {
       res.status(resp.statusCode).send(resp.body);
     }
-  })
+  });
 }
 
 /* ACABAR DEPOIS
@@ -183,6 +185,5 @@ module.exports = {
   Register: Register,
   EditUser: EditUser,
   Logout: Logout,
-  getUsers: getUsers
+  getUsers: getUsers,
 };
-
