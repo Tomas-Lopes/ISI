@@ -1,6 +1,9 @@
 const formRegisto = document.getElementById("formRegisto");
 const formLogin = document.getElementById("formLogin");
 
+
+//fetch do registo
+function registarUtilizador () {
 formRegisto.addEventListener('submit', (event) => {
     document.getElementById("register").disabled = true;
 
@@ -113,6 +116,11 @@ formRegisto.addEventListener('submit', (event) => {
         })
     })
 })
+}
+
+//fetch login
+
+function login() {
 
 formLogin.addEventListener('entrar', (event) => {
     document.getElementById("login").disabled = true;
@@ -121,5 +129,60 @@ formLogin.addEventListener('entrar', (event) => {
     
     var emailInput = document.getElementById("loginEmail").value;
     var passwordInput = document.getElementById("loginPassword").value;
-    
-})
+
+    let data = {
+        email: emailInput,
+        password: passwordInput,
+    }
+
+    return fetch(`localhost:3000/user/login`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+    }).then(result => {
+        if (result.message == "User inserted with success") {
+            swal({
+                title: 'Login efetuado com sucesso!',
+                type: 'success',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showLoaderOnConfirm: false,
+                timer: 2000
+            }).then(result => {
+                window.location.replace('/')
+            })
+        } else {
+            if (result.error == "CONTACT_EXISTS") {
+                throw new Error(result.error);
+            } else {
+                throw new Error(
+                    "Este e-mail não existe. Por favor, efetue o registo!"
+                )
+            }
+        }
+    }).catch(error => {
+        document.getElementById("login").disabled = false;
+        if (error.message == 'CONTACT_EXISTS') {
+            swal({
+                title: 'Este email já existe!',
+                showCancelButton: false,
+                showConfirmButton: false,
+                type: 'error',
+                timer: 2000
+            })
+        } else {
+            swal({
+                html: '<strong><h3>Ocorreu um erro! Tente novamente mais tarde. Obrigado!</h3></strong>',
+                showCancelButton: false,
+                showConfirmButton: false,
+                type: 'error',
+                timer: 2000
+            })
+        }
+    });
+});
+}
