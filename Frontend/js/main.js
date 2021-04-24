@@ -1,4 +1,5 @@
 const formRegisto = document.getElementById("formRegisto");
+const formLogin = document.getElementById("formLogin");
 
 formRegisto.addEventListener('submit', (event) => {
     document.getElementById("register").disabled = true;
@@ -111,4 +112,14 @@ formRegisto.addEventListener('submit', (event) => {
             timer: 2000
         })
     })
+})
+
+formLogin.addEventListener('entrar', (event) => {
+    document.getElementById("login").disabled = true;
+    event.preventDefault();
+
+    
+    var emailInput = document.getElementById("loginEmail").value;
+    var passwordInput = document.getElementById("loginPassword").value;
+    
 })
