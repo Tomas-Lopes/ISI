@@ -121,33 +121,21 @@ function getClientByEmail(email, res) {
 
   request(options, (error, resp) => {
     if (!error) {
-      if (resp.statusCode == 200) {
-        let user = JSON.parse(resp.body);
-        let data = user.properties;
+      let user = JSON.parse(resp.body);
+      let data = user.properties;
 
-        const result = {
-          user_id: data.hs_object_id.value,
-          nome: data.firstname.value,
-          apelido: data.lastname.value,
-          email: data.email.value,
-          nif: data.nif.value,
-          morada: data.address.value,
-          telemovel: data.phone.value,
-          password: data.password.value,
-          company: "MCA Group",
-          website: "vgbhjjk",
-        }
-
-        res({
-          'user': result
-        });
-        //res.status(200).send(params);
-      } else {
-        res({
-          'statusCode': res.statusCode,
-          'body': JSON.parse(res.body)
-        })
-      }
+      const result = {
+        nome: data.firstname.value,
+        apelido: data.lastname.value,
+        email: data.email.value,
+        nif: data.nif.value,
+        morada: data.address.value,
+        telemovel: data.phone.value,
+        password: data.password.value,
+        company: "MCA Group",
+        website: "vgbhjjk"
+      };
+      res.status(200).send(result);
     } else {
       console.log(error);
       res({
@@ -293,4 +281,5 @@ module.exports = {
   updateClient: updateClient,
   getClients: getClients,
   getClientByEmail: getClientByEmail,
+  addDeal: addDeal,
 };
