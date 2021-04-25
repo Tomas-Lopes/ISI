@@ -1,4 +1,4 @@
-window.onload = () => {
+window.onload = function() {
     console.log("ola nuno");
 const formRegisto = document.getElementById("formRegisto");
 const formLogin = document.getElementById("formLogin");
@@ -125,7 +125,7 @@ formRegisto.addEventListener('submit', (event) => {
         })
     })
 })
-
+}
 function login() {
 
 formLogin.addEventListener('submit', (event) => {
@@ -192,4 +192,4 @@ formLogin.addEventListener('submit', (event) => {
 });
 }
 
-}
+
