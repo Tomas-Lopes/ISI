@@ -1,9 +1,9 @@
+window.onload = () => {
+    console.log("ola nuno");
 const formRegisto = document.getElementById("formRegisto");
 const formLogin = document.getElementById("formLogin");
 
-
 //fetch do registo
-function registarUtilizador () {
 
 formRegisto.addEventListener('submit', (event) => {
     document.getElementById("register").disabled = true;
@@ -125,7 +125,6 @@ formRegisto.addEventListener('submit', (event) => {
         })
     })
 })
-}
 
 function login() {
 
@@ -191,4 +190,6 @@ formLogin.addEventListener('submit', (event) => {
         }
     });
 });
+}
+
 }

@@ -161,12 +161,13 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
-                          <input class="form-control" id="registerPassword" onkeyup="CheckPasswordStrength(this.value); return this.passed" placeholder="Password" type="password" />
+                          <input class="form-control" id="registerPassword" placeholder="Password" type="password" />
                           <button type="button" onclick="visible()"  class="btn btn-secondary btn-sm" style="padding: 0px 12px;">
                               <i id="eye" class="fas fa-eye"></i>
                             </button>
                         </div>
                       </div>
+                      <!--onkeyup="CheckPasswordStrength(this.value); return this.passed"-->
                       <div class="form-group">
                         <div class="input-group input-group-merge input-group-alternative">
                           <div class="input-group-prepend">
@@ -195,7 +196,7 @@
                           ></small>
                       </div>
                       <div class="text-center">
-                        <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Criar conta</button>
+                        <button id="register" type="submit"registarUtilizador() class="btn btn-primary mt-4">Criar conta</button>
                       </div>
                     </form>
                   </div>
@@ -306,7 +307,7 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-        <script src="./Controllers/login.controller.js"></script>
+        <script src="./login.controller.js"></script>
         
     </body>
 </html>
