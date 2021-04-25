@@ -7,29 +7,29 @@ function getClients(res) {
   let options = {
     method: "GET",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts/all?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5",
+      `https://api.hubapi.com/crm/v3/objects/contacts/all?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
 
-  request.get(options, (error, resp) => {
+  request(options, (error, resp) => {
     if (!error) {
-      if (resp.statusCode == 200) {
-        const users = JSON.parse(resp.body).contacts;
-        resp.send(users);
-      } else {
-        res({
-          statusCode: resp.statusCode,
-          body: JSON.parse(resp.body),
-        });
+      const users = JSON.parse(resp.body).contacts;
+      let usersF = [];
+      for (let i = 0; i < users.length; i++) {
+        usersF.push({
+          'id': users[i].vid,
+          'name': users[i].properties.firstname.value + ' ' + users[i].properties.lastname.value,
+        })
       }
-    } else {
-      console.log(error);
       res({
-        statusCode: resp.statusCode,
-        body: JSON.parse(resp.body),
-      });
+        users: usersF
+      })
+      res.status(200).send(users);
+
+    } else {
+      res.status(400).send(error);
     }
   });
 }
@@ -37,13 +37,13 @@ function getClients(res) {
 function addClient(properties, res) {
   const user = {
     properties: properties,
+
   };
 
   var options = {
     method: "POST",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=" +
-      "ffdfdd87-f540-403c-8427-acc9eb296971",
+      "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=" + "ffdfdd87-f540-403c-8427-acc9eb296971",
     body: JSON.stringify(user),
     headers: {
       Accept: "application/json",
@@ -53,10 +53,12 @@ function addClient(properties, res) {
 
   request(options, function (err, resp, body) {
     if (!err) {
+
       const resposta = JSON.parse(body);
       console.log(resposta);
 
       res.status(201).send(resposta);
+
     } else {
       res.status(400).send(err);
     }
@@ -77,15 +79,18 @@ function getClientByID(user_id, res) {
       if (resp.statusCode == 200) {
         let user = JSON.parse(resp.body);
         let data = user.properties;
-
+        console.log("hello");
         const result = {
-          user_id: data.user_id.value,
+          user_id: data.hs_object_id.value,
           nome: data.firstname.value,
           apelido: data.lastname.value,
           email: data.email.value,
           nif: data.nif.value,
-          morada: data.morada.value,
-          telemovel: data.numTel.value,
+          morada: data.address.value,
+          telemovel: data.phone.value,
+          password: data.password.value,
+          company: "MCA Group",
+          website: "vgbhjjk",
         };
         res({
           user: result,
@@ -132,7 +137,11 @@ function getClientByEmail(email, res) {
       };
       res.status(200).send(result);
     } else {
-      res.status(400).send(error);
+      console.log(error);
+      res({
+        'statusCode': 400,
+        'body': 'erro'
+      })
     }
   });
 }
