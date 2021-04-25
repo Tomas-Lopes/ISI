@@ -128,7 +128,7 @@ function getClientByEmail(email, res) {
         telemovel: data.phone.value,
         password: data.password.value,
         company: "MCA Group",
-        website: "vgbhjjk",
+        website: "vgbhjjk"
       };
       res.status(200).send(result);
     } else {
@@ -272,4 +272,5 @@ module.exports = {
   updateClient: updateClient,
   getClients: getClients,
   getClientByEmail: getClientByEmail,
+  addDeal: addDeal,
 };
