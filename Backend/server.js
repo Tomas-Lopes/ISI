@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require ("cors");
 const bp = require("body-parser");
 const server = express();
 const port = 3000;
@@ -10,7 +11,7 @@ const cookieParser = require('cookie-parser');
 
 
 server.use(cookieParser());
-
+server.use(cors())
 
 server.use("/user", userRoutes);
 connectDB();
