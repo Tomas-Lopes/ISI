@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 function getClients(res) {
   let options = {
     method: "GET",
-    url: `https://api.hubapi.com/crm/v3/objects/contacts/all?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    url: `https://api.hubapi.com/crm/v3/objects/contacts?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -120,10 +120,12 @@ function getClientByEmail(email, res) {
 
   request(options, (error, resp) => {
     if (!error) {
+      if (resp.statusCode == 200) {
       let user = JSON.parse(resp.body);
       let data = user.properties;
 
       const result = {
+        user_id: data.hs_object_id.value,
         nome: data.firstname.value,
         apelido: data.lastname.value,
         email: data.email.value,
@@ -133,15 +135,24 @@ function getClientByEmail(email, res) {
         password: data.password.value,
         company: "MCA Group",
         website: "vgbhjjk",
-      };
-      res.status(200).send(result);
-    } else {
-      console.log(error);
+      }
       res({
-        statusCode: 400,
-        body: "erro",
+        'user': result
       });
+      //res.status(200).send(params);
+    } else {
+      res({
+        'statusCode': res.statusCode,
+        'body': JSON.parse(res.body)
+      })
     }
+  } else {
+    console.log(error);
+    res({
+      'statusCode': 400,
+      'body': 'erro'
+    })
+  }
   });
 }
 

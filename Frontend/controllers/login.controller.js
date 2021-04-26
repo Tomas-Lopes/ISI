@@ -48,7 +48,7 @@ window.onload = function () {
             }
         }).catch(error => {
             document.getElementById("login").disabled = false;
-            if (error.message == 'Estes e-mail e password não existem. Por favor, tente novamente!') {
+            if (error.message == 'Este e-mail e password não existem. Por favor, tente novamente!') {
                 swal({
                     html: '<strong><h3>Estes e-mail e password não existem. Por favor, tente novamente!</h3></strong>',
                     showCancelButton: false,
