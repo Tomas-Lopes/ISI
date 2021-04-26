@@ -76,6 +76,7 @@ async function Login(req, res) {
                     password: pass,
                     company: "MCA Group",
                     website: "vgbhjjk",
+                    cargo: "cliente",
                     nif: nif,
                     address: morada,
                     phone: numTel
@@ -87,6 +88,7 @@ async function Login(req, res) {
                     apelido: req.body.lastname,
                     email: req.body.email,
                     password: hash,
+                    cargo: "cliente",
                     nif: req.body.nif,
                     numTel: req.body.phone,
                     morada: req.body.address,
@@ -132,6 +134,7 @@ async function Login(req, res) {
                 password: pass,
                 company: "MCA Group",
                 website: "vgbhjjk",
+                cargo: "cliente",
                 nif: nif,
                 address: morada,
                 phone: numTel
@@ -170,35 +173,7 @@ async function Login(req, res) {
       })
     }
 
-    /* ACABAR DEPOIS
-    function recoverPass (req, res) {
-      const email = req.sanitize ('email').escape();
-      const emailExists = User.findOne ({email: email});
     
-      if (!err) {
-        hubspot.getClientByID()
-        if (res.user) {
-          const link = generateLink();
-          let validade = new Date();
-          validade.setMinutes(validade.getMinutes() + 15);
-          const post = {
-            idUtilizador: res.user.user_id,
-            link: link,
-            validade: validade
-          }
-        }
-      }
-    
-    }
-    */
-    /* 
-    Função que verifica se a password é válida
-    */
-    /*
-    const validPassword = async function (userpass, password) {
-      return await Bcrypt.compare(password, userpass);
-    }
-    */
     function newProj(req, res) {
 
       const amount = req.body.amount;
