@@ -7,7 +7,9 @@ const isLogged = require("../Config/isLogged");
 router.post("/login", userController.Login)
 router.post("/register", userController.Register)
 router.post("/editUser", isLogged, userController.EditUser)
+router.post("/newProject", isLogged, userController.newProj)
 router.get("/logout", userController.Logout)
 router.get("/users", userController.getUsers)
+
 
 module.exports = router;

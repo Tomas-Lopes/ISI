@@ -6,8 +6,7 @@ const bcrypt = require("bcrypt");
 function getClients(res) {
   let options = {
     method: "GET",
-    url:
-      `https://api.hubapi.com/crm/v3/objects/contacts/all?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5`,
+    url: `https://api.hubapi.com/crm/v3/objects/contacts/all?hapikey=2f347fca-4639-40c7-af20-c2090d8649b5`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -19,15 +18,17 @@ function getClients(res) {
       let usersF = [];
       for (let i = 0; i < users.length; i++) {
         usersF.push({
-          'id': users[i].vid,
-          'name': users[i].properties.firstname.value + ' ' + users[i].properties.lastname.value,
-        })
+          id: users[i].vid,
+          name:
+            users[i].properties.firstname.value +
+            " " +
+            users[i].properties.lastname.value,
+        });
       }
       res({
-        users: usersF
-      })
+        users: usersF,
+      });
       res.status(200).send(users);
-
     } else {
       res.status(400).send(error);
     }
@@ -37,13 +38,13 @@ function getClients(res) {
 function addClient(properties, res) {
   const user = {
     properties: properties,
-
   };
 
   var options = {
     method: "POST",
     url:
-      "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=" + "ffdfdd87-f540-403c-8427-acc9eb296971",
+      "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=" +
+      "ffdfdd87-f540-403c-8427-acc9eb296971",
     body: JSON.stringify(user),
     headers: {
       Accept: "application/json",
@@ -53,12 +54,10 @@ function addClient(properties, res) {
 
   request(options, function (err, resp, body) {
     if (!err) {
-
       const resposta = JSON.parse(body);
       console.log(resposta);
 
       res.status(201).send(resposta);
-
     } else {
       res.status(400).send(err);
     }
@@ -133,15 +132,15 @@ function getClientByEmail(email, res) {
         telemovel: data.phone.value,
         password: data.password.value,
         company: "MCA Group",
-        website: "vgbhjjk"
+        website: "vgbhjjk",
       };
       res.status(200).send(result);
     } else {
       console.log(error);
       res({
-        'statusCode': 400,
-        'body': 'erro'
-      })
+        statusCode: 400,
+        body: "erro",
+      });
     }
   });
 }
@@ -255,14 +254,11 @@ function addDeal(properties, res) {
   var request = require("request");
 
   var options = {
-    method: "GET",
+    method: "POST",
     url: "https://api.hubapi.com/crm/v3/objects/deals",
-    qs: {
-      limit: "10",
-      archived: "false",
-      hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
-    },
-    headers: { accept: "application/json" },
+    qs: { hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971" },
+    headers: { accept: "application/json", "content-type": "application/json" },
+    body: JSON.stringify(deal),
   };
 
   request(options, function (error, response, body) {
