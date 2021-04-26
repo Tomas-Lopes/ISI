@@ -126,7 +126,7 @@
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
                           <input id="loginPassword" class="form-control" placeholder="Password" type="password"
-                            onkeypress="return runScript(event)" />
+                          />
                           <button type="button" onclick="visible()" class="btn btn-secondary btn-md"style="padding: 0px 12px;">
                             <i id="eye" class="fas fa-eye"></i>
                           </button>
@@ -140,8 +140,8 @@
                     <a href="registo.html" class="text-white"><small>Criar nova conta</small></a>
                   </div>
                 </div>
-                <div class="text-center" id="loginButton">
-                        <button onclick="entrar()" type="button" class="btn ">
+                <div class="text-center">
+                        <button id="login" type="submit" class="btn ">
                           Entrar
                         </button>
                       </div>
@@ -255,6 +255,7 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+        <script src="./controllers/login.controller.js"></script>
         
     </body>
 </html>
