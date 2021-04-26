@@ -9,6 +9,7 @@
         <link rel="manifest" href="site.webmanifest">
 		<link rel="shortcut icon"  href="assets/img/mini.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -21,6 +22,77 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <style>
+                body {
+                  font-family: "Lato", sans-serif;
+                }
+                
+                /* Fixed sidenav, full height */
+                .sidenav {
+                  height: 100%;
+                  width: 200px;
+                  position: fixed;
+                  z-index: 1;
+                  top: 0;
+                  left: 0;
+                  background-color: #111;
+                  overflow-x: hidden;
+                  padding-top: 20px;
+                }
+                
+                /* Style the sidenav links and the dropdown button */
+                .sidenav a, .dropdown-btn {
+                  padding: 6px 8px 6px 16px;
+                  text-decoration: none;
+                  font-size: 20px;
+                  color: #818181;
+                  display: block;
+                  border: none;
+                  background: none;
+                  width: 100%;
+                  text-align: left;
+                  cursor: pointer;
+                  outline: none;
+                }
+                
+                /* On mouse-over */
+                .sidenav a:hover, .dropdown-btn:hover {
+                  color: #f1f1f1;
+                }
+                
+                /* Main content */
+                .main {
+                  margin-left: 200px; /* Same as the width of the sidenav */
+                  font-size: 20px; /* Increased text to enable scrolling */
+                  padding: 0px 10px;
+                }
+                
+                /* Add an active class to the active dropdown button */
+                .active {
+                  background-color: #ff5f13;
+                  color: white;
+                }
+                
+                /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+                .dropdown-container {
+                  display: none;
+                  background-color: dimgrey;
+                  padding-left: 8px;
+                }
+                
+                /* Optional: Style the caret down icon */
+                .fa-caret-down {
+                  float: right;
+                  padding-right: 8px;
+                }
+                
+                /* Some media queries for responsiveness */
+                @media screen and (max-height: 450px) {
+                  .sidenav {padding-top: 15px;}
+                  .sidenav a {font-size: 18px;}
+                }
+                </style>
    </head>
 
    <body>
@@ -30,154 +102,125 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder-logo.png" alt="">
+                    <img src="assets/img/logo/loder-logo-grua.png" alt="">
                 </div>
             </div>
         </div>
     </div>
     <!-- Preloader Start -->
     <header>
+        <div class="w3-teal" style="background-color: #191a33!important;">
+                    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()" style="background-color: #191a33!important;">&#9776;</button> 
+                            </div>    
+        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none ; background-color: #191a33!important; " id="mySidebar"  >
+                   <div class="logo" style="padding-top: 10px;">
+                    <!-- logo-1 -->
+                    <a href="index.html" class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
+                     
+                    <!-- logo-2 -->
+                    <!--<a href="index.html" class="small-logo"><img src="assets/img/logo/loder-logo.png" alt=""></a> -->
+                </div>
+            
+            <button class="w3-bar-item w3-button w3-large"
+            onclick="w3_close()" style="color:white; "> <i class="fas fa-times"></i></button>
+            <a href="#" class="w3-bar-item w3-button" style="color:white; font-size: 20px;"><img src="assets/img/projetos.png" alt="some text" width=20% height=20% padding-right=10px>Projetos</a>
+            <a href="#" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img src="assets/img/pedidos.png" alt="some text" width=20% height=20% padding-right=10px>Pedidos </a>
+            <a href="#" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img src="assets/img/associar.png" alt="some text" width=20% height=20% padding-right=10px>Associar Arquiteto </a>
+            <button class="dropdown-btn" style="color:white;"><img src="assets/img/user.png" alt="some text" width=20% height=20% style=" padding-right: 10px; padding-right: 2px;">Utilizador
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container" >
+                <a href="#" style="color:white;font-size: 16px;">Área Cliente</a>
+                <p></p>
+                <a href="#" style="color:white;font-size: 16px;" >Pedidos</a>
+                <p></p>
+                <a href="#" style="color:white;font-size: 16px; ">Terminar Sessão</a>
+              </div>
+              
+          </div>
         <!-- Header Start -->
-       <div class="header-area header-transparent" style="background-color: #191a33!important;">
-            <div class="main-header ">
-                   <div class="container-fluid">
-                       <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                            </div>
-                       </div>
-                   </div>
-               <div class="header-bottom  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
+                                              
                             <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                    <!-- logo-1 -->
-                                    <a href="index.html" class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
-                                    <!-- logo-2 -->
-                                    <!--<a href="index.html" class="small-logo"><img src="assets/img/logo/loder-logo.png" alt=""></a> -->
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-8 col-md-8">
-                                <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars" id="btn"></i>
-      <i class="fas fa-times" id="cancel"></i>
-    </label>
-    <div class="sidebar">
-    <header>My App</header>
-  <ul>
-<li><a href="#"><i class="fas fa-qrcode"></i>Dashboard</a></li>
-<li><a href="#"><i class="fas fa-link"></i>Shortcuts</a></li>
-<li><a href="#"><i class="fas fa-stream"></i>Overview</a></li>
-<li><a href="#"><i class="fas fa-calendar-week"></i>Events</a></li>
-<li><a href="#"><i class="far fa-question-circle"></i>About</a></li>
-<li><a href="#"><i class="fas fa-sliders-h"></i>Services</a></li>
-<li><a href="#"><i class="far fa-envelope"></i>Contact</a></li>
-</ul>
-</div>
-                                <!-- Main-menu -->
-                                <div class="main-menu f-right d-none d-lg-block">
-                                    <nav> 
-                                        <ul id="navigation">                                                                                                                   
-                                            <li><a href="#top"></a></li>
-                                            <li><a href="#description"></a></li>
-                                            <li><a href="#contactos"></a></li>
-                                            <li><a href="#sobreNOS"></a></li>
-                                           <!-- <li><a href="blog.html">Blog</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Pages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="elements.html">Element</a></li>
-                                                    <li><a href="project_details.html">Projects Details</a></li>
-                                                    <li><a href="services_details.html">Services Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>-->
-                                    </nav>
-                                </div>
-                            </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-3">
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-primary " data-toggle="dropdown" ><i class="fas fa-user"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#"> Área Cliente</a>
-                                      <a class="dropdown-item" href="#">Pedidos</a>
-                                      <a class="dropdown-item" href="#">Terminar Sessão</a>
-                                    </div>
-                                  </div>
-                            </div>
-
+                            
+                            
+                            
                             <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-       </div>
+                            
+       
         <!-- Header End -->
     </header>
     <main>
-        <div class="container mt--8 pb-5" style="padding-top:130px ;">
-            <div class="row justify-content-center">
-              <div class="col-lg-5 col-md-7">
-                <div class="card bg-secondary border-0 mb-0" style="background-color: #191a33!important;">
-                  <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                      <h5 style="color: white;">Entrar</h5>
+        <div id="main"> 
+          
+           
+            <div class="header bg-gradient-hugo-daniel pb-6 eder">
+              <div class="container-fluid" sytle="padding-top: 50px;">
+                <div class="header-body" >
+                 
+                  <!-- Card stats -->
+                  <div class="row" >
+                    <div class="col-xl-3 col-md-6 users" style="left:7%; top:40px">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Número de Projetos</h5>
+                              <span id="numEmpresas" class="h2 font-weight-bold mb-0"></span>
+                            </div>
+                            <div class="col-auto">
+                              <div clas class="icon ">
+                                <h4>5</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <form role="form">
-                      <div class="form-group mb-3">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <div class="col-xl-3 col-md-6" style="right:-12%; top:40px">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Pedidos Rejeitados</h5>
+                              <span id="numCamaras" class="h2 font-weight-bold mb-0"></span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon ">
+                                <h4>4</h4>
+                              </div>
+                            </div>
                           </div>
-                          <input id="loginEmail" class="form-control" placeholder="Email" type="email" />
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-merge input-group-alternative">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="right:-17%; top:40px">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Pedidos Pendentes</h5>
+                              <span id="numCidades" class="h2 font-weight-bold mb-0"></span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon">
+                                <h4>2</h4>
+                              </div>
+                            </div>
                           </div>
-                          <input id="loginPassword" class="form-control" placeholder="Password" type="password"
-                            onkeypress="return runScript(event)" />
-                          <button type="button" onclick="visible()" class="btn btn-secondary btn-md"style="padding: 0px 12px;">
-                            <i id="eye" class="fas fa-eye"></i>
-                          </button>
                         </div>
                       </div>
-                       <div class="row mt-3">
-                  <div class="col-6">
-                    <a href="../../pages/all/forgotPassword.html" class="text-white"><small>Esqueceu a password?</small></a>
-                  </div>
-                  <div class="col-6 text-right">
-                    <a href="registo.html" class="text-white"><small>Criar nova conta</small></a>
-                  </div>
-                </div>
-                <div class="text-center" id="loginButton">
-                        <button onclick="login()" type="button" class="btn btn-primary my-4">
-                          Entrar
-                        </button>
-                      </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          <div style="padding-top: 20px;"><h5>5</h5></div>
+
         
-    </main>
-    <footer>
+    
         <!-- Footer Start-->
         <div class="footer-main">
                 <div class="footer-area footer-padding">
@@ -234,12 +277,44 @@
                         </div>
                     </div>
                 </div>
-        </div>
+        </div> 
+      </div>
         <!-- Footer End-->
-    </footer>
+    </main>
    
 	<!-- JS here -->
-	
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+          document.getElementById("openNav").style.display = 'none';
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+          document.getElementById("openNav").style.display = "inline-block";
+        }
+        </script>
+        <script>
+            /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            
+            for (i = 0; i < dropdown.length; i++) {
+              dropdown[i].addEventListener("click", function() {
+              this.classList.toggle("active");
+              var dropdownContent = this.nextElementSibling;
+              if (dropdownContent.style.display === "block") {
+              dropdownContent.style.display = "none";
+              } else {
+              dropdownContent.style.display = "block";
+              }
+              });
+            }
+            </script>
+    
+  
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 		<!-- Jquery, Popper, Bootstrap -->

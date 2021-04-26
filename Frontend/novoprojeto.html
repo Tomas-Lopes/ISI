@@ -31,7 +31,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder-logo.png" alt="">
+                    <img src="assets/img/logo/loder-logo-grua.png" alt="">
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav> 
                                         <ul id="navigation">                                                                                                                   
-                                          <li><a href="#top" style="padding-right:220px;">Visualizar Pedidos</a></li>
+                                          <li><a href="#top" style="font-size: 16px; padding-right:220px;">Visualizar Pedidos</a></li>
 
                                     </nav>
                                 </div>
@@ -112,12 +112,12 @@
                             <input class="form-control" placeholder="Localização do Pedido" type="text" id="registerName" />
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group input-group-merge input-group-alternative mb-3">
-                            <div class="input-group-prepend">
+                        <div class="form-group" style="width: 90%;">
+                          <div class="input-group input-group-merge input-group-alternative mb-3" >
+                            <div class="input-group-prepend"  >
                               <span class="input-group-text"><i class="fas fa-wrench"></i></span>
                             </div>
-                          <select name="Tipo de Pedido" id="tipoPedido">
+                          <select name="Tipo de Pedido" id="tipoPedido" >
                             <option value="volvo">Obras rodoviárias</option>
                             <option value="saab">Obras Marítimas</option>
                             <option value="opel">Habitação e construção civil</option>
@@ -141,7 +141,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
                             </div>
-                            <input class="form-control" placeholder="Orçamento" type="text" id="registerResponsible" />
+                            <input class="form-control" placeholder="Orçamento" type="number" id="registerResponsible" />
                           </div>
                         </div>
                         <div class="form-group">
@@ -149,20 +149,20 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-calendar-minus"></i></span>
                             </div>
-                            <input class="form-control" placeholder="Data Limite" type="number" id="registerNif" />
+                            <input class="form-control" placeholder="Data Limite" type="date" id="registerNif" />
                           </div>
                         </div>
                   
-                        <div class="container">
+                        <div class="container" style="padding-top: 20px;">
                           <div class="row">
                             <div class="col-md-6" style="align-self: left;">
                               <div class="text-center">
-                          <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Submeter</button>
+                          <button id="register" type="button" onclick='submeterProjeto()' class="btn">Submeter</button>
                         </div>
                       </div>
                         <div class="col-md-6" style="align-self: right;">
                         <div class="text-center">
-                          <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Cancelar Pedido</button>
+                          <button id="register" type="button" onclick='cancelarProjeto()' class="btn">Cancelar Pedido</button>
                         </div>                           
                           </div>
                         </div>
