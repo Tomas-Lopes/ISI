@@ -20,9 +20,11 @@ formRegisto.addEventListener('submit', (event) => {
     var addressdInput = document.getElementById("registerAddress").value;
     var type = 'cliente';
 
-    return fetch(
-        `https://localhost:3000/https://www.nif.pt/?json=1&q=${document.getElementById("registerNif").value}&key=03c763da3080ce65a69443db3f6fe7fb`, 
+    console.log(nifInput);
+    fetch(
+        `https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`, {mode:'no-cors'}
     ).then(response => {
+        console.log(response.status);
         if (response.status == 200) {
             return response.json();
         } else {
@@ -82,7 +84,7 @@ formRegisto.addEventListener('submit', (event) => {
                     }
                 }
             }).catch(error => {
-                document.getElementById("registar").disabled = false;
+                document.getElementById("register").disabled = false;
                 if (error.message == 'CONTACT_EXISTS') {
                     swal({
                         title: 'Este email já existe!',
@@ -115,14 +117,14 @@ formRegisto.addEventListener('submit', (event) => {
             );
         }
     }).catch(error => {
-        swal({
+        alert( error.message /*{ 
             html: '<strong><h3>O NIF que introduziu não é válido. Verifique se introduziu o seu NIF corretamente!</h3></strong>',
             type: 'error',
             showCloseButton: false,
             showConfirmButton: false,
             focusConfirm: false,
             timer: 2000
-        })
+        }*/)
     })
 })
 }

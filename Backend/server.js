@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require ("cors");
 const bp = require("body-parser");
+const swal = require("sweetalert");
 const server = express();
 const port = 3000;
 server.use(bp.json());
@@ -11,7 +12,7 @@ const cookieParser = require('cookie-parser');
 
 
 server.use(cookieParser());
-server.use(cors())
+server.use(cors());
 
 server.use("/user", userRoutes);
 connectDB();
