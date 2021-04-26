@@ -108,7 +108,16 @@
                             <span class="input-group-text"><i class="fas fa-user"></i
                               ></span>
                           </div>
-                          <input class="form-control" placeholder="Nome" type="text" id="registerName" />
+                          <input class="form-control" placeholder="Nome" type="text" id="registerFirstname" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group input-group-merge input-group-alternative mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i
+                              ></span>
+                          </div>
+                          <input class="form-control" placeholder="Apelido" type="text" id="registerLastname" />
                         </div>
                       </div>
                       <div class="form-group">
@@ -136,7 +145,7 @@
                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i
                               ></span>
                           </div>
-                          <input class="form-control" placeholder="Data Nascimento" type="text" id="registerResponsible" />
+                          <input class="form-control" placeholder="Morada" type="text" id="registerAddress" />
                         </div>
                       </div>
                       <div class="form-group">
@@ -152,12 +161,13 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
-                          <input class="form-control" id="registerPassword" onkeyup="CheckPasswordStrength(this.value); return this.passed" placeholder="Password" type="password" />
+                          <input class="form-control" id="registerPassword" placeholder="Password" type="password" />
                           <button type="button" onclick="visible()"  class="btn btn-secondary btn-sm" style="padding: 0px 12px;">
                               <i id="eye" class="fas fa-eye"></i>
                             </button>
                         </div>
                       </div>
+                      <!--onkeyup="CheckPasswordStrength(this.value); return this.passed"-->
                       <div class="form-group">
                         <div class="input-group input-group-merge input-group-alternative">
                           <div class="input-group-prepend">
@@ -186,7 +196,7 @@
                           ></small>
                       </div>
                       <div class="text-center">
-                        <button id="register" type="button" onclick='registarUtilizador()' class="btn btn-primary mt-4">Criar conta</button>
+                        <button id="register" type="submit" class="btn btn-primary mt-4">Criar conta</button>
                       </div>
                     </form>
                   </div>
@@ -297,7 +307,7 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-        <script src="./js/main.js"></script>
+        <script src="./controllers/login.controller.js"></script>
         
     </body>
 </html>
