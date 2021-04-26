@@ -16,7 +16,8 @@ window.onload = function () {
             password: passwordInput,
         }
 
-        return fetch(`localhost:3000/user/login`, {
+       fetch(`http://localhost:3000/user/login`, {
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -56,13 +57,14 @@ window.onload = function () {
                     timer: 2000
                 })
             } else {
-                swal({
+               alert(error.message /*
                     html: '<strong><h3>Ocorreu um erro! Tente mais tarde. Obrigado!</h3></strong>',
                     showCancelButton: false,
                     showConfirmButton: false,
                     type: 'error',
                     timer: 2000
-                })
+                    */
+                )
             }
         });
     });
