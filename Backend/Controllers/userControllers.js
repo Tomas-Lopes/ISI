@@ -196,6 +196,14 @@ async function Login(req, res) {
       res.send("Projeto adicionado com sucesso");
     }
 
+    function associarArquiteto(req, res) {
+
+      //const id_pedido = ;
+      //const id_arq = ;
+    
+      hubspot.getDeal(id_pedido)
+    }
+    
     module.exports = {
       Login: Login,
       Register: Register,
@@ -203,5 +211,7 @@ async function Login(req, res) {
       Logout: Logout,
       getUsers: getUsers,
       newProj: newProj,
+      associarArquiteto: associarArquiteto
     };
+    
 

@@ -285,7 +285,6 @@ function getDeal(dealId, res) {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
-    body: JSON.stringify(deal),
   };
 
   request(options, (error, response) => {
@@ -295,73 +294,65 @@ function getDeal(dealId, res) {
         let data = pedido.properties;
 
         const result = {
-          dealId: data.hs_object_id.value,
+          dealId: data.dealId.value,
           amount: data.amount.value,
           closedate: data.closedate.value,
           dealname: data.dealname.value,
           dealstage: data.dealstage.value,
-          hubspot_owner_id:"69176641",
-           pipeline: "default"
-        
+          hubspot_owner_id: "69176641",
+          pipeline: "default",
+          arq_id: ""
         }
-      
-      res({
-        'deal': result
-      });
-      //res.status(200).send(params);
+
+        res({
+          'deal': result
+        });
+        //res.status(200).send(params);
+      } else {
+        res({
+          'statusCode': res.statusCode,
+          'body': JSON.parse(res.body)
+        })
+      }
     } else {
+      console.log(error);
       res({
-        'statusCode': res.statusCode,
-        'body': JSON.parse(res.body)
+        'statusCode': 400,
+        'body': 'erro'
       })
     }
-  } else {
-    console.log(error);
-    res({
-      'statusCode': 400,
-      'body': 'erro'
-    })
-  }
   });
+}
+
+function updateDeal (id, properties, res) {
+
+  let user = {
+    'properties': properties
+  }
+
+  var options = {
+    method: "GET",
+    url: `https://api.hubapi.com/deals/v1/deal/${id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    headers: { accept: "application/json" },
+    body: JSON.stringify(user)
+  };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+  
+    console.log(body);
+  });
+
 }
 /*
-request(options, (error, resp) => {
-    if (!error) {
-      if (resp.statusCode == 200) {
-      let user = JSON.parse(resp.body);
-      let data = user.properties;
-
-      const result = {
-        user_id: data.hs_object_id.value,
-        nome: data.firstname.value,
-        apelido: data.lastname.value,
-        email: data.email.value,
-        nif: data.nif.value,
-        morada: data.address.value,
-        telemovel: data.phone.value,
-        password: data.password.value,
-        company: "MCA Group",
-        website: "vgbhjjk",
+request(options, (err, res) => {
+    if (!err) {
+      if (res.statusCode == 200) {
+        res({
+          'statusCode': result
+        });
       }
-      res({
-        'user': result
-      });
-      //res.status(200).send(params);
-    } else {
-      res({
-        'statusCode': res.statusCode,
-        'body': JSON.parse(res.body)
-      })
     }
-  } else {
-    console.log(error);
-    res({
-      'statusCode': 400,
-      'body': 'erro'
-    })
-  }
-  });
-}
 */
 module.exports = {
   getClients: getClients,
@@ -373,5 +364,6 @@ module.exports = {
   getClients: getClients,
   getClientByEmail: getClientByEmail,
   addDeal: addDeal,
-  getDeal: getDeal
+  getDeal: getDeal,
+  updateDeal: updateDeal
 };
