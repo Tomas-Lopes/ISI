@@ -16,7 +16,7 @@ window.onload = function () {
             password: passwordInput,
         }
 
-       fetch(`http://localhost:3000/user/login`, {
+       fetch(`https://localhost:8080/user/login`, {
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'

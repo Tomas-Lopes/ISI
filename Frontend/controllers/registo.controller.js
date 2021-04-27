@@ -22,7 +22,7 @@ window.onload = function () {
 
         console.log(nifInput);
         fetch(
-            `https://cors-anywhere.herokuapp.com/https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
+            `https://localhost:8080/https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
             {
                 mode: 'no-cors',
                 headers: {
@@ -58,7 +58,7 @@ window.onload = function () {
                     type: type,
                 }
                 //if (firstnameInput != "" && lastnameInput != "" && emailInput != "" && phoneInput != "" && nifInput != "" && passwordInput != "" && confirmPasswordInput != "" && addressdInput != "") {
-                return fetch(`localhost:3000/user/register`, {
+                return fetch(`https://localhost:8080/user/register`, {
                     headers: {
                         'Content-Type': 'application/json'
                     },

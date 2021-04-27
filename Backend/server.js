@@ -3,7 +3,7 @@ const cors = require ("cors");
 const bp = require("body-parser");
 const swal = require("sweetalert");
 const server = express();
-const port = 3000;
+const port = 8080;
 server.use(bp.json());
 server.use(bp.urlencoded({ extended: true }));
 const connectDB = require("./Config/connection");
@@ -12,7 +12,10 @@ const cookieParser = require('cookie-parser');
 
 
 server.use(cookieParser());
-server.use(cors());
+server.use(cors({exposedHeaders: ['Location'],
+credentials: true, 
+origin: 'http://localhost:8080'
+}));
 
 server.use("/user", userRoutes);
 connectDB();
