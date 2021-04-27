@@ -344,6 +344,39 @@ function updateDeal (id, properties, res) {
   });
 
 }
+
+function getDealsList(res) {
+  let options = {
+    method: "GET",
+    //rota nao esta bem
+    url: `https://api.hubapi.com/deals/v1/deal/?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  request(options, (error, resp) => {
+    if (!error) {
+      const deals = JSON.parse(resp.body).deals;
+      let dealsF = [];
+      for (let i = 0; i < deals.length; i++) {
+        dealsF.push({
+          id: deals[i].vid,
+          name:
+            deals[i].properties.dealId.value +
+            " " +
+            deals[i].properties.dealname.value,
+        });
+      }
+      res({
+        deals: dealsF,
+      });
+      res.status(200).send(deals);
+    } else {
+      res.status(400).send(error);
+    }
+  });
+}
 /*
 request(options, (err, res) => {
     if (!err) {
@@ -365,5 +398,6 @@ module.exports = {
   getClientByEmail: getClientByEmail,
   addDeal: addDeal,
   getDeal: getDeal,
-  updateDeal: updateDeal
+  updateDeal: updateDeal,
+  getDealsList: getDealsList
 };

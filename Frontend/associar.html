@@ -149,7 +149,7 @@
                     <div class="text-center text-muted mb-4">
                       <h5 style="color: white;">Associar Arquiteto</h5>
                     </div>
-                    <form role="form">
+                    <form id="formAssociar" role="form">
                         <div class="form-group" style="width: 90%;">
                             <div class="input-group input-group-merge input-group-alternative mb-3" >
                               <div class="input-group-prepend"  >
@@ -171,7 +171,7 @@
                               <div class="input-group-prepend"  >
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                               </div>
-                            <select name="Tipo de Pedido" id="tipoPedido" >
+                            <select name="Tipo de Pedido" id="tipoArquiteto" >
                                 <option value="" disabled selected hidden>Escolha um Arquiteto</option>
                               <option value="volvo">Ana Cunha</option>
                               <option value="saab">Bruno Silva</option>
@@ -183,8 +183,8 @@
                                </div>
                           </div>
                        
-                <div class="text-center" id="loginButton">
-                        <button onclick="associar()" type="button" class="btn ">
+                <div class="text-center" >
+                        <button id="associar" type="submit" class="btn ">
                           Associar
                         </button>
                       </div>
@@ -328,6 +328,8 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+        <script src="./controllers/arquiteto.controller.js"></script>
+
         
     </body>
 </html>
