@@ -21,6 +21,7 @@ window.onload = function () {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: "include",
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(data)
@@ -29,7 +30,6 @@ window.onload = function () {
         }).then(result => {
             console.log(result);
             if (result.message == "Logged in sucessfully") {
-                console.log("ola");
                 Swal.fire({
                     title: 'Login efetuado com sucesso!',
                     type: 'success',

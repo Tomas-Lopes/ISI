@@ -148,7 +148,7 @@ formLogin.addEventListener('entrar', (event) => {
         return response.json();
     }).then(result => {
         console.log(result);
-        if (result.message == "User inserted with success") {
+        if (false) {
             swal({
                 title: 'Login efetuado com sucesso!',
                 type: 'success',
