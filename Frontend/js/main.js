@@ -136,15 +136,18 @@ formLogin.addEventListener('entrar', (event) => {
         password: passwordInput,
     }
 
-    return fetch(`localhost:3000/user/login`, {
+    return fetch(`http://127.0.0.1:8080/user/login`, {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "include",
+        mode: 'cors',
         method: 'POST',
         body: JSON.stringify(data)
     }).then(response => {
         return response.json();
     }).then(result => {
+        console.log(result);
         if (result.message == "User inserted with success") {
             swal({
                 title: 'Login efetuado com sucesso!',

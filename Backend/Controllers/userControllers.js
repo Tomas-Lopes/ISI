@@ -193,6 +193,7 @@ async function Login(req, res) {
       }
 
       hubspot.addDeal(properties, res)
+      res.send("Projeto adicionado com sucesso");
     }
 
     module.exports = {
