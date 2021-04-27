@@ -66,17 +66,21 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav> 
                                         <ul id="navigation">                                                                                                                   
-                                          <li><a href="#top" style="font-size: 16px; padding-right:220px;">Visualizar Pedidos</a></li>
+                                          
 
                                     </nav>
                                 </div>
                             </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-3">
-                              <div class="header-right-btn f-right d-none d-lg-block">
-                                <a href="#">
-                                <button class="btn"><i class="fas fa-user"></i></button></a>
-                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-3" style="left:10%">
+                              <div class="dropdown" style="left:-10%">
+                                  <button type="button" class="btn " data-toggle="dropdown" ><i class="fas fa-user"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#"> Área Cliente</a>
+                                    <a class="dropdown-item" href="#">Terminar Sessão</a>
+                                  </div>
                                 </div>
+                          </div>
                            
                             <!-- Mobile Menu -->
                             <div class="col-12">
@@ -100,9 +104,9 @@
                   <div class="card bg-secondary border-0" style="background-color: #191a33!important;">
                     <div class="card-body px-lg-5 py-lg-5">
                       <div class="text-center text-muted mb-4">
-                        <h5 style="color: white;">Novo Projeto</h5>
+                        <h5 style="color: white;">Novo Pedido</h5>
                       </div>
-                      <form id="formNovoProjeto" role="form">
+                      <form role="form">
                         <div class="form-group">
                           <div class="input-group input-group-merge input-group-alternative mb-3">
                             <div class="input-group-prepend">
@@ -118,12 +122,13 @@
                               <span class="input-group-text"><i class="fas fa-wrench"></i></span>
                             </div>
                           <select name="Tipo de Pedido" id="tipoPedido" >
-                            <option value="volvo">Obras rodoviárias</option>
-                            <option value="saab">Obras Marítimas</option>
-                            <option value="opel">Habitação e construção civil</option>
-                            <option value="audi">Requalificação urbana</option>
-                            <option value="opel">Centros logísticos</option>
-                            <option value="opel">Complexos desportivos</option>
+                            <option value="" disabled selected hidden>Escolha um Tipo de Pedido</option>
+                            <option value="Obras rodoviárias">Obras rodoviárias</option>
+                            <option value="Obras Maritimas">Obras Marítimas</option>
+                            <option value="Habitação e construção civil">Habitação e construção civil</option>
+                            <option value="Requalificação urbana">Requalificação urbana</option>
+                            <option value="centros Logísticos">Centros logísticos</option>
+                            <option value="Complexos desportivos">Complexos desportivos</option>
                           </select>
                              </div>
                         </div>
