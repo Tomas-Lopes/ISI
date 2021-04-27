@@ -12,6 +12,13 @@ const cookieParser = require('cookie-parser');
 
 
 server.use(cookieParser());
+server.use(function (req, res, next) { //
+  res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+  res.header("Access-Control-Allow-Headers", "append,delete,entries,foreach,get,has,keys,set,values,Authorization, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 server.use(cors({exposedHeaders: ['Location'],
 credentials: true, 
 origin: 'http://localhost:8080'
