@@ -258,6 +258,7 @@ function existsClientByEmail(req, res) {
   });
 }
 
+/*Função que cria um novo deal(pedido)*/
 function addDeal(properties, res) {
   const deal = {
     properties: properties,
