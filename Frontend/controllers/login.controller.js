@@ -16,18 +16,21 @@ window.onload = function () {
             password: passwordInput,
         }
 
-       fetch(`https://localhost:8080/user/login`, {
-            mode: 'no-cors',
+       fetch(`http://127.0.0.1:8080/user/login`, {
+           
             headers: {
                 'Content-Type': 'application/json'
             },
+            mode: 'cors',
             method: 'POST',
             body: JSON.stringify(data)
         }).then(response => {
             return response.json();
         }).then(result => {
-            if (result.message == "User inserted with success") {
-                swal({
+            console.log(result);
+            if (result.message == "Logged in sucessfully") {
+                console.log("ola");
+                Swal.fire({
                     title: 'Login efetuado com sucesso!',
                     type: 'success',
                     showCancelButton: false,
@@ -35,7 +38,7 @@ window.onload = function () {
                     showLoaderOnConfirm: false,
                     timer: 2000
                 }).then(result => {
-                    window.location.replace('/')
+                    window.location.replace('./cliente.html')
                 })
             } else {
                 if (result.error == "Estes e-mail e password não existem. Por favor, tente novamente!") {

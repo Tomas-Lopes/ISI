@@ -22,15 +22,15 @@ window.onload = function () {
 
         console.log(nifInput);
         fetch(
-            `https://localhost:8080/https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
+            `http://127.0.0.1:8080/https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
             {
-                mode: 'no-cors',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
         ).then(response => {
-            console.log(response.status);
+            console.log(response);
             if (response.status == 200) {
                 return response.json();
             } else {
@@ -46,7 +46,7 @@ window.onload = function () {
                         "As passwords não coincidem."
                     );
                 }
-
+                console.log("entrei");
                 let data = {
                     nome: firstnameInput,
                     apelido: lastnameInput,
@@ -63,6 +63,7 @@ window.onload = function () {
                         'Content-Type': 'application/json'
                     },
                     method: 'POST',
+                    mode: 'cors',
                     body: JSON.stringify(data)
                 }).then(response => {
                     return response.json();
