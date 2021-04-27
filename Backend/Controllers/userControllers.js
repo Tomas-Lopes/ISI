@@ -201,6 +201,6 @@ async function Login(req, res) {
       EditUser: EditUser,
       Logout: Logout,
       getUsers: getUsers,
-      newProj: newProj
+      newProj: newProj,
     };
 
