@@ -203,7 +203,13 @@ async function Login(req, res) {
     
       hubspot.getDeal(id_pedido)
     }
-    
+
+    function getPedidos (req, resp) {
+  
+      hubspot.getDealsList (res)
+              resp.send(res)
+  
+}
     module.exports = {
       Login: Login,
       Register: Register,
@@ -211,7 +217,8 @@ async function Login(req, res) {
       Logout: Logout,
       getUsers: getUsers,
       newProj: newProj,
-      associarArquiteto: associarArquiteto
+      associarArquiteto: associarArquiteto,
+      getPedidos: getPedidos
     };
     
 

@@ -344,7 +344,7 @@ function updateDeal (id, properties, res) {
   });
 
 }
-
+/*
 function getDealsList(res) {
   let options = {
     method: "GET",
@@ -377,17 +377,26 @@ function getDealsList(res) {
       res.status(400).send(error);
     }
   });
+} */
+
+function getDealsList(res) {
+
+var options = {
+  method: 'GET',
+  url: 'https://api.hubapi.com/crm/v3/objects/deals',
+  qs: {
+    hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'
+  },
+  headers: {accept: 'application/json'}
+};
+
+request(options, function (error, res , body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
 }
-/*
-request(options, (err, res) => {
-    if (!err) {
-      if (res.statusCode == 200) {
-        res({
-          'statusCode': result
-        });
-      }
-    }
-*/
+
 module.exports = {
   getClients: getClients,
   getClientByID: getClientByID,
