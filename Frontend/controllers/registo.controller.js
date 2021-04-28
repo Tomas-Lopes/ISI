@@ -1,5 +1,4 @@
 window.onload = function () {
-    console.log("ola nuno");
     const formRegisto = document.getElementById("formRegisto");
     
 
