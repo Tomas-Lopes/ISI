@@ -1,18 +1,17 @@
-//API KEY OPEN WEATHER: a42ff2ea45817efeb7a50371dab2d51e
-const formNovoProjeto = document.getElementById("formNovoProjeto");
+const formNovoPedido = document.getElementById("formNovoPedido");
 
-function login() {
+function submeterPedido() {
 
-    formNovoProjeto.addEventListener('entrar', (event) => {
-        document.getElementById("login").disabled = true;
+    formNovoProjeto.addEventListener('submit', (event) => {
+        document.getElementById("register").disabled = true;
         event.preventDefault();
-    
+
         //localizacao com api
         var tipoInput = document.getSelection("tipoProjeto").value;
-        var descricaoInput = document.getElementById("loginEmail").value;
-        var orcamentoInput = document.getElementById("loginPassword").value;
-        var dataInput = doucment.getElementById("askjdna").value;
-    
+        var descricaoInput = document.getElementById("description").value;
+        var orcamentoInput = document.getElementById("orcamento").value;
+        var dataInput = doucment.getElementById("data").value;
+
         let data = {
             tipo: tipoInput,
             descricao: descricaoInput,
@@ -20,16 +19,33 @@ function login() {
             data: dataInput
         }
 
-        return fetch(`localhost:3000/user/login`, {
+        return fetch(`http://localhost:8080/user/newProject`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
             body: JSON.stringify(data)
         }).then(response => {
-            return response.json();
-        }).then(result => {
-            if (result.message == "Projeto criado com sucesso") {
+            console.log(response)
+            if (response.status == 200) {
+                document.getElementById('pedidocriado').click();
+                setTimeout(function () {
+                    window.location.replace('./cliente.html');
+                }, 2000);
+            } else {
+                document.getElementById('pedidonaocriado').click();
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+            return result.json();
+        }).then(data => {
+            console.log(data);
+        })
+    })
+}
+/*
+ if (result.message == "Projeto criado com sucesso") {
                 swal({
                     title: 'Pedido de projeto efetuado com sucesso!',
                     type: 'success',
@@ -38,16 +54,15 @@ function login() {
                     showLoaderOnConfirm: false,
                     timer: 2000
                 }).then(result => {
-                    window.location.replace('/')
+                    window.location.replace('/cliente.html')
                 })
             } else {
-                //ARRANJAR ESTA PARTE
-                
-                if (result.error == "CONTACT_EXISTS") {
+
+                if (result.error == "PROJECT_EXISTS") {
                     throw new Error(result.error);
                 } else {
                     throw new Error(
-                        "Este e-mail não existe. Por favor, efetue o registo!"
+                        "Este Projeto já existe, tente novamente!"
                     )
                 }
             }
@@ -73,3 +88,4 @@ function login() {
         });
     });
 }
+*/
