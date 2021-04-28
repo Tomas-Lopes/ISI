@@ -1,5 +1,4 @@
 window.onload = function () {
-    console.log("ola nuno");
 
     const formLogin = document.getElementById("formLogin");
 
@@ -9,7 +8,7 @@ window.onload = function () {
         event.preventDefault();
 
         var emailInput = document.getElementById("loginEmail").value;
-        var passwordInput = document.getElementById("loginPassword").value;
+        var passwordInput = document.getElementById("password-field").value;
 
         let data = {
             email: emailInput,

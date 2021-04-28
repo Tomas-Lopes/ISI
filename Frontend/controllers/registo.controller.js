@@ -1,5 +1,4 @@
 window.onload = function () {
-    console.log("ola nuno");
     const formRegisto = document.getElementById("formRegisto");
     
 
@@ -13,10 +12,10 @@ window.onload = function () {
         var firstnameInput = document.getElementById("registerFirstname").value;
         var lastnameInput = document.getElementById("registerLastname").value;
         var emailInput = document.getElementById("registerEmail").value;
-        var phoneInput = document.getElementById("registerTelefone").value;
-        var nifInput = document.getElementById("registerNif").value;
-        var passwordInput = document.getElementById("registerPassword").value;
-        var confirmPasswordInput = document.getElementById("registerRepeatPassword").value;
+        var phoneInput = document.getElementById("phone").value;
+        var nifInput = document.getElementById("NIF").value;
+        var passwordInput = document.getElementById("password-field").value;
+        var confirmPasswordInput = document.getElementById("password-confirm").value;
         var addressdInput = document.getElementById("registerAddress").value;
         var type = 'cliente';
 
@@ -77,7 +76,7 @@ window.onload = function () {
                             showLoaderOnConfirm: false,
                             timer: 2000
                         }).then(result => {
-                            window.location.replace('/')
+                            window.location.replace('/login.html')
                         })
                     } else {
                         if (result.error == "CONTACT_EXISTS") {
