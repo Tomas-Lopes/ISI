@@ -348,8 +348,9 @@ function updateDeal (id, properties, res) {
 function getDealsList(res) {
   let options = {
     method: "GET",
-    //rota nao esta bem
-    url: `https://api.hubapi.com/deals/v1/deal/?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    
+    url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
