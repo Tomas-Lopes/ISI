@@ -10,9 +10,7 @@ router.post("/editUser", isLogged, userController.EditUser)
 router.post("/newProject", isLogged, userController.newProj)
 router.get("/logout", userController.Logout)
 router.get("/users", userController.getUsers)
-router.get("/", isLogged, function(req, res){
-    res.send("O fafense e gay")
-})
+router.get("/arquitetos", userController.getArq)
 
 
 module.exports = router;

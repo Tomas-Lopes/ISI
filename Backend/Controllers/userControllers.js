@@ -173,6 +173,11 @@ async function Login(req, res) {
       })
     }
 
+    async function getArq(req, res){
+      const arqs = await User.find({cargo: "arquiteto" }, {email:1,nome:1});
+      res.send(arqs);
+
+    }
     
     function newProj(req, res) {
 
@@ -203,5 +208,6 @@ async function Login(req, res) {
       Logout: Logout,
       getUsers: getUsers,
       newProj: newProj,
+      getArq: getArq,
     };
 
