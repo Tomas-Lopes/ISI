@@ -125,13 +125,11 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
-                          <input id="loginPassword" class="form-control" placeholder="Password" type="password"
-                          />
-                          <button type="button" onclick="visible()" class="btn btn-secondary btn-md"style="padding: 0px 12px;">
-                            <i id="eye" class="fas fa-eye"></i>
+                          <input class="form-control" id="password-field" placeholder="Password" type="password" />
+                          <button type="button" onclick="visible()"  class="btn btn-secondary btn-sm" style="padding: 0px 12px;">
+                            <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
                           </button>
                         </div>
-                      </div>
                        <div class="row mt-3">
                   <div class="col-6">
                     <a href="../../pages/all/forgotPassword.html" class="text-white"><small>Esqueceu a password?</small></a>
@@ -141,7 +139,7 @@
                   </div>
                 </div>
                 <div class="text-center">
-                        <button id="login" type="submit" class="btn btn-primary mt-4">
+                        <button id="login" type="submit" class="btn">
                           Entrar
                         </button>
                       </div>
@@ -257,6 +255,7 @@
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
         <script src="./controllers/login.controller.js"></script>
+        <script src="./assets/js/script.js"></script>
        
     </body>
 </html>
