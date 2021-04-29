@@ -21,7 +21,8 @@ window.onload = function () {
 
         console.log(nifInput);
         fetch(
-            `http://127.0.0.1:8080/https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
+            `https://api.allorigins.win/raw?url=https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
+
             {
                 mode: 'cors',
                 headers: {
@@ -38,8 +39,8 @@ window.onload = function () {
                 );
             }
         }).then(result => {
+            console.log(result)
             if (result.nif_validation) {
-
                 if (passwordInput != confirmPasswordInput) {
                     throw new Error(
                         "As passwords não coincidem."
@@ -68,7 +69,7 @@ window.onload = function () {
                     return response.json();
                 }).then(result => {
                     if (result.message == "User inserted with success") {
-                        swal({
+                        Swal.fire({
                             title: 'Registo efetuado com sucesso!',
                             type: 'success',
                             showCancelButton: false,
@@ -92,7 +93,7 @@ window.onload = function () {
                 }).catch(error => {
                     document.getElementById("register").disabled = false;
                     if (error.message == 'CONTACT_EXISTS') {
-                        swal({
+                        Swal.fire({
                             title: 'Este email já existe!',
                             showCancelButton: false,
                             showConfirmButton: false,
@@ -100,7 +101,7 @@ window.onload = function () {
                             timer: 2000
                         })
                     } else if (error.message == 'NIF_EXISTS') {
-                        swal({
+                        Swal.fire({
                             title: 'Este NIF já existe!',
                             showCancelButton: false,
                             showConfirmButton: false,
@@ -108,7 +109,7 @@ window.onload = function () {
                             timer: 2000
                         })
                     } else {
-                        swal({
+                        Swal.fire({
                             html: '<strong><h3>Ocorreu um erro! Tente novamente mais tarde. Obrigado!</h3></strong>',
                             showCancelButton: false,
                             showConfirmButton: false,

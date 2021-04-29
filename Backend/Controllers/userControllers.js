@@ -3,6 +3,7 @@ const Bcrypt = require("bcryptjs");
 const clientCookie = require("../Config/cookie");
 const hubspot = require('./hubspotController');
 const { getClientByEmail } = require("./hubspotController");
+const request = require("request");
 
 async function Login(req, res) {
   var email = req.body.email;
@@ -180,7 +181,7 @@ async function getArq(req, res) {
 }
 
 function newProj(req, res) {
-  
+
   const amount = req.body.amount;
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
@@ -212,7 +213,7 @@ function associarArquiteto(req, res) {
   const dealstage = req.body.dealstage;
   //const hubspot_owner_id = req.body.hubspot_owner_id;
   //const pipeline = req.body.pipeline;
- 
+
   hubspot.getDeal(id_pedido, (result) => {
     console.log("boa!");
     if (result.deal) {
@@ -240,10 +241,20 @@ function associarArquiteto(req, res) {
 }
 
 
-function getPedidos(req, resp) {
+function getPedidos(req, res) {
+  
+  let options = {
+    method: "GET",
+    url: `https://api.hubapi.com/crm/v3/objects/contacts?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
 
-  hubspot.getDealsList(res);
-  resp.send(res)
+  request(options, function (error, body) {
+    if (error) throw new Error(error);
+    res.send(body)
+  });
 
 }
 module.exports = {

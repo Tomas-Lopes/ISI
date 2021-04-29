@@ -371,7 +371,7 @@ function getDealsList(res) {
   });
 } */
 
-function getDealsList(res) {
+function getDealsList() {
 
 var options = {
   method: 'GET',
@@ -382,10 +382,10 @@ var options = {
   headers: {accept: 'application/json'}
 };
 
+
 request(options, function (error, res , body) {
   if (error) throw new Error(error);
-
-  console.log(body);
+  return body
 });
 }
 
