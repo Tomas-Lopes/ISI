@@ -10,7 +10,7 @@ function submeterPedido() {
         var tipoInput = document.getSelection("tipoProjeto").value;
         var descricaoInput = document.getElementById("description").value;
         var orcamentoInput = document.getElementById("orcamento").value;
-        var dataInput = doucment.getElementById("data").value;
+        var dataInput = document.getElementById("data").value;
 
         let data = {
             tipo: tipoInput,
