@@ -225,5 +225,3 @@ module.exports = {
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos
 };
-
-
