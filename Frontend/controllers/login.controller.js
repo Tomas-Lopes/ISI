@@ -37,6 +37,7 @@ window.onload = function () {
                     showLoaderOnConfirm: false,
                     timer: 2000
                 }).then(result => {
+                    
                     window.location.replace('./cliente.html')
                 })
             } else {

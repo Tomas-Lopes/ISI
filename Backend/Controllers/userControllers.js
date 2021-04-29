@@ -24,10 +24,10 @@ async function Login(req, res) {
             let userF = {
               id: result.user.user_id,
               email: user.email,
-              nome: result.user.firstname,
-              apelido: result.user.lastname,
-              numero_telefone: result.user.phone,
-              morada: result.user.address,
+              firstname: result.user.firstname,
+              lastname: result.user.lastname,
+              phone: result.user.phone,
+              address: result.user.address,
               nif: result.user.nif,
             }
 
@@ -230,7 +230,7 @@ function associarArquiteto(req, res) {
 
       hubspot.updateDeal(id_pedido, properties, res);
       res.send({
-        message: "Inserted with success",
+        message: "Architect associated with success",
         deal: properties,
       });
     } else {

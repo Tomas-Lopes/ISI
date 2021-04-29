@@ -20,7 +20,7 @@ window.onload = function () {
 
         fetch(
             //nao ha rota ainda
-            `http://127.0.0.1:8080/user/login`,
+            `http://127.0.0.1:8080/user/associarArq`,
             {
                 mode: 'cors',
                 method: 'POST',
@@ -51,7 +51,7 @@ window.onload = function () {
                 }
             }).catch(error => {
                 document.getElementById("associar").disabled = false;
-                if (error.message == 'Este pedido e arquieto não existem. Por favor, tente novamente!') {
+                if (error.message == 'Este pedido e arquiteto não existem. Por favor, tente novamente!') {
                     swal({
                         html: '<strong><h3>Este pedido e arquiteto não existem. Por favor, tente novamente!</h3></strong>',
                         showCancelButton: false,
