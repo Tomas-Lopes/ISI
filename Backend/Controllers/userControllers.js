@@ -255,5 +255,8 @@ module.exports = {
   newProj: newProj,
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,
-  getArq: getArq
+  getArq: getArq,
 };
+
+
+
