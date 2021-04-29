@@ -286,55 +286,47 @@ function getDeal(dealId, res) {
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
   };
-
-  request(options, (error, response) => {
+ console.log(dealId)
+  request(options, (error, resp) => {
     if (!error) {
-      if (resp.statusCode == 200) {
+      console.log(resp)
         let pedido = JSON.parse(resp.body);
         let data = pedido.properties;
 
         const result = {
-          dealId: data.dealId.value,
+          dealId: data.hs_object_id.value,
           amount: data.amount.value,
           closedate: data.closedate.value,
           dealname: data.dealname.value,
           dealstage: data.dealstage.value,
           hubspot_owner_id: "69176641",
           pipeline: "default",
-          arq_id: ""
+          arq_id: data.arq_id.value
         }
 
         res({
           'deal': result
         });
-        //res.status(200).send(params);
       } else {
         res({
           'statusCode': res.statusCode,
           'body': JSON.parse(res.body)
         })
       }
-    } else {
-      console.log(error);
-      res({
-        'statusCode': 400,
-        'body': 'erro'
-      })
-    }
   });
 }
 
 function updateDeal (id, properties, res) {
 
-  let user = {
+  let pedido = {
     'properties': properties
   }
 
   var options = {
-    method: "GET",
+    method: "PUT",
     url: `https://api.hubapi.com/deals/v1/deal/${id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
-    body: JSON.stringify(user)
+    body: JSON.stringify(pedido)
   };
 
   request(options, function (error, response, body) {

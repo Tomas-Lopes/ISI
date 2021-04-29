@@ -12,6 +12,6 @@ router.get("/pedidos", userController.getPedidos)
 router.get("/logout", userController.Logout)
 router.get("/users", userController.getUsers)
 router.get("/arquitetos", userController.getArq)
-
+router.get("/associarArq", userController.associarArquiteto)
 
 module.exports = router;

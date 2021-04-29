@@ -24,10 +24,10 @@ async function Login(req, res) {
             let userF = {
               id: result.user.user_id,
               email: user.email,
-              nome: result.user.firstname,
-              apelido: result.user.lastname,
-              numero_telefone: result.user.phone,
-              morada: result.user.address,
+              firstname: result.user.firstname,
+              lastname: result.user.lastname,
+              phone: result.user.phone,
+              address: result.user.address,
               nif: result.user.nif,
             }
 
@@ -173,14 +173,14 @@ function getUsers(req, res) {
   })
 }
 
-async function getArq(req, res){
-  const arqs = await User.find({cargo: "arquiteto" }, {email:1,nome:1});
+async function getArq(req, res) {
+  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1 });
   res.send(arqs);
 
 }
 
 function newProj(req, res) {
-
+  
   const amount = req.body.amount;
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
@@ -194,7 +194,8 @@ function newProj(req, res) {
     dealname: dealname,
     dealstage: dealstage,
     hubspot_owner_id: "69176641",
-    pipeline: "default"
+    pipeline: "default",
+    arq_id: "0"
   }
 
   hubspot.addDeal(properties, res)
@@ -203,11 +204,41 @@ function newProj(req, res) {
 
 function associarArquiteto(req, res) {
 
-  //const id_pedido = ;
-  //const id_arq = ;
+  const id_arq = req.body.arq_id;
+  const id_pedido = req.body.dealId;
+  const amount = req.body.amount;
+  const closedate = req.body.closedate;
+  const dealname = req.body.dealname;
+  const dealstage = req.body.dealstage;
+  //const hubspot_owner_id = req.body.hubspot_owner_id;
+  //const pipeline = req.body.pipeline;
+ 
+  hubspot.getDeal(id_pedido, (result) => {
+    console.log("boa!");
+    if (result.deal) {
 
-  hubspot.getDeal(id_pedido)
+      let properties = {
+        amount: amount,
+        closedate: closedate,
+        dealname: dealname,
+        dealstage: dealstage,
+        hubspot_owner_id: "69176641",
+        pipeline: "default",
+        arq_id: id_arq
+
+      }
+
+      hubspot.updateDeal(id_pedido, properties, res);
+      res.send({
+        message: "Architect associated with success",
+        deal: properties,
+      });
+    } else {
+      res.send("Request not found")
+    }
+  })
 }
+
 
 function getPedidos(req, resp) {
 
