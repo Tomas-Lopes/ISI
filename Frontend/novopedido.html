@@ -10,7 +10,8 @@
   <!--<link rel="manifest" href="site.webmanifest">-->
   <link rel="shortcut icon" href="assets/img/mini.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!--<link href="grid/simple-grid.min.css" rel="stylesheet">-->
+  
+
 
   <!-- CSS here -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -164,8 +165,8 @@
                         <div class="row">
                           <div class="col-md-6" style="align-self: left;">
                             <div class="text-center">
-                              <button id="register" type="submit" onclick='submeterPedido()'
-                                class="btn">Submeter</button>
+                              <input id="register" type="submit" 
+                                class="btn">Submeter</input>
                             </div>
                           </div>
                           <button style="display: none;" id="pedidocriado" class="btn btn-success" data-toggle="notify"
@@ -182,7 +183,7 @@
                           </button>
                           <div class="col-md-6" style="align-self: right;">
                             <div class="text-center">
-                              <button id="register" type="submit" onclick='cancelarPedido()' class="btn">Cancelar
+                              <button id="registerCancelar" type="submit" onclick='cancelarPedido()' class="btn">Cancelar
                                 Pedido</button>
                             </div>
                           </div>
@@ -319,6 +320,8 @@
   <!-- Jquery Plugins, main Jquery -->
   <script src="./assets/js/plugins.js"></script>
   <script src="./assets/js/main.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 </body>
 
