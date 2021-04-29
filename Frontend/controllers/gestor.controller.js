@@ -24,18 +24,18 @@ async function getPedidos() {
         console.log(pedidos);
 
         for (const pedido of pedidos) {
-            const id = eachPedidos(pedido.id);
-            const cliente = eachPedidos(pedido.cliente);
-            const localizacao = eachPedidos(pedido.localizacao);
-            const tipo = eachPedidos(pedido.tipo);
-            const descricao = eachPedidos(pedido.descricao);
-            const orcamento = eachPedidos(pedido.orcamento);
-            const data = eachPedidos(pedido.data);
-            const estado = eachPedidos(pedido.estado);
+            
 
             //dados.push(["<div id = "" + pedido.])
-
-
+            pedido.id,
+            pedido.cliente,
+            pedido.localizacao,
+            pedido.tipo,
+            pedido.descricao,
+            pedido.orcamento,
+            pedido.data,
+            pedido.estado
+        
         }
 
     $('#tabelaPedidos').DataTable({
