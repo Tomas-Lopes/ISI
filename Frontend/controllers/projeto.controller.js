@@ -19,14 +19,15 @@ function submeterPedido() {
             data: dataInput
         }
 
-        return fetch(`http://localhost:8080/user/newProject`, {
+        fetch(`http://localhost:8080/user/newProject`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
+            mode: 'cors',
             body: JSON.stringify(data)
         }).then(response => {
-            console.log(response)
+
             if (response.status == 200) {
                 document.getElementById('pedidocriado').click();
                 setTimeout(function () {
