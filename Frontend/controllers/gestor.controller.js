@@ -21,9 +21,11 @@ async function getPedidos() {
         //Fetch
         const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
         const pedidos = await response.json();
-        console.log(pedidos);
+        console.log("Aqui: " + pedidos);
+        
+        console.log(JSON.stringify(pedidos.body));
 
-        for (const pedido of pedidos) {
+        for (const pedido of pedidos.body) {
             
 
             //dados.push(["<div id = "" + pedido.])

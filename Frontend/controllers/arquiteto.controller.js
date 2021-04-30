@@ -24,6 +24,7 @@ window.onload = function () {
             {
                 mode: 'cors',
                 method: 'POST',
+                credentials: 'include',
                 body: JSON.stringify(data)
             }).then(response => {
                 return response.json();

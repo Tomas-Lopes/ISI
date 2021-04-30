@@ -188,12 +188,16 @@ function newProj(req, res) {
   const dealstage = req.body.dealstage;
   const hubspot_owner_id = req.body.hubspot_owner_id;
   const pipeline = req.body.pipeline;
+  const description = req.body.description;
+  const project_type = req.body.project_type;
 
   const properties = {
     amount: amount,
     closedate: closedate,
     dealname: dealname,
     dealstage: dealstage,
+    description: description,
+    //project_type: project_type,
     hubspot_owner_id: "69176641",
     pipeline: "default",
     arq_id: "0"
@@ -215,18 +219,18 @@ function associarArquiteto(req, res) {
   //const pipeline = req.body.pipeline;
 
   hubspot.getDeal(id_pedido, (result) => {
-    console.log("boa!");
     if (result.deal) {
 
-      let properties = {
+     let properties = {
         amount: amount,
         closedate: closedate,
         dealname: dealname,
         dealstage: dealstage,
+        description: description,
+        //project_type: project_type,
         hubspot_owner_id: "69176641",
         pipeline: "default",
-        arq_id: id_arq
-
+        arq_id: "0"
       }
 
       hubspot.updateDeal(id_pedido, properties, res);

@@ -298,7 +298,7 @@ function getDeal(dealId, res) {
           amount: data.amount.value,
           closedate: data.closedate.value,
           dealname: data.dealname.value,
-          project_type: data.project_type.value,
+          //project_type: data.project_type.value,
           dealstage: data.dealstage.value,
           description: data.description.value,
           hubspot_owner_id: "69176641",
