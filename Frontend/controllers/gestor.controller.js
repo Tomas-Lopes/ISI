@@ -19,7 +19,7 @@ async function getPedidos() {
         let dados = [];
 
         //Fetch
-        const response = await fetch(url + "/logged", requestOptions);
+        const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
 
@@ -30,11 +30,11 @@ async function getPedidos() {
             pedido.id,
             pedido.cliente,
             pedido.localizacao,
-            pedido.tipo,
-            pedido.descricao,
-            pedido.orcamento,
-            pedido.data,
-            pedido.estado
+            pedido.project_type,
+            pedido.description,
+            pedido.amount,
+            pedido.closedate,
+            pedido.dealstage
         
         }
 

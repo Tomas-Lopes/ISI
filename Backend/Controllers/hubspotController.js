@@ -298,7 +298,9 @@ function getDeal(dealId, res) {
           amount: data.amount.value,
           closedate: data.closedate.value,
           dealname: data.dealname.value,
+          project_type: data.project_type.value,
           dealstage: data.dealstage.value,
+          description: data.description.value,
           hubspot_owner_id: "69176641",
           pipeline: "default",
           arq_id: data.arq_id.value
@@ -336,40 +338,6 @@ function updateDeal (id, properties, res) {
   });
 
 }
-/*
-function getDealsList(res) {
-  let options = {
-    method: "GET",
-    
-    url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
-
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-  };
-
-  request(options, (error, resp) => {
-    if (!error) {
-      const deals = JSON.parse(resp.body).deals;
-      let dealsF = [];
-      for (let i = 0; i < deals.length; i++) {
-        dealsF.push({
-          id: deals[i].vid,
-          name:
-            deals[i].properties.dealId.value +
-            " " +
-            deals[i].properties.dealname.value,
-        });
-      }
-      res({
-        deals: dealsF,
-      });
-      res.status(200).send(deals);
-    } else {
-      res.status(400).send(error);
-    }
-  });
-} */
 
 function getDealsList() {
 

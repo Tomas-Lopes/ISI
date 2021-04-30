@@ -12,18 +12,23 @@ const formNovoPedido = document.getElementById("formNovoPedido");
         var descricaoInput = document.getElementById("description").value;
         var orcamentoInput = document.getElementById("orcamento").value;
         var dataInput = document.getElementById("data").value;
+        var nomeInput = document.getElementById("nome_pedido").value;
 
         let data = {
-            tipo: tipoInput,
-            descricao: descricaoInput,
-            orcamento: orcamentoInput,
-            data: dataInput
+            dealname: nomeInput,
+            project_type: tipoInput,
+            description: descricaoInput,
+            amount: orcamentoInput,
+            closedate: dataInput,
+            dealstage: "appointmentscheduled"
+            
         }
 
-        fetch(`http://localhost:8080/user/newProject`, {
+        fetch(`http://127.0.0.1:8080/user/newProject`, {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: "include",
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(data)
@@ -58,6 +63,7 @@ const formNovoPedido = document.getElementById("formNovoPedido");
                     location.reload();
                 }, 2000);*/
             }
+        }
             return response.json();
         }).catch(error => {
             console.log(error);
