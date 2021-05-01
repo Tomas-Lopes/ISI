@@ -249,7 +249,7 @@ function getPedidos(req, res) {
   
   let options = {
     method: "GET",
-    url: `https://api.hubapi.com/crm/v3/objects/contacts?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -257,7 +257,7 @@ function getPedidos(req, res) {
 
   request(options, function (error, body) {
     if (error) throw new Error(error);
-    res.send(body)
+    res.send(JSON.parse(body.body))
   });
 
 }
