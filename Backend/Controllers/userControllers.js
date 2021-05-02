@@ -261,6 +261,8 @@ function getPedidos(req, res) {
   });
 
 }
+
+
 module.exports = {
   Login: Login,
   Register: Register,
@@ -271,6 +273,7 @@ module.exports = {
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,
   getArq: getArq,
+
 };
 
 
