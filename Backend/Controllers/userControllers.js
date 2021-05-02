@@ -216,26 +216,14 @@ function associarArquiteto(req, res) {
   const description = req.body.description;
   const project_type = req.body.project_type;
 
-  hubspot.getDeal(id_pedido, (result) => {
-
-    if (result.arq_id) {
-      
-      let id = {
-        arq_id: id_arquiteto
-      }
-      console.log(id + "vem do get deal")
-      hubspot.updateDeal(id_pedido, id, res);
+    hubspot.updateDeal(id_pedido, id_arquiteto, res);
 
       res.send({
         message: "Architect associated with success",
         arq_id: id_arquiteto,
       });
 
-    } else {
-      res.send("Request not found")
     }
-  })
-}
 
 
 function getPedidos(req, res) {
