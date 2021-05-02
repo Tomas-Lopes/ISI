@@ -286,27 +286,18 @@ function getDeal(dealId, res) {
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
   };
- console.log(dealId)
+
   request(options, (error, resp) => {
     if (!error) {
         let pedido = JSON.parse(resp.body);
         let data = pedido.properties;
-
-        const result = {
-          dealId: data.hs_object_id.value,
-          amount: data.amount.value,
-          closedate: data.closedate.value,
-          dealname: data.dealname.value,
-          project_type: data.project_type.value,
-          dealstage: data.dealstage.value,
-          description: data.description.value,
-          hubspot_owner_id: "69176641",
-          pipeline: "default",
-          arq_id: data.arq_id.value
+     
+        const id = {
+          arq_id: data.arq_id
         }
-
+        
         res({
-          'deal': result
+          'arq_id':id
         });
       } else {
         res({
@@ -317,17 +308,18 @@ function getDeal(dealId, res) {
   });
 }
 
-function updateDeal (dealId, id_arq, res) {
+function updateDeal (dealId, id, res) {
 
   let arquiteto = {
-    'id_arq': id_arq
+    'arq_id': id
   }
 
   var options = {
-    method: "PUT",
+    method: 'PATCH',
     url: `https://api.hubapi.com/deals/v1/deal/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
-    headers: { accept: "application/json" },
-    body: JSON.stringify(arquiteto)
+    headers: { accept: "application/json", 'content-type': 'application/json' },
+    body: arquiteto,
+    json: true
   };
 
   request(options, function (error, response, body) {

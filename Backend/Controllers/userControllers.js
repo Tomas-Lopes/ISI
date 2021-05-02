@@ -186,8 +186,6 @@ function newProj(req, res) {
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
   const dealstage = req.body.dealstage;
-  //const hubspot_owner_id = req.body.hubspot_owner_id;
-  //const pipeline = req.body.pipeline;
   const description = req.body.description;
   const project_type = req.body.project_type;
 
@@ -209,7 +207,7 @@ function newProj(req, res) {
 
 function associarArquiteto(req, res) {
 
-  const id_arq = req.body.arq_id;
+  const id_arquiteto = req.body.arq_id;
   const id_pedido = req.body.dealId;
   const amount = req.body.amount;
   const closedate = req.body.closedate;
@@ -217,27 +215,22 @@ function associarArquiteto(req, res) {
   const dealstage = req.body.dealstage;
   const description = req.body.description;
   const project_type = req.body.project_type;
-  
-  hubspot.getDeal(id_pedido, (result) => {
-    if (result.deal) {
 
-     let properties = {
-        amount: amount,
-        closedate: closedate,
-        dealname: dealname,
-        dealstage: dealstage,
-        description: description,
-        project_type: project_type,
-        hubspot_owner_id: "69176641",
-        pipeline: "default",
-        arq_id: "0"
+  hubspot.getDeal(id_pedido, (result) => {
+
+    if (result.arq_id) {
+      
+      let id = {
+        arq_id: id_arquiteto
       }
-      //"dealId": "5121906744",
-      hubspot.updateDeal(id_pedido, id_arq, res);
+      console.log(id + "vem do get deal")
+      hubspot.updateDeal(id_pedido, id, res);
+
       res.send({
         message: "Architect associated with success",
-        deal: properties,
+        arq_id: id_arquiteto,
       });
+
     } else {
       res.send("Request not found")
     }
@@ -246,7 +239,7 @@ function associarArquiteto(req, res) {
 
 
 function getPedidos(req, res) {
-  
+
   let options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
