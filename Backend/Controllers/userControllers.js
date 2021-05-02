@@ -186,8 +186,8 @@ function newProj(req, res) {
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
   const dealstage = req.body.dealstage;
-  const hubspot_owner_id = req.body.hubspot_owner_id;
-  const pipeline = req.body.pipeline;
+  //const hubspot_owner_id = req.body.hubspot_owner_id;
+  //const pipeline = req.body.pipeline;
   const description = req.body.description;
   const project_type = req.body.project_type;
 
@@ -197,7 +197,7 @@ function newProj(req, res) {
     dealname: dealname,
     dealstage: dealstage,
     description: description,
-    //project_type: project_type,
+    project_type: project_type,
     hubspot_owner_id: "69176641",
     pipeline: "default",
     arq_id: "0"
@@ -215,9 +215,9 @@ function associarArquiteto(req, res) {
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
   const dealstage = req.body.dealstage;
-  //const hubspot_owner_id = req.body.hubspot_owner_id;
-  //const pipeline = req.body.pipeline;
-
+  const description = req.body.description;
+  const project_type = req.body.project_type;
+  
   hubspot.getDeal(id_pedido, (result) => {
     if (result.deal) {
 
@@ -227,13 +227,13 @@ function associarArquiteto(req, res) {
         dealname: dealname,
         dealstage: dealstage,
         description: description,
-        //project_type: project_type,
+        project_type: project_type,
         hubspot_owner_id: "69176641",
         pipeline: "default",
         arq_id: "0"
       }
-
-      hubspot.updateDeal(id_pedido, properties, res);
+      //"dealId": "5121906744",
+      hubspot.updateDeal(id_pedido, id_arq, res);
       res.send({
         message: "Architect associated with success",
         deal: properties,

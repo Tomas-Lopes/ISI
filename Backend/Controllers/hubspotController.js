@@ -289,7 +289,6 @@ function getDeal(dealId, res) {
  console.log(dealId)
   request(options, (error, resp) => {
     if (!error) {
-      console.log(resp)
         let pedido = JSON.parse(resp.body);
         let data = pedido.properties;
 
@@ -298,7 +297,7 @@ function getDeal(dealId, res) {
           amount: data.amount.value,
           closedate: data.closedate.value,
           dealname: data.dealname.value,
-          //project_type: data.project_type.value,
+          project_type: data.project_type.value,
           dealstage: data.dealstage.value,
           description: data.description.value,
           hubspot_owner_id: "69176641",
@@ -318,44 +317,27 @@ function getDeal(dealId, res) {
   });
 }
 
-function updateDeal (id, properties, res) {
+function updateDeal (dealId, id_arq, res) {
 
-  let pedido = {
-    'properties': properties
+  let arquiteto = {
+    'id_arq': id_arq
   }
 
   var options = {
     method: "PUT",
-    url: `https://api.hubapi.com/deals/v1/deal/${id}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    url: `https://api.hubapi.com/deals/v1/deal/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
-    body: JSON.stringify(pedido)
+    body: JSON.stringify(arquiteto)
   };
 
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
   
-    console.log(body);
+    res.send(body)
   });
 
 }
 
-function getDealsList() {
-
-var options = {
-  method: 'GET',
-  url: 'https://api.hubapi.com/crm/v3/objects/deals',
-  qs: {
-    hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'
-  },
-  headers: {accept: 'application/json'}
-};
-
-
-request(options, function (error, res , body) {
-  if (error) throw new Error(error);
-  return body
-});
-}
 
 module.exports = {
   getClients: getClients,
@@ -369,5 +351,4 @@ module.exports = {
   addDeal: addDeal,
   getDeal: getDeal,
   updateDeal: updateDeal,
-  getDealsList: getDealsList
 };
