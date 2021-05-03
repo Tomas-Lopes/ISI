@@ -289,45 +289,48 @@ function getDeal(dealId, res) {
 
   request(options, (error, resp) => {
     if (!error) {
-        let pedido = JSON.parse(resp.body);
-        let data = pedido.properties;
-     
-        const id = {
-          dealId: data.hs_object_id
-        }
-        console.log(data)
-        res({
-          'dealId':id
-        });
-      } else {
-        res({
-          'statusCode': res.statusCode,
-          'body': JSON.parse(res.body)
-        })
+      let pedido = JSON.parse(resp.body);
+      let data = pedido.properties;
+
+      const id = {
+        dealId: data.hs_object_id
       }
+      console.log(data)
+      res({
+        'dealId': id
+      });
+    } else {
+      res({
+        'statusCode': res.statusCode,
+        'body': JSON.parse(res.body)
+      })
+    }
   });
 }
 
-function updateDeal (dealId, id, res) {
-
-  let arquiteto = {
-    'arq_id': id
-  }
+function updateDeal(dealId, id, res) {
 
   var options = {
     method: 'PUT',
     url: `https://api.hubapi.com/deals/v1/deal/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json", 'content-type': 'application/json' },
-    body: arquiteto,
+    body: {
+      properties:
+        [
+          { name: "arq_id", value: id }
+        ]
+    },
     json: true
   };
 
+
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-  
-    res.send(body)
-  });
-
+    res.send({
+      message: "Architect associated with success",
+      arq_id: id
+    });
+  })
 }
 
 

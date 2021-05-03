@@ -1,26 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-<script>
-
-  async function GetArquitetos(x, y) {
-
-    fetch('http://127.0.0.1:8080/user/arquitetos', {
-
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      mode: 'cors',
-      method: 'GET'
-    }).then(response => {
-      return response.json();
-    }).then(result => {
-      console.log('Erro de leitura de dados.');
-    });
-    console.log(dados);
-  }
-</script>
-
 
 <head>
   <meta charset="utf-8">
@@ -197,35 +176,6 @@
               </tr>
             </thead>
             <tbody id="tbody">
-              <script async>
-
-                //const getData = GetArquitetos(1,2);
-
-                //const jstring=JSON.stringify(getData);
-
-                jstring = '[{"_id":"60870fcb1d5638558853ae9d","email":"arq_rita@gmail.com","nome":"Rita Sanches"},{"_id":"6087105a1d5638558853ae9f","email":"arq_ricardo@gmail.com","nome":"Ricardo Brito"}]';
-                var dados = JSON.parse(jstring);
-
-                {
-
-
-                  var table = document.getElementById("tbody");
-
-                  for (i = 0; i < dados.length; i++) {
-                    var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    cell1.innerHTML = dados[i]["_id"];
-                    cell2.innerHTML = dados[i]["nome"];
-                    cell3.innerHTML = dados[i]["email"];
-                  }
-
-                }
-
-
-
-              </script>
             </tbody>
             <tfoot id="tfoot">
             </tfoot>
@@ -369,6 +319,43 @@
   <!-- Jquery Plugins, main Jquery -->
   <script src="./assets/js/plugins.js"></script>
   <script src="./assets/js/main.js"></script>
+
+  <script>
+    window.onload = function() {
+      GetArquitetos()
+    }
+    function GetArquitetos() {
+
+      fetch('http://127.0.0.1:8080/user/arquitetos', {
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        //credentials: 'include',
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).then(dados => {
+        //const getData = GetArquitetos(1,2);
+
+        //const jstring=JSON.stringify(getData);
+
+        //jstring = '[{"_id":"60870fcb1d5638558853ae9d","email":"arq_rita@gmail.com","nome":"Rita Sanches"},{"_id":"6087105a1d5638558853ae9f","email":"arq_ricardo@gmail.com","nome":"Ricardo Brito"}]';
+
+        var table = document.getElementById("tbody");
+
+        for (i = 0; i < dados.length; i++) {
+          var row = table.insertRow(0);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          cell1.innerHTML = dados[i]["_id"];
+          cell2.innerHTML = dados[i]["nome"];
+          cell3.innerHTML = dados[i]["email"];
+        }
+      });
+    }
+  </script>
 
 </body>
 

@@ -1,6 +1,6 @@
 window.onload = function () {
     const formRegisto = document.getElementById("formRegisto");
-    
+
 
     //fetch do registo
 
@@ -20,118 +20,117 @@ window.onload = function () {
         var type = 'cliente';
 
         console.log(nifInput);
-        fetch(
-            `https://api.allorigins.win/raw?url=https://www.nif.pt/?json=1&q=${nifInput}&key=03c763da3080ce65a69443db3f6fe7fb`,
-
-            {
-                mode: 'cors',
+        var nifvalidation = validaNIF(nifInput)
+        if (nifvalidation) {
+            if (passwordInput != confirmPasswordInput) {
+                throw new Error(
+                    "As passwords não coincidem."
+                );
+            }
+            console.log("entrei");
+            let data = {
+                nome: firstnameInput,
+                apelido: lastnameInput,
+                email: emailInput,
+                phone: phoneInput,
+                nif: nifInput,
+                password: passwordInput,
+                address: addressdInput,
+                type: type,
+            }
+            //if (firstnameInput != "" && lastnameInput != "" && emailInput != "" && phoneInput != "" && nifInput != "" && passwordInput != "" && confirmPasswordInput != "" && addressdInput != "") {
+            return fetch(`http://localhost:8080/user/register`, {
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            }
-        ).then(response => {
-            console.log(response);
-            if (response.status == 200) {
+                },
+                method: 'POST',
+               // mode: 'cors',
+                body: JSON.stringify(data)
+            }).then(response => {
                 return response.json();
-            } else {
-                throw new Error(
-                    "Não foi possível verificar o seu NIF."
-                );
-            }
-        }).then(result => {
-            console.log(result)
-            if (result.nif_validation) {
-                if (passwordInput != confirmPasswordInput) {
-                    throw new Error(
-                        "As passwords não coincidem."
-                    );
-                }
-                console.log("entrei");
-                let data = {
-                    nome: firstnameInput,
-                    apelido: lastnameInput,
-                    email: emailInput,
-                    phone: phoneInput,
-                    nif: nifInput,
-                    password: passwordInput,
-                    address: addressdInput,
-                    type: type,
-                }
-                //if (firstnameInput != "" && lastnameInput != "" && emailInput != "" && phoneInput != "" && nifInput != "" && passwordInput != "" && confirmPasswordInput != "" && addressdInput != "") {
-                return fetch(`https://localhost:8080/user/register`, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'POST',
-                    mode: 'cors',
-                    body: JSON.stringify(data)
-                }).then(response => {
-                    return response.json();
-                }).then(result => {
-                    if (result.message == "User inserted with success") {
-                        Swal.fire({
-                            title: 'Registo efetuado com sucesso!',
-                            type: 'success',
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            showLoaderOnConfirm: false,
-                            timer: 2000
-                        }).then(result => {
-                            window.location.replace('/login.html')
-                        })
+            }).then(result => {
+                console.log(result)
+                if (result.message == "User inserted with success") {
+                    Swal.fire({
+                        title: 'Registo efetuado com sucesso!',
+                        type: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        showLoaderOnConfirm: false,
+                        timer: 2000
+                    }).then(result => {
+                        window.location.replace('/login.html')
+                    })
+                } else {
+                    if (result.error == "CONTACT_EXISTS") {
+                        throw new Error(result.error);
+                    } else if (result.error == "NIF_EXISTS") {
+                        throw new Error(result.error);
                     } else {
-                        if (result.error == "CONTACT_EXISTS") {
-                            throw new Error(result.error);
-                        } else if (result.error == "NIF_EXISTS") {
-                            throw new Error(result.error);
-                        } else {
-                            throw new Error(
-                                "Ocorreu um erro! Tente novamente. Obrigado!"
-                            );
-                        }
+                        throw new Error(
+                            "Ocorreu um erro! Tente novamente. Obrigado!"
+                        );
                     }
-                }).catch(error => {
-                    document.getElementById("register").disabled = false;
-                    if (error.message == 'CONTACT_EXISTS') {
-                        Swal.fire({
-                            title: 'Este email já existe!',
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            type: 'error',
-                            timer: 2000
-                        })
-                    } else if (error.message == 'NIF_EXISTS') {
-                        Swal.fire({
-                            title: 'Este NIF já existe!',
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            type: 'error',
-                            timer: 2000
-                        })
-                    } else {
-                        Swal.fire({
-                            html: '<strong><h3>Ocorreu um erro! Tente novamente mais tarde. Obrigado!</h3></strong>',
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            type: 'error',
-                            timer: 2000
-                        })
-                    }
-                });
-            } else {
-                throw new Error(
-                    "O NIF que introduziu não é válido. Verifique se introduziu o seu NIF corretamente!"
-                );
-            }
-        }).catch(error => {
-            alert(error.message /*{ 
-            html: '<strong><h3>O NIF que introduziu não é válido. Verifique se introduziu o seu NIF corretamente!</h3></strong>',
-            type: 'error',
-            showCloseButton: false,
-            showConfirmButton: false,
-            focusConfirm: false,
-            timer: 2000
-        }*/)
-        })
+                }
+            }).catch(error => {
+                console.log(error)
+                document.getElementById("register").disabled = false;
+                if (error.message == 'CONTACT_EXISTS') {
+                    Swal.fire({
+                        title: 'Este email já existe!',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        type: 'error',
+                        timer: 2000
+                    })
+                } else if (error.message == 'NIF_EXISTS') {
+                    Swal.fire({
+                        title: 'Este NIF já existe!',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        type: 'error',
+                        timer: 2000
+                    })
+                } else {
+                    Swal.fire({
+                        html: '<strong><h3>Ocorreu um erro! Tente novamente mais tarde. Obrigado!</h3></strong>',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        type: 'error',
+                        timer: 2000
+                    })
+                }
+            });
+        } else {
+            throw new Error(
+                "O NIF que introduziu não é válido. Verifique se introduziu o seu NIF corretamente!"
+            );
+        }
     })
 }
+
+function validaNIF(value) {
+    value = value + "";
+
+    // has 9 digits?
+    if (!/^[0-9]{9}$/.test(value)) return false;
+
+    // is from a person?
+    if (!/^[123]|45|5/.test(value)) return false;
+
+    // digit check
+    let tot =
+        value[0] * 9 +
+        value[1] * 8 +
+        value[2] * 7 +
+        value[3] * 6 +
+        value[4] * 5 +
+        value[5] * 4 +
+        value[6] * 3 +
+        value[7] * 2;
+    let div = tot / 11;
+    let mod = tot - parseInt(div) * 11;
+    let tst = mod == 1 || mod == 0 ? 0 : 11 - mod;
+    return value[8] == tst;
+}
+

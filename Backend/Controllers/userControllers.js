@@ -209,20 +209,9 @@ function associarArquiteto(req, res) {
 
   const id_arquiteto = req.body.arq_id;
   const id_pedido = req.body.dealId;
-  const amount = req.body.amount;
-  const closedate = req.body.closedate;
-  const dealname = req.body.dealname;
-  const dealstage = req.body.dealstage;
-  const description = req.body.description;
-  const project_type = req.body.project_type;
 
     hubspot.updateDeal(id_pedido, id_arquiteto, res);
-
-      res.send({
-        message: "Architect associated with success",
-        arq_id: id_arquiteto,
-      });
-
+     
     }
 
 
