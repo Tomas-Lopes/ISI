@@ -70,32 +70,53 @@ function Register(req, res) {
           Bcrypt.genSalt(10, function (err, salt) {
             Bcrypt.hash(password, salt, function (err, hash) {
               pass = hash;
-              const properties = {
-                firstname: nome,
-                lastname: apelido,
-                email: email,
-                password: pass,
-                company: "MCA Group",
-                website: "vgbhjjk",
-                cargo: "cliente",
-                nif: nif,
-                address: morada,
-                phone: numTel
+             
+              var options = {
+                method: "POST",
+                url:
+                  "https://api.hubapi.com/crm/v3/objects/contacts?hapikey=" +
+                  "ffdfdd87-f540-403c-8427-acc9eb296971",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: {
+                  properties: {
+                    firstname: nome,
+                    lastname: apelido,
+                    email: email,
+                    password: pass,
+                    company: "MCA Group",
+                    website: "vgbhjjk",
+                    cargo: "cliente",
+                    nif: nif,
+                    address: morada,
+                    phone: numTel
+                  }
+                },
+                json: true
               };
 
-              hubspot.addClient(properties, res);
-              const user = new User({
-                nome: req.body.firstname,
-                apelido: req.body.lastname,
-                email: req.body.email,
-                password: hash,
-                cargo: "cliente",
-                nif: req.body.nif,
-                numTel: req.body.phone,
-                morada: req.body.address,
+              request(options, function (err, resp, body) {
+               
+                if (!err) {
+                  const user = new User({
+                    nome: req.body.firstname,
+                    apelido: req.body.lastname,
+                    email: req.body.email,
+                    password: hash,
+                    cargo: "cliente",
+                    nif: req.body.nif,
+                    numTel: req.body.phone,
+                    morada: req.body.address,
 
-              })
-              user.save();
+                  })
+                  user.save();
+                  res.status(201).send(body);
+                } else {
+                  res.status(400).send(err);
+                }
+              });
             })
           })
         }
@@ -210,9 +231,9 @@ function associarArquiteto(req, res) {
   const id_arquiteto = req.body.arq_id;
   const id_pedido = req.body.dealId;
 
-    hubspot.updateDeal(id_pedido, id_arquiteto, res);
-     
-    }
+  hubspot.updateDeal(id_pedido, id_arquiteto, res);
+
+}
 
 
 function getPedidos(req, res) {

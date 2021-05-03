@@ -17,7 +17,7 @@ window.onload = function () {
         var passwordInput = document.getElementById("password-field").value;
         var confirmPasswordInput = document.getElementById("password-confirm").value;
         var addressdInput = document.getElementById("registerAddress").value;
-        var type = 'cliente';
+        
 
         console.log(nifInput);
         var nifvalidation = validaNIF(nifInput)
@@ -29,17 +29,18 @@ window.onload = function () {
             }
             console.log("entrei");
             let data = {
-                nome: firstnameInput,
-                apelido: lastnameInput,
+                firstname: firstnameInput,
+                lastname: lastnameInput,
                 email: emailInput,
                 phone: phoneInput,
                 nif: nifInput,
                 password: passwordInput,
-                address: addressdInput,
-                type: type,
+                passwordConf: confirmPasswordInput,
+                address: addressdInput
+                
             }
             //if (firstnameInput != "" && lastnameInput != "" && emailInput != "" && phoneInput != "" && nifInput != "" && passwordInput != "" && confirmPasswordInput != "" && addressdInput != "") {
-            return fetch(`http://localhost:8080/user/register`, {
+            fetch(`http://localhost:8080/user/register`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -47,10 +48,11 @@ window.onload = function () {
                // mode: 'cors',
                 body: JSON.stringify(data)
             }).then(response => {
-                return response.json();
+               return response.json();
+                
             }).then(result => {
                 console.log(result)
-                if (result.message == "User inserted with success") {
+                if (result.id) {
                     Swal.fire({
                         title: 'Registo efetuado com sucesso!',
                         type: 'success',

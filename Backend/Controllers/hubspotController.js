@@ -177,8 +177,8 @@ function updateClient(user_id, properties, res) {
 }
 
 /*Função que confirma se já existe um cliente com aquele NIF*/
-function existsClientNif(req, res) {
-  const nif = req;
+function existsClientNif(nif, res) {
+
   let options = {
     url: `https://api.hubapi.com/crm/v3/objects/contacts?properties=nif&hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
   };
