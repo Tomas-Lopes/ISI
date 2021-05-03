@@ -7,7 +7,6 @@
   <title>Build Helper</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="site.webmanifest">
   <link rel="shortcut icon" href="assets/img/mini.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -188,28 +187,9 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                       </div>
-                      <select name="Tipo de Pedido" id="tipoArquiteto">
+                      <select name="Tipo de Arquiteto" id="tipoArquiteto">
                         <option value="" disabled selected hidden>Escolha um Arquiteto</option>
                       </select>
-                      <script async>
-                        //const getData = GetArquitetos(1,2);
-
-                        //const jstring=JSON.stringify(getData);
-
-                        jstring = '[{"_id":"60870fcb1d5638558853ae9d","email":"arq_rita@gmail.com","nome":"Rita Sanches"},{"_id":"6087105a1d5638558853ae9f","email":"arq_ricardo@gmail.com","nome":"Ricardo Brito"}]';
-                        var dados = JSON.parse(jstring);
-                        {
-                          var x = document.getElementById("tipoArquiteto");
-                          for (i = 0; i < dados.length; i++) {
-                            var option = document.createElement("option");
-                            option.value = dados[i]["_id"];
-                            option.text = dados[i]["nome"];
-                            x.add(option, x[1]);
-                          }
-
-                        }
-                      </script>
-
                     </div>
                   </div>
 
@@ -363,6 +343,35 @@
   <script src="./assets/js/main.js"></script>
   <script src="./controllers/arquiteto.controller.js"></script>
 
+  <script>
+    window.onload = function () {
+      GetArquitetos()
+    }
+    function GetArquitetos() {
+
+      fetch('http://127.0.0.1:8080/user/arquitetos', {
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        //credentials: 'include',
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).then(dados => {
+
+        var x = document.getElementById("tipoArquiteto");
+
+        for (i = 0; i < dados.length; i++) {
+          var option = document.createElement("option");
+          option.value = dados[i]["_id"];
+          option.text = dados[i]["nome"];
+          x.add(option, x[1]);
+        }
+      });
+    }
+
+  </script>
 
 </body>
 

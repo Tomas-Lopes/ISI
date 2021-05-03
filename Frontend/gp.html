@@ -1,215 +1,228 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Build Helper</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon"  href="assets/img/mini.png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-		<!-- CSS here -->
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-            <link rel="stylesheet" href="assets/css/slicknav.css">
-            <link rel="stylesheet" href="assets/css/animate.min.css">
-            <link rel="stylesheet" href="assets/css/magnific-popup.css">
-            <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-            <link rel="stylesheet" href="assets/css/themify-icons.css">
-            <link rel="stylesheet" href="assets/css/slick.css">
-            <link rel="stylesheet" href="assets/css/nice-select.css">
-            <link rel="stylesheet" href="assets/css/style.css">
-            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-            <style>
-                body {
-                  font-family: "Lato", sans-serif;
-                }
-                
-                /* Fixed sidenav, full height */
-                .sidenav {
-                  height: 100%;
-                  width: 200px;
-                  position: fixed;
-                  z-index: 1;
-                  top: 0;
-                  left: 0;
-                  background-color: #111;
-                  overflow-x: hidden;
-                  padding-top: 20px;
-                }
-                
-                /* Style the sidenav links and the dropdown button */
-                .sidenav a, .dropdown-btn {
-                  padding: 6px 8px 6px 16px;
-                  text-decoration: none;
-                  font-size: 20px;
-                  color: #818181;
-                  display: block;
-                  border: none;
-                  background: none;
-                  width: 100%;
-                  text-align: left;
-                  cursor: pointer;
-                  outline: none;
-                }
-                
-                /* On mouse-over */
-                .sidenav a:hover, .dropdown-btn:hover {
-                  color: #f1f1f1;
-                }
-                
-                /* Main content */
-                .main {
-                  margin-left: 200px; /* Same as the width of the sidenav */
-                  font-size: 20px; /* Increased text to enable scrolling */
-                  padding: 0px 10px;
-                }
-                
-                /* Add an active class to the active dropdown button */
-                .active {
-                  background-color: #ff5f13;
-                  color: white;
-                }
-                
-                /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-                .dropdown-container {
-                  display: none;
-                  background-color: dimgrey;
-                  padding-left: 8px;
-                }
-                
-                /* Optional: Style the caret down icon */
-                .fa-caret-down {
-                  float: right;
-                  padding-right: 8px;
-                }
-                
-                /* Some media queries for responsiveness */
-                @media screen and (max-height: 450px) {
-                  .sidenav {padding-top: 15px;}
-                  .sidenav a {font-size: 18px;}
-                }
-                </style>
-   </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Build Helper</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="assets/img/mini.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-   <body>
-    <!-- Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder-logo-grua.png" alt="">
-                </div>
-            </div>
+  <!-- CSS here -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/slicknav.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/css/themify-icons.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/nice-select.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    /* Fixed sidenav, full height */
+    .sidenav {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+
+    /* Style the sidenav links and the dropdown button */
+    .sidenav a,
+    .dropdown-btn {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* On mouse-over */
+    .sidenav a:hover,
+    .dropdown-btn:hover {
+      color: #f1f1f1;
+    }
+
+    /* Main content */
+    .main {
+      margin-left: 200px;
+      /* Same as the width of the sidenav */
+      font-size: 20px;
+      /* Increased text to enable scrolling */
+      padding: 0px 10px;
+    }
+
+    /* Add an active class to the active dropdown button */
+    .active {
+      background-color: #ff5f13;
+      color: white;
+    }
+
+    /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+    .dropdown-container {
+      display: none;
+      background-color: dimgrey;
+      padding-left: 8px;
+    }
+
+    /* Optional: Style the caret down icon */
+    .fa-caret-down {
+      float: right;
+      padding-right: 8px;
+    }
+
+    /* Some media queries for responsiveness */
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Preloader Start -->
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="assets/img/logo/loder-logo-grua.png" alt="">
         </div>
+      </div>
     </div>
-    <!-- Preloader Start -->
-    <header>
-        <div class="w3-teal" style="background-color: #191a33!important;">
-                    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()" style="background-color: #191a33!important;">&#9776;</button> 
-        </div>    
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none ; background-color: #191a33!important; " id="mySidebar"  >
-                   <div class="logo" style="padding-top: 10px; padding-left: 10px;">
-                    <!-- logo-1 -->
-                    <a href="index.html" class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
-                     
-                    <!-- logo-2 -->
-                    <!--<a href="index.html" class="small-logo"><img src="assets/img/logo/loder-logo.png" alt=""></a> -->
+  </div>
+  <!-- Preloader Start -->
+  <header>
+    <div class="w3-teal" style="background-color: #191a33!important;">
+      <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()"
+        style="background-color: #191a33!important;">&#9776;</button>
+    </div>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
+      style="display:none ; background-color: #191a33!important; " id="mySidebar">
+      <div class="logo" style="padding-top: 10px; padding-left: 10px;">
+        <!-- logo-1 -->
+        <a href="index.html" class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
+
+        <!-- logo-2 -->
+        <!--<a href="index.html" class="small-logo"><img src="assets/img/logo/loder-logo.png" alt=""></a> -->
+      </div>
+
+      <button class="w3-bar-item w3-button w3-large" onclick="w3_close()" style="color:white; "> <i
+          class="fas fa-times"></i>
+      </button>
+      <a href="listaprojetos.html" class="w3-bar-item w3-button" style="color:white; font-size: 20px;"><img
+          src="assets/img/projetos.png" alt="some text" width=20% height=20% padding-right=10px>Projetos</a>
+      <a href="listapedidos.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
+          src="assets/img/pedidos.png" alt="some text" width=20% height=20% padding-right=10px>Pedidos </a>
+      <a href="listaarquitetos.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
+          src="assets/img/arquiteto.png" alt="some text" width=20% height=20% padding-right=10px>Arquitetos </a>
+      <a href="associar.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
+          src="assets/img/associar.png" alt="some text" width=20% height=20% padding-right=10px>Associar Arquiteto </a>
+      <button class="dropdown-btn" style="color:white;"><img src="assets/img/user.png" alt="some text" width=20%
+          height=20% style=" padding-right: 10px; padding-right: 2px;">Utilizador
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+        <a href="#" style="color:white;font-size: 16px;">Área Cliente</a>
+        <p></p>
+        <a href="#" style="color:white;font-size: 16px; ">Terminar Sessão</a>
+      </div>
+
+    </div>
+    <!-- Header Start -->
+
+    <!-- Logo -->
+
+
+
+    <!-- Mobile Menu -->
+
+
+    <!-- Header End -->
+  </header>
+  <main>
+    <div id="main">
+
+
+      <div class="header bg-gradient-hugo-daniel pb-6 eder">
+        <div class="container-fluid" sytle="padding-top: 50px;">
+          <div class="header-body">
+
+            <!-- Card stats -->
+            <div class="row">
+              <div class="col-xl-3 col-md-6 users" style="left:7%; top:40px">
+                <div class="card card-stats">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Número de Projetos</h5>
+                        <span id="numProjetos" class="h2 font-weight-bold mb-0"></span>
+                      </div>
+                      <div class="col-auto">
+                        <div clas class="icon ">
+                          <!--<h4>5</h4>-->
+                        </div>
+                      </div>
+                    </div>
                   </div>
-            
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()" style="color:white; "> <i class="fas fa-times"></i>
-            </button>
-            <a href="listaprojetos.html" class="w3-bar-item w3-button" style="color:white; font-size: 20px;"><img src="assets/img/projetos.png" alt="some text" width=20% height=20% padding-right=10px>Projetos</a>
-            <a href="listapedidos.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img src="assets/img/pedidos.png" alt="some text" width=20% height=20% padding-right=10px>Pedidos </a>
-            <a href="listaarquitetos.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img src="assets/img/arquiteto.png" alt="some text" width=20% height=20% padding-right=10px>Arquitetos </a>
-            <a href="associar.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img src="assets/img/associar.png" alt="some text" width=20% height=20% padding-right=10px>Associar Arquiteto </a>
-            <button class="dropdown-btn" style="color:white;"><img src="assets/img/user.png" alt="some text" width=20% height=20% style=" padding-right: 10px; padding-right: 2px;">Utilizador
-                <i class="fa fa-caret-down"></i>
-            </button>
-              <div class="dropdown-container" >
-                <a href="#" style="color:white;font-size: 16px;">Área Cliente</a>
-                <p></p>
-                <a href="#" style="color:white;font-size: 16px; ">Terminar Sessão</a>
+                </div>
               </div>
-              
-        </div>
-        <!-- Header Start -->
-                                              
-                            <!-- Logo -->
-                            
-                            
-                            
-                            <!-- Mobile Menu -->
-                            
-       
-        <!-- Header End -->
-    </header>
-    <main>
-        <div id="main"> 
-          
-           
-            <div class="header bg-gradient-hugo-daniel pb-6 eder">
-              <div class="container-fluid" sytle="padding-top: 50px;">
-                <div class="header-body" >
-                 
-                  <!-- Card stats -->
-                  <div class="row" >
-                    <div class="col-xl-3 col-md-6 users" style="left:7%; top:40px">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Número de Projetos</h5>
-                              <span id="numEmpresas" class="h2 font-weight-bold mb-0"></span>
-                            </div>
-                            <div class="col-auto">
-                              <div clas class="icon ">
-                                <h4>5</h4>
-                              </div>
-                            </div>
-                          </div>
+              <div class="col-xl-3 col-md-6" style="right:-12%; top:40px">
+                <div class="card card-stats">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Pedidos Rejeitados</h5>
+                        <span id="numRejeitados" class="h2 font-weight-bold mb-0"></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon ">
+                          <h4>4</h4>
                         </div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="right:-12%; top:40px">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Pedidos Rejeitados</h5>
-                              <span id="numCamaras" class="h2 font-weight-bold mb-0"></span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon ">
-                                <h4>4</h4>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6" style="right:-17%; top:40px">
+                <div class="card card-stats">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Pedidos</h5>
+                        <span id="numPedidos" class="h2 font-weight-bold mb-0"></span>
                       </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6" style="right:-17%; top:40px">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Pedidos Pendentes</h5>
-                              <span id="numCidades" class="h2 font-weight-bold mb-0"></span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon">
-                                <h4>2</h4>
-                              </div>
-                            </div>
-                          </div>
+                      <div class="col-auto">
+                        <div class="icon">
+                          <h4>2</h4>
                         </div>
                       </div>
                     </div>
@@ -217,29 +230,34 @@
                 </div>
               </div>
             </div>
-          <div style="padding-top: 20px;"><h5>5</h5></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top: 20px;">
+        <h5>5</h5>
+      </div>
 
-        
-    
-        <!-- Footer Start-->
-        <div class="footer-main">
-                <div class="footer-area footer-padding">
-                    <div class="container">
-                        <div class="row  justify-content-between">
-                            <div class="col-sm-4">
-                                <div class="single-footer-caption mb-30">
-                                    <!-- logo -->
-                                    <div class="footer-logo">
-                                        <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
-                                    </div>
-                                   <!--   <div class="footer-tittle">
+
+
+      <!-- Footer Start-->
+      <div class="footer-main">
+        <div class="footer-area footer-padding">
+          <div class="container">
+            <div class="row  justify-content-between">
+              <div class="col-sm-4">
+                <div class="single-footer-caption mb-30">
+                  <!-- logo -->
+                  <div class="footer-logo">
+                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                  </div>
+                  <!--   <div class="footer-tittle">
                                         <div class="footer-pera">
                                             <p class="info1">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
                                         </div>
                                     </div>-->
-                                </div>
-                            </div>
-                            <!--<div class="col-lg-2 col-md-4 col-sm-5">
+                </div>
+              </div>
+              <!--<div class="col-lg-2 col-md-4 col-sm-5">
                                 <div class="single-footer-caption mb-50">
                                     <div class="footer-tittle">
                                         <h4>Quick Links</h4>
@@ -252,107 +270,137 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <div class="col-sm-4">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle text-center">
-                                        <h4>Contactos</h4>
-                                        <ul>
-                                            <li><a>Telefone: (+351) 253 345 678</a></li>
-                                            <li><a>E-mail: buildhelper2021isi@gmail.com</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-sm-4">
-                               
-                                    <!-- Form -->
-                                    <div class="map-footer text-right">
-
-                                        <a href="https://pt.linkedin.com/"><i class="fab fa-linkedin" style="font-size:60px;color:rgb(63, 67, 76); padding-right:10px ; "></i></a>
-                                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"style="font-size:60px;color:rgb(63, 67, 76); padding-right:10px"></i></a>
-                                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-square" style="font-size:60px;color:rgb(63, 67, 76);"></i></a>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+              <div class="col-sm-4">
+                <div class="single-footer-caption mb-50">
+                  <div class="footer-tittle text-center">
+                    <h4>Contactos</h4>
+                    <ul>
+                      <li><a>Telefone: (+351) 253 345 678</a></li>
+                      <li><a>E-mail: buildhelper2021isi@gmail.com</a></li>
+                    </ul>
+                  </div>
                 </div>
-        </div> 
+              </div>
+              <div class=" col-sm-4">
+
+                <!-- Form -->
+                <div class="map-footer text-right">
+
+                  <a href="https://pt.linkedin.com/"><i class="fab fa-linkedin"
+                      style="font-size:60px;color:rgb(63, 67, 76); padding-right:10px ; "></i></a>
+                  <a href="https://www.instagram.com/"><i class="fab fa-instagram"
+                      style="font-size:60px;color:rgb(63, 67, 76); padding-right:10px"></i></a>
+                  <a href="https://www.facebook.com/"><i class="fab fa-facebook-square"
+                      style="font-size:60px;color:rgb(63, 67, 76);"></i></a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-        <!-- Footer End-->
-    </main>
-   
-	<!-- JS here -->
-    <script>
-        function w3_open() {
-          document.getElementById("main").style.marginLeft = "25%";
-          document.getElementById("mySidebar").style.width = "25%";
-          document.getElementById("mySidebar").style.display = "block";
-          document.getElementById("openNav").style.display = 'none';
+    </div>
+    <!-- Footer End-->
+  </main>
+
+  <!-- JS here -->
+  <script>
+    function w3_open() {
+      document.getElementById("main").style.marginLeft = "25%";
+      document.getElementById("mySidebar").style.width = "25%";
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("openNav").style.display = 'none';
+    }
+    function w3_close() {
+      document.getElementById("main").style.marginLeft = "0%";
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("openNav").style.display = "inline-block";
+    }
+  </script>
+  <script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
         }
-        function w3_close() {
-          document.getElementById("main").style.marginLeft = "0%";
-          document.getElementById("mySidebar").style.display = "none";
-          document.getElementById("openNav").style.display = "inline-block";
-        }
-        </script>
-        <script>
-            /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
-            
-            for (i = 0; i < dropdown.length; i++) {
-              dropdown[i].addEventListener("click", function() {
-              this.classList.toggle("active");
-              var dropdownContent = this.nextElementSibling;
-              if (dropdownContent.style.display === "block") {
-              dropdownContent.style.display = "none";
-              } else {
-              dropdownContent.style.display = "block";
-              }
-              });
-            }
-            </script>
-    
-  
-		<!-- All JS Custom Plugins Link Here here -->
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
+      });
+    }
+  </script>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-        <!-- Date Picker -->
-        <script src="./assets/js/gijgo.min.js"></script>
-		<!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-		<script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
 
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="./assets/js/jquery.scrollUp.min.js"></script>
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-		<script src="./assets/js/jquery.sticky.js"></script>
-               
-        <!-- counter , waypoint -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-        <script src="./assets/js/jquery.counterup.min.js"></script>
+  <!-- All JS Custom Plugins Link Here here -->
+  <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+  <!-- Jquery, Popper, Bootstrap -->
+  <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+  <!-- Jquery Mobile Menu -->
+  <script src="./assets/js/jquery.slicknav.min.js"></script>
 
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+  <!-- Jquery Slick , Owl-Carousel Plugins -->
+  <script src="./assets/js/owl.carousel.min.js"></script>
+  <script src="./assets/js/slick.min.js"></script>
+  <!-- Date Picker -->
+  <script src="./assets/js/gijgo.min.js"></script>
+  <!-- One Page, Animated-HeadLin -->
+  <script src="./assets/js/wow.min.js"></script>
+  <script src="./assets/js/animated.headline.js"></script>
+  <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+  <!-- Scrollup, nice-select, sticky -->
+  <script src="./assets/js/jquery.scrollUp.min.js"></script>
+  <script src="./assets/js/jquery.nice-select.min.js"></script>
+  <script src="./assets/js/jquery.sticky.js"></script>
+
+  <!-- counter , waypoint -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+  <script src="./assets/js/jquery.counterup.min.js"></script>
+
+  <!-- contact js -->
+  <script src="./assets/js/contact.js"></script>
+  <script src="./assets/js/jquery.form.js"></script>
+  <script src="./assets/js/jquery.validate.min.js"></script>
+  <script src="./assets/js/mail-script.js"></script>
+  <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+  <!-- Jquery Plugins, main Jquery -->
+  <script src="./assets/js/plugins.js"></script>
+  <script src="./assets/js/main.js"></script>
+
+  <script>
+    window.onload = function () {
+      GetPedidos()
+    }
+    function GetPedidos() {
+
+      fetch('http://127.0.0.1:8080/user/pedidos', {
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).then(dados => {
+
+        var totalPedidos = 0;
+
+        totalPedidos = array.length
+        document.getElementById("numPedidos").innerText = array.length;
         
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        
-    </body>
+      });
+    }
+  </script>
+
+</body>
+
 </html>

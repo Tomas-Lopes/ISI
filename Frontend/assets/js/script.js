@@ -32,8 +32,8 @@ function confirmPassword()
 function visible() {
   var x = document.getElementById("registerPassword");
   var y = document.getElementById("eye");
-  if (x.type === "password") {
-      x.type = "text";
+  if (x === "password") {
+      x = "text";
       y.className = "far fa-eye-slash";
   } else {
       x.type = "password";

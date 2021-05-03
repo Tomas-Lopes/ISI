@@ -336,12 +336,7 @@
       }).then(response => {
         return response.json();
       }).then(dados => {
-        //const getData = GetArquitetos(1,2);
-
-        //const jstring=JSON.stringify(getData);
-
-        //jstring = '[{"_id":"60870fcb1d5638558853ae9d","email":"arq_rita@gmail.com","nome":"Rita Sanches"},{"_id":"6087105a1d5638558853ae9f","email":"arq_ricardo@gmail.com","nome":"Ricardo Brito"}]';
-
+       
         var table = document.getElementById("tbody");
 
         for (i = 0; i < dados.length; i++) {
