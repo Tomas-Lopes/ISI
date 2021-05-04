@@ -23,7 +23,7 @@ window.onload = function () {
             `http://127.0.0.1:8080/user/associarArq`,
             {
                 mode: 'cors',
-                method: 'POST',
+                method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify(data)
             }).then(response => {
