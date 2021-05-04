@@ -183,13 +183,13 @@
                     </div>
                   </div>
                   <div class="form-group" style="width: 90%;">
-                    <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div id="tipoArquiteto" class="input-group input-group-merge input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                       </div>
-                      <select name="Tipo de Arquiteto" id="tipoArquiteto">
-                        <option value="" disabled selected hidden>Escolha um Arquiteto</option>
-                      </select>
+                        <select name="Tipo de Pedido">
+                          <option></option>
+                        </select>
                     </div>
                   </div>
 
@@ -343,14 +343,14 @@
   <script src="./assets/js/main.js"></script>
   <script src="./controllers/arquiteto.controller.js"></script>
 
-  <script>
+  <script >
     window.onload = function () {
       GetArquitetos()
     }
-    function GetArquitetos() {
+    async function GetArquitetos() {
 
       fetch('http://127.0.0.1:8080/user/arquitetos', {
-
+        
         headers: {
           'Content-Type': 'application/json'
         },
@@ -359,18 +359,44 @@
       }).then(response => {
         return response.json();
       }).then(dados => {
-
-        var x = document.getElementById("tipoArquiteto");
-
-        for (i = 0; i < dados.length; i++) {
-          var option = document.createElement("option");
-          option.value = dados[i]["_id"];
-          option.text = dados[i]["nome"];
-          x.add(option, x[1]);
+        console.log(dados);
+        const coisa = document.getElementById("tipoArquiteto")
+        let strHtml = `
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        <select name="Tipo de Pedido">
+          <option></option>
+        `
+        for (i = 0; i < dados.length; i++){
+          strHtml += `
+          <option value="`+dados[i]._id+`">`+dados[i].nome+`</option>
+          `
         }
+        `
+        </select>
+        `
+        coisa.innerHTML = strHtml;
+
+        //var x = document.getElementById("tipoArquiteto");
+        /*for (i = 0; i < dados.length; i++){
+          console.log("eu sou muito burooooooooooo")
+          //console.log(document.getElementById("tipoArquiteto").innerHTML)
+          var option = `
+          <option value="`+dados[i]._id+`">`+dados[i].nome+`</option>
+          `
+          document.getElementById("tipoArquiteto").innerHTML += option;
+        }*/
+        /*for (i = 0; i < dados.length; i++) {
+          console.log(dados.length);
+          var option = document.createElement("option");
+          option.value =dados[i]._id;
+          option.text = dados[i].nome;
+          x.add(option, x[i]);
+        }*/
       });
     }
-
+    
   </script>
 
 </body>
