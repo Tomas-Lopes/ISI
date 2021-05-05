@@ -167,18 +167,12 @@
                 </div>
                 <form id="formAssociar" role="form">
                   <div class="form-group" style="width: 90%;">
-                    <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div id="tipoPedido" class="input-group input-group-merge input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
                       </div>
-                      <select name="Tipo de Pedido" id="tipoPedido">
-                        <option value="" disabled selected hidden>Escolha um Pedido</option>
-                        <option value="volvo">Obras rodoviárias</option>
-                        <option value="saab">Obras Marítimas</option>
-                        <option value="opel">Habitação e construção civil</option>
-                        <option value="audi">Requalificação urbana</option>
-                        <option value="opel">Centros logísticos</option>
-                        <option value="opel">Complexos desportivos</option>
+                      <select name="Tipo de Pedido">
+                        <option></option>
                       </select>
                     </div>
                   </div>
@@ -187,9 +181,9 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                       </div>
-                        <select name="Tipo de Pedido">
-                          <option></option>
-                        </select>
+                      <select name="Tipo de Arquiteto">
+                        <option></option>
+                      </select>
                     </div>
                   </div>
 
@@ -343,14 +337,15 @@
   <script src="./assets/js/main.js"></script>
   <script src="./controllers/arquiteto.controller.js"></script>
 
-  <script >
+  <script>
     window.onload = function () {
       GetArquitetos()
+      GetPedidos()
     }
     async function GetArquitetos() {
 
       fetch('http://127.0.0.1:8080/user/arquitetos', {
-        
+
         headers: {
           'Content-Type': 'application/json'
         },
@@ -365,12 +360,12 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-user"></i></span>
         </div>
-        <select name="Tipo de Pedido">
+        <select name="Tipo de Arquiteto">
           <option></option>
         `
-        for (i = 0; i < dados.length; i++){
+        for (i = 0; i < dados.length; i++) {
           strHtml += `
-          <option value="`+dados[i]._id+`">`+dados[i].nome+`</option>
+          <option value="`+ dados[i]._id + `">` + dados[i].nome + `</option>
           `
         }
         `
@@ -378,25 +373,47 @@
         `
         coisa.innerHTML = strHtml;
 
-        //var x = document.getElementById("tipoArquiteto");
-        /*for (i = 0; i < dados.length; i++){
-          console.log("eu sou muito burooooooooooo")
-          //console.log(document.getElementById("tipoArquiteto").innerHTML)
-          var option = `
-          <option value="`+dados[i]._id+`">`+dados[i].nome+`</option>
-          `
-          document.getElementById("tipoArquiteto").innerHTML += option;
-        }*/
-        /*for (i = 0; i < dados.length; i++) {
-          console.log(dados.length);
-          var option = document.createElement("option");
-          option.value =dados[i]._id;
-          option.text = dados[i].nome;
-          x.add(option, x[i]);
-        }*/
+
       });
     }
+    async function GetPedidos() {
+
+      fetch('http://127.0.0.1:8080/user/pedidos', {
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        //credentials: 'include',
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).then(dados => {
+        console.log(dados);
+        const pedido = document.getElementById("tipoPedido");
+        let strHtml = `
+  <div class="input-group-prepend">
+    <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+  </div>
+  <select name="Tipo de Pedido">
+    <option></option>
+  `
+   
+        for (i = 0; i < dados.results.length; i++) {
+          var array= dados.results[i];
+          strHtml += `
+    <option value="`+ array.id + `">` + array.properties.dealname + `</option>
+    `
     
+        }
+        `
+  </select>
+  `
+        pedido.innerHTML = strHtml;
+
+
+      });
+    }
+
   </script>
 
 </body>
