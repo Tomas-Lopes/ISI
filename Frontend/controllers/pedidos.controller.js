@@ -11,10 +11,10 @@ const requestOptions = {
     credentials: 'include'
 };
 
-//carregar pedidos
-getPedidos();
 
-async function getPedidos() {
+getCountProjetos("contadorProjectos");
+
+async function getCountProjetos(elemento) {
 
     try {
         let conteudo = "";
@@ -22,18 +22,39 @@ async function getPedidos() {
         const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
+        var contador=0;
         for (const pedido of pedidos.results) {
-            conteudo += "<tr><td> " + pedido.id + "</td>";
-            conteudo += "<td> " + "cliente" + "</td>";
-            conteudo += "<td> " + "pedido.localizacao" + "</td>";
-            conteudo += "<td> " + pedido.project_type + "</td>";
-            conteudo += "<td> " + "descricao" + "</td>";
-            conteudo += "<td> " + pedido.properties.amount + "</td>";
-            conteudo += "<td> " + getDate(pedido.properties.closedate) + "</td>";
-            conteudo += "<td> " + "estado" + "</td></tr>";
+               contador=contador+1; 
         }
 
-        document.getElementById("bodyPedidos").innerHTML = conteudo;
+        
+        //  contador=Object.keys(pedidos).length;
+
+        document.getElementById(elemento).innerHTML = contador;
+
+    } catch (error) {
+        console.log("Erro:" + error);
+    }
+}
+
+
+
+getCountPedidos("contador");
+
+async function getCountPedidos(elemento) {
+
+    try {
+        let conteudo = "";
+        //Fetch
+        const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
+        const pedidos = await response.json();
+        console.log(pedidos);
+        var contador=0;
+        for (const pedido of pedidos.results) {
+               contador=contador+1; 
+        }
+
+        document.getElementById(elemento).innerHTML = contador;
 
     } catch (error) {
         console.log("Erro:" + error);
