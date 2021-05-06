@@ -335,6 +335,32 @@ function updateDeal(dealId, id, res) {
 }
 
 
+function updateDealState(dealId, state, res) {
+
+  var options = {
+    method: 'PATCH',
+    url: `https://api.hubapi.com/deals/v1/deal/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    headers: { accept: "application/json", 'content-type': 'application/json' },
+    body: {
+      properties:
+        [
+          { name: "estado_do_pedido", value: state}
+        ]
+    },
+    json: true
+  };
+
+
+  request(options, function (error, response, body) {
+    console.log(response);
+    if (error) throw new Error(error);
+    res.send({
+      message: "State updated with success",
+      estado_do_pedido: state
+    });
+  })
+}
+
 module.exports = {
   getClients: getClients,
   getClientByID: getClientByID,
@@ -347,4 +373,5 @@ module.exports = {
   addDeal: addDeal,
   getDeal: getDeal,
   updateDeal: updateDeal,
+  updateDealState:  updateDealState,
 };

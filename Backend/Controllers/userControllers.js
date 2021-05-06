@@ -253,6 +253,15 @@ function getPedidos(req, res) {
 
 }
 
+function changeState(req, res){
+
+  const newState = req.body.state;
+  const id_pedido = req.body.dealId;
+  
+  hubspot.updateDealState(id_pedido, newState, res)
+
+}
+
 
 module.exports = {
   Login: Login,
@@ -264,7 +273,7 @@ module.exports = {
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,
   getArq: getArq,
-
+  changeState: changeState,
 };
 
 
