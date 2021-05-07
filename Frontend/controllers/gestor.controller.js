@@ -24,7 +24,7 @@ async function getPedidos() {
         console.log(pedidos);
         for (const pedido of pedidos.results) {
             conteudo += "<tr><td> " + pedido.id + "</td>";
-            conteudo += "<td> " + "cliente" + "</td>";
+            conteudo += "<td> " + pedido.properties.dealname + "</td>";
             conteudo += "<td> " + "pedido.localizacao" + "</td>";
             conteudo += "<td> " + pedido.project_type + "</td>";
             conteudo += "<td> " + "descricao" + "</td>";
