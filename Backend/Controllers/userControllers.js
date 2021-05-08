@@ -241,6 +241,7 @@ function getPedidos(req, res) {
   let options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    //qs: {limit: '100', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
