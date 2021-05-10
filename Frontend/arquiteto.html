@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
+        
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Build Helper</title>
         <meta name="description" content="">
@@ -11,8 +11,7 @@
         <link rel="manifest" href="site.webmanifest">
 		<link rel="shortcut icon"  href="assets/img/mini.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="./style.css" />
-        <script src="./index.js"></script>
+        
     
 
 		<!-- CSS here -->
@@ -27,6 +26,7 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+            <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
    </head>
 
    <body>
@@ -142,59 +142,7 @@
                   width: 100%;
                 }
             </style>
-
-            <script src="https://js.arcgis.com/4.19/"></script>
-            <script>
-        
-                require([
-                  "esri/config",
-                  "esri/Map",
-                  "esri/views/MapView",
-              
-                  "esri/Graphic",
-                  "esri/layers/GraphicsLayer"
-              
-                  ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
-              
-                esriConfig.apiKey = "AAPK4794dac93f2f4bfb9d5c5bc14c437164XR9J186t8cbfv7LaCox9yDhOY2MhlkPIatcbgP88-kkUORDpAZr1jen-wKBkGAhN";
-              
-                const map = new Map({
-                  basemap: "arcgis-topographic" //Basemap layer service
-                });
-              
-                const view = new MapView({
-                  map: map,
-                  center: [-8.293912, 41.450346], //Longitude, latitude
-                  zoom: 11,
-                  container: "viewDiv"
-               });
-              
-               const graphicsLayer = new GraphicsLayer();
-               map.add(graphicsLayer);
-              
-               const point = { //Create a point
-                  type: "point",
-                  longitude: -8.293912,
-                  latitude: 41.450346
-               };
-               const simpleMarkerSymbol = {
-                  type: "simple-marker",
-                  color: [226, 119, 40],  // Orange
-                  outline: {
-                      color: [255, 255, 255], // White
-                      width: 1
-                  }
-               };
-              
-               const pointGraphic = new Graphic({
-                  geometry: point,
-                  symbol: simpleMarkerSymbol
-               });
-               graphicsLayer.add(pointGraphic);
-              
-              
-               });
-              </script>  
+                           
             
             <div class="card-body">
                 <div class="row">
@@ -407,6 +355,8 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-        
+        <!--mapgis-->
+        <script src="./assets/js/mapgis.js"></script>
+        <script src="https://js.arcgis.com/4.19/"></script>
     </body>
 </html>
