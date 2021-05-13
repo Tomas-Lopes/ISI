@@ -20,8 +20,9 @@ const formNovoPedido = document.getElementById("formNovoPedido");
             description: descricaoInput,
             amount: orcamentoInput,
             closedate: dataInput,
-            dealstage: "appointmentscheduled"
-            
+            dealstage: "appointmentscheduled",
+            arq_id: "0",
+            gestorid: "1"
         }
 
         fetch(`http://127.0.0.1:8080/user/newProject`, {

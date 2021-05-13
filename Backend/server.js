@@ -25,3 +25,5 @@ connectDB();
 server.listen(port, () => {
   console.log("O servidor esta a escuta na porta " + port);
 });
+
+
