@@ -7,6 +7,7 @@ const isArq = require("../Middleware/isArq");
 const isGes = require("../Middleware/isGes");
 const isCam = require("../Middleware/isCam");
 const con = require("../Config/ConnectionSF");
+const moloniController = require("../Controllers/moloniController");
 
 router.post("/login", userController.Login)
 router.post("/register", userController.Register)

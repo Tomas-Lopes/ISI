@@ -1,7 +1,5 @@
 const req = require('request');
 const querystring = require('querystring');
-const { response } = require('express');
-//const mainController = require('./main.controller');
 
 function getToken(callback) {
   let options = {
@@ -66,6 +64,51 @@ function getPDFLink(document_id, callback) {
                 'body': res.body
             });
 
+        }
+    })
+}
+
+function getCompany(callback) {
+    getToken((res) => {
+        if (res.access_token) {
+            const access_token = res.access_token;
+            let options = {
+                url: `https://api.moloni.pt/v1/companies/getAll/?access_token=${access_token}`
+            }
+            req.get(options, (err, res) => {
+                if (!err && res.statusCode == 200) {
+                    let resBody = JSON.parse(res.body);
+                    let company_id = -1;
+                    for (let i = 0; i < resBody.length; i++) {
+                        if (resBody[i].email == process.env.EMAIL_USERNAME) {
+                            company_id = resBody[i].company_id;
+                        }
+                    }
+                    if (company_id != -1) {
+                        callback({
+                            'company_id': company_id,
+                            'access_token': access_token
+                        });
+                    } else {
+                        callback({
+                            'statusCode': 404,
+                            'body': {
+                                'message': 'Company not found'
+                            }
+                        });
+                    }
+                } else {
+                    callback({
+                        'statusCode': res.statusCode,
+                        'body': JSON.parse(res.body)
+                    });
+                }
+            })
+        } else {
+            callback({
+                'statusCode': res.statusCode,
+                'body': res.body
+            });
         }
     })
 }
