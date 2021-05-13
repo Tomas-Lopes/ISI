@@ -229,34 +229,9 @@ function associarArquiteto(req, res) {
   const id_arquiteto = req.body.arq_id;
   const id_pedido = req.body.dealId;
 
-  /*
-  const amount = req.body.amount;
-  const closedate = req.body.closedate;
-  const dealname = req.body.dealname;
-  const dealstage = req.body.dealstage;
-  const description = req.body.description;
-  const project_type = req.body.project_type;
-
-  const properties = {
-    amount: amount,
-    closedate: closedate,
-    dealname: dealname,
-    dealstage: dealstage,
-    description: description,
-    project_type: project_type,
-    hubspot_owner_id: "69176641",
-    pipeline: "default",
-    arq_id: id_arquiteto,
-    gestorid: "1"
-  }
-  Falar com a escax da cena de mandar o data para depois meter no archdesk
-  */
-
   hubspot.updateDeal(id_pedido, id_arquiteto, res);
-  /*
   hubspot.getDeal(id_pedido, res);
-  archkdesk.addDeal(properties, res);
-  */
+
 }
 
 function getPedidos(req, res) {

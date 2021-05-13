@@ -296,9 +296,7 @@ function getDeal(dealId, res) {
         dealId: data.hs_object_id
       }
       console.log(data)
-      res({
-        'dealId': id
-      });
+      res.send(data);
     } else {
       res({
         'statusCode': res.statusCode,
