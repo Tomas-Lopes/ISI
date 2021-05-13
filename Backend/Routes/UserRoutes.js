@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../Controllers/userControllers");
+const hubspotController = require("../Controllers/hubspotController");
 //const userController = require("../Controllers/hubspotController");
 const isLogged = require("../Middleware/isLogged");
 const isArq = require("../Middleware/isArq");
@@ -22,7 +23,7 @@ router.get("/arquitetos", userController.getArq)
 
 router.put("/associarArq", userController.associarArquiteto)
 
-router.get("/teste", async (req, res) => {
+ /* router.get("/teste", async (req, res) => {
     const result = await con.sobject("TesteFDS__c").find({},{Id: 1, Name: 1, Texto__c: 1, Texto2__c:1});
     return res.send(result);
 })
@@ -34,6 +35,8 @@ router.post("/teste", async (req, res) => {
     const createdTestFDS = await con.sobject("TesteFDS__c").create(data);
     if (!createdTestFDS) return res.send("fodeu")
     return res.send(createdTestFDS);
-} )
+} )*/
+
+router.get("/testezao", hubspotController.getDeal)
 
 module.exports = router;
