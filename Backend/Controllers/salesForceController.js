@@ -65,4 +65,5 @@ async function alterarEstado(req, res){
 }
 module.exports = {
   migrarDeals: migrarDeals,
+  alterarEstado: alterarEstado
 };
