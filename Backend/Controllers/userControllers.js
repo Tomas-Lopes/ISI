@@ -230,6 +230,8 @@ function associarArquiteto(req, res) {
   const id_pedido = req.body.dealId;
 
   hubspot.updateDeal(id_pedido, id_arquiteto, res);
+  SF.migrarDeals(req, id_pedido, id_arquiteto, res);
+
 }
 
 function getPedidos(req, res) {
