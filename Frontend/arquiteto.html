@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="assets/img/mini.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+    
 
 
 
@@ -140,7 +140,7 @@
 
 
 
-        <!--GIS API-->
+        <!--GIS API
         <style>
             html,
             body,
@@ -193,8 +193,8 @@
                     }
                 });
 
-                view.ui.add(basemapGallery, "top-right"); 
-                
+                view.ui.add(basemapGallery, "top-right");
+
                 const point = { //Create a point
                     type: "point",
                     longitude: -8.293912,
@@ -217,7 +217,7 @@
 
 
             });
-        </script>
+        </script>-->
 
         <div class="card-body">
             <div class="row">
@@ -311,14 +311,15 @@
                                                         style="float: left; padding-right:15px; margin-top: 4px"></i>
                                                     <li>Gerar Documento</li>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Enviar</button>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal" id='getDocs'>Gerar Documento</button>
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Enviar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </tr>
                         </tfoot>
                         <tbody id="tbody">
@@ -447,6 +448,7 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/googledocs.js"></script>
     <!--mapgis-->
 
 
