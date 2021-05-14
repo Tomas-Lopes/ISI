@@ -188,7 +188,8 @@
                   </div>
 
                   <div class="text-center">
-                    <button id="associar" type="submit" class="btn ">
+                    <!--<button id="associar" type="submit" class="btn ">-->
+                      <button type="button" onclick="associar()" class="btn">
                       Associar
                     </button>
                   </div>
@@ -336,6 +337,7 @@
   <script src="./assets/js/plugins.js"></script>
   <script src="./assets/js/main.js"></script>
   <script src="./controllers/arquiteto.controller.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   <script>
     window.onload = function () {
@@ -365,7 +367,7 @@
         `
         for (i = 0; i < dados.length; i++) {
           strHtml += `
-          <option value="`+ dados[i]._id + `">` + dados[i].nome + `</option>
+          <option value="`+ dados[i]._id + `">` + dados[i].id_build + `</option>
           `
         }
         `

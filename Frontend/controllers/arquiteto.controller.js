@@ -1,15 +1,12 @@
-window.onload = function () {
+//window.onload = function () {
     console.log("ola nuno");
-    const formAssociar = document.getElementById("formAssociar");
-    
+    //const formAssociar = document.getElementById("formAssociar");
 
-    //fetch do registo
-
-    formAssociar.addEventListener('submit', (event) => {
-        document.getElementById("associar").disabled = true;
-
+    /*formAssociar.addEventListener('submit', (event) => {
         event.preventDefault();
-
+        document.getElementById("associar").disabled = true;
+*/
+async function associar() {
         var pedidoInput = document.getElementById("tipoPedido").value;
         var arquitetoInput = document.getElementById("tipoArquiteto").value;
 
@@ -17,14 +14,16 @@ window.onload = function () {
             pedido: pedidoInput,
             arquiteto: arquitetoInput,
         }
-
+        //console.log("entrei")
         fetch(
-            //nao ha rota ainda
             `http://127.0.0.1:8080/user/associarArq`,
             {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 mode: 'cors',
-                method: 'PUT',
-                credentials: 'include',
+                method: 'POST',
+                //credentials: 'include',
                 body: JSON.stringify(data)
             }).then(response => {
                 return response.json();
@@ -51,9 +50,10 @@ window.onload = function () {
                     }
                 }
             }).catch(error => {
-                document.getElementById("associar").disabled = false;
+                //document.getElementById("associar").disabled = false;
+                //console.log(error)
                 if (error.message == 'Este pedido e arquiteto não existem. Por favor, tente novamente!') {
-                    swal({
+                    Swal.fire({
                         html: '<strong><h3>Este pedido e arquiteto não existem. Por favor, tente novamente!</h3></strong>',
                         showCancelButton: false,
                         showConfirmButton: false,
@@ -61,7 +61,7 @@ window.onload = function () {
                         timer: 2000
                     })
                 } else {
-                   alert(error.message /*
+                    alert(error.message /*
                         html: '<strong><h3>Ocorreu um erro! Tente mais tarde. Obrigado!</h3></strong>',
                         showCancelButton: false,
                         showConfirmButton: false,
@@ -71,5 +71,5 @@ window.onload = function () {
                     )
                 }
             });
-        });
-    }
+        }
+
