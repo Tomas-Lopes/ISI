@@ -27,7 +27,7 @@ async function getPedidos() {
             conteudo += "<td> " + pedido.properties.dealname + "</td>";
             conteudo += "<td> " + "pedido.localizacao" + "</td>";
             conteudo += "<td> " + pedido.project_type + "</td>";
-            conteudo += "<td> " + "descricao" + "</td>";
+            conteudo += "<td> " + pedido.description + "</td>";
             conteudo += "<td> " + pedido.properties.amount + "</td>";
             conteudo += "<td> " + getDate(pedido.properties.closedate) + "</td>";
             conteudo += "<td> " + "estado" + "</td></tr>";

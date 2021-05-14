@@ -2,7 +2,6 @@ const User = require("../Models/User");
 const Bcrypt = require("bcryptjs");
 const clientCookie = require("../Config/cookie");
 const hubspot = require("./hubspotController");
-const { getClientByEmail } = require("./hubspotController");
 const request = require("request");
 const SF = require("./salesForceController");
 
@@ -174,10 +173,10 @@ async function EditUser(req, res) {
 }
 
 async function getArq(req, res) {
-  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1});
+  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1 });
   res.send(arqs);
 }
-
+/*
 function getUsers(req, res) {
   const user_id = req.user.email;
 
@@ -199,6 +198,46 @@ function getUsers(req, res) {
     }
   });
 }
+*/
+function getClients(req, res) {
+  var request = require("request")
+  const returnedContacts = [];
+  const API_KEY = 'ffdfdd87-f540-403c-8427-acc9eb296971'
+  const count = 10;
+
+  async function getContacts(offset) {
+    if (typeof offset == 'undefined') {
+      offsetParam = null;
+    } else {
+      offsetParam = `vidOffset=${offset}`;
+    }
+    const hapikeyParam = `hapikey=${API_KEY}`
+    const paramsString = `?count=${count}&${hapikeyParam}&${offsetParam}`;
+
+    const finalUrl = `https://api.hubapi.com/contacts/v1/lists/all/contacts/all${paramsString}`
+    request(finalUrl, (error, response, body) => {
+      if (error) {
+        console.log('error', error)
+        throw new Error
+      }
+      const parsedBody = JSON.parse(body)
+      parsedBody.contacts.forEach(contact => {
+        returnedContacts.push(contact);
+      });
+      if (parsedBody['has-more']) {
+        getContacts(parsedBody['vid-offset'])
+      } else {
+        //print out all contacts
+        console.log(returnedContacts)
+        res.status(200).send({
+          clients: returnedContacts,
+        });
+      }
+    })
+  };
+
+  getContacts()
+}
 
 async function getArq(req, res) {
   const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1 });
@@ -209,25 +248,39 @@ function newProj(req, res) {
   const amount = req.body.amount;
   const closedate = req.body.closedate;
   const dealname = req.body.dealname;
-  const dealstage = req.body.dealstage;
   const description = req.body.description;
   const project_type = req.body.project_type;
+  //console.log(res.body)
+  //const cliente_id = hubspot.getClientByID();
 
-  const properties = {
-    amount: amount,
-    closedate: closedate,
-    dealname: dealname,
-    dealstage: dealstage,
-    description: description,
-    project_type: project_type,
-    hubspot_owner_id: "69176641",
-    pipeline: "default",
-    arq_id: "0",
-    gestorid: "1",
+  var options = {
+    method: "POST",
+    url: "https://api.hubapi.com/deals/v1/deal",
+    qs: { hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971" },
+    headers: { accept: "application/json", "content-type": "application/json" },
+    body: {
+      //associations: { associatedVids: [51] },
+      properties:
+        [{ value: dealname, name: 'dealname' },
+        { value: 'appointmentscheduled', name: 'dealstage' },
+        { value: 'default', name: 'pipeline' },
+        { value: '69176641', name: 'hubspot_owner_id' },
+        { value: closedate, name: 'closedate' },
+        { value: amount, name: 'amount' },
+        { value: description, name: 'description' },
+        { value: project_type, name: 'project_type' },
+        { value: '0', name: 'arq_id' },
+        { value: '1', name: 'gestorid' }]
+    },
+    json: true
   };
 
-  hubspot.addDeal(properties, res);
-  res.send("Projeto adicionado com sucesso");
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    res.send("Projeto adicionado com sucesso");
+    console.log(body);
+  });
+  //hubspot.addDeal(properties, res);
 }
 
 function associarArquiteto(req, res) {
@@ -262,7 +315,7 @@ function changeState(req, res) {
   hubspot.updateDealState(id_pedido, newState, res);
 }
 
-function listarPedidosCamara (req, res) {
+function listarPedidosCamara(req, res) {
   const id_pedido = req.body.dealId;
   moloni.inserirDadosProjetos(id_pedido, res);
 }
@@ -272,7 +325,8 @@ module.exports = {
   Register: Register,
   EditUser: EditUser,
   Logout: Logout,
-  getUsers: getUsers,
+  //getUsers: getUsers,
+  getClients: getClients,
   newProj: newProj,
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,

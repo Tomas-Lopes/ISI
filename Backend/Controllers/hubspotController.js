@@ -263,14 +263,14 @@ function addDeal(properties, res) {
   const deal = {
     properties: properties,
   };
-  var request = require("request");
-
+  
   var options = {
     method: "POST",
-    url: "https://api.hubapi.com/crm/v3/objects/deals",
+    url: "https://api.hubapi.com/deals/v1/deal",
     qs: { hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971" },
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify(deal),
+    json: true
   };
 
   request(options, function (error, response, body) {
