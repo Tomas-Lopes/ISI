@@ -173,6 +173,11 @@ async function EditUser(req, res) {
   }
 }
 
+async function getArq(req, res) {
+  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1});
+  res.send(arqs);
+}
+
 function getUsers(req, res) {
   const user_id = req.user.email;
 
@@ -257,6 +262,11 @@ function changeState(req, res) {
   hubspot.updateDealState(id_pedido, newState, res);
 }
 
+function listarPedidosCamara (req, res) {
+  const id_pedido = req.body.dealId;
+  moloni.inserirDadosProjetos(id_pedido, res);
+}
+
 module.exports = {
   Login: Login,
   Register: Register,
@@ -268,4 +278,5 @@ module.exports = {
   getPedidos: getPedidos,
   getArq: getArq,
   changeState: changeState,
+  listarPedidosCamara: listarPedidosCamara
 };
