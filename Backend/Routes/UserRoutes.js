@@ -9,6 +9,7 @@ const isGes = require("../Middleware/isGes");
 const isCam = require("../Middleware/isCam");
 const con = require("../Config/ConnectionSF");
 const moloniController = require("../Controllers/moloniController");
+const SF = require("../Controllers/salesForceController");
 
 router.post("/login", userController.Login)
 router.post("/register", userController.Register)
@@ -22,6 +23,7 @@ router.get("/arquitetos", userController.getArq)
 
 
 router.put("/associarArq", userController.associarArquiteto)
+router.put("/alterarEst", SF.alterarEstado)
 
  /* router.get("/teste", async (req, res) => {
     const result = await con.sobject("TesteFDS__c").find({},{Id: 1, Name: 1, Texto__c: 1, Texto2__c:1});
