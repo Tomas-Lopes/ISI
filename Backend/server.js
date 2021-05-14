@@ -6,6 +6,7 @@ const port = 8080;
 const connectDB = require("./Config/connection");
 const userRoutes = require("./Routes/UserRoutes");
 const cookieParser = require('cookie-parser');
+const googleapi=require("./Routes/googleapi");
 
 server.use(bp.json(), bp.urlencoded({ extended: true }));
 server.use(cookieParser());
@@ -18,6 +19,7 @@ server.use(function (req, res, next) { //
 })
 
 server.use("/user", userRoutes);
+server.use("/google", googleapi);
 connectDB();
 
 
@@ -25,5 +27,3 @@ connectDB();
 server.listen(port, () => {
   console.log("O servidor esta a escuta na porta " + port);
 });
-
-
