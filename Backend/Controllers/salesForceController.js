@@ -3,15 +3,15 @@ const bcrypt = require("bcrypt");
 const hubspot = require("./hubspotController");
 const con = require("../Config/ConnectionSF");
 
-
 function migrarDeals(req, dealId, arquitetoId, res) {
   var options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`,
     qs: {
-      properties:'project_type, estado_do_pedido, closedate, dealname, amount, description',
+      properties:
+        "project_type, estado_do_pedido, closedate, dealname, amount, description",
       archived: "false",
-      hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'
+      hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
     },
     headers: { accept: "application/json" },
   };
@@ -35,7 +35,9 @@ function migrarDeals(req, dealId, arquitetoId, res) {
         Arq_Id__c: arquitetoId,
         Gestor_Id__c: "1",
       };
-      const migrarDeal = await con.sobject("ProjetosARQ__c").create(propriedades);
+      const migrarDeal = await con
+        .sobject("ProjetosARQ__c")
+        .create(propriedades);
       if (!migrarDeal) return res.send("fodeu");
       return res.send(migrarDeal);
     } else {
@@ -47,23 +49,24 @@ function migrarDeals(req, dealId, arquitetoId, res) {
   });
 }
 
+async function alterarEstado(req, res) {
+  const dealID = req.body.dealId;
+  const novoEstado = req.body.novoEstado;
 
-async function alterarEstado(req, res){
-
-    const dealID =req.body.dealId;
-    const novoEstado = req.body.novoEstado;
-
-    const ID = await con.sobject("ProjetosARQ__c").find({"SELECT ProjetosARQ__c WHERE Dealname__c EQUALS": dealID},{Id: 1});
-    const updatedProj = await con.sobject("ProjetosARQ__c").update({
-        id: ID,
-        Dealstage__c: novoEstado
-    })
-    if (!updatedProj) return res.send("falhou em ataulizar o estado");
-      return res.send(updatedProj);
-
-
+  const ID = await con.sobject("ProjetosARQ__c").findOne(
+    {
+      Dealname__c: req.body.dealId,
+    },
+    { Id: 1 }
+  );
+  const updatedProj = await con.sobject("ProjetosARQ__c").update({
+    id: ID,
+    Dealstage__c: novoEstado,
+  });
+  if (!updatedProj) return res.send("falhou em atualizar o estado");
+  return res.send(updatedProj);
 }
 module.exports = {
   migrarDeals: migrarDeals,
-  alterarEstado: alterarEstado
+  alterarEstado: alterarEstado,
 };
