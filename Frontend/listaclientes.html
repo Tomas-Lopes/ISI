@@ -7,22 +7,21 @@
   <title>Build Helper</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="shortcut icon" href="assets/img/mini.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- CSS here -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/css/slicknav.css">
-  <link rel="stylesheet" href="assets/css/animate.min.css">
-  <link rel="stylesheet" href="assets/css/magnific-popup.css">
-  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="assets/css/themify-icons.css">
-  <link rel="stylesheet" href="assets/css/slick.css">
-  <link rel="stylesheet" href="assets/css/nice-select.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/slicknav.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/nice-select.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
     body {
       font-family: "Lato", sans-serif;
@@ -152,6 +151,8 @@
       <div class="dropdown-container">
         <a href="#" style="color:white;font-size: 16px;">Área Cliente</a>
         <p></p>
+        <a href="#" style="color:white;font-size: 16px;">Pedidos</a>
+        <p></p>
         <a href="#" style="color:white;font-size: 16px; ">Terminar Sessão</a>
       </div>
 
@@ -160,32 +161,37 @@
   </header>
   <main>
     <div id="main" style="padding-top: 40px;">
-      <div class="card" style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px; ">
+      <div class="card" style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px;">
         <!-- Card header -->
         <div class="card-header">
-          <h3 class="mb-0">Arquitetos</h3>
+          <h3 class="mb-0">Clientes</h3>
           <p class="text-sm mb-0">
-            Tem ao seu dispor a listagem de todos os Arquitetos.
+            Tem ao seu dispor a listagem de todos os Clientes.
           </p>
         </div>
         <div class="table-responsive py-4">
-          <table id="eventosEnviron" class="table table-flush">
-            <thead class="thead-light" id="thead">
+          <table id="tabelaClientes" class="table table-flush">
+            <thead class="thead-light">
               <tr>
                 <th>Id</th>
                 <th>Nome</th>
                 <th>E-mail</th>
+                <th>NIF</th>
+                <th>Telemóvel</th>
               </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody id="bodyClientes">
+              <tr>
+                <th>#0123</th>
+                <th>Ismael</th>
+                <th>ismael@gmail.com</th>
+                <th>123456789</th>
+                <th>932817451</th>
+              </tr>
             </tbody>
-            <tfoot id="tfoot">
-            </tfoot>
           </table>
         </div>
       </div>
-
-
 
       <!-- Footer Start-->
       <div class="footer-main">
@@ -249,7 +255,6 @@
       </div>
       <!-- Footer End-->
     </div>
-
   </main>
   <!-- JS here -->
   <script>
@@ -317,42 +322,11 @@
   <script src="./assets/js/jquery.validate.min.js"></script>
   <script src="./assets/js/mail-script.js"></script>
   <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+  <script src="./controllers/gestor.controller.js"></script>
 
   <!-- Jquery Plugins, main Jquery -->
   <script src="./assets/js/plugins.js"></script>
   <script src="./assets/js/main.js"></script>
-
-  <script>
-    window.onload = function () {
-      GetArquitetos()
-    }
-    function GetArquitetos() {
-
-      fetch('http://127.0.0.1:8080/user/arquitetos', {
-
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        //credentials: 'include',
-        method: 'GET'
-      }).then(response => {
-        return response.json();
-      }).then(dados => {
-
-        var table = document.getElementById("tbody");
-
-        for (i = 0; i < dados.length; i++) {
-          var row = table.insertRow(0);
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
-          cell1.innerHTML = dados[i]["id_build"];
-          cell2.innerHTML = dados[i]["nome"];
-          cell3.innerHTML = dados[i]["email"];
-        }
-      });
-    }
-  </script>
 
 </body>
 

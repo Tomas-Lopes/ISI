@@ -137,195 +137,58 @@
     </header>
     <main>
 
-
-
-        <!--GIS API-->
-        <style>
-            html,
-            body,
-            #viewDiv {
-                padding: 0;
-                margin: 0;
-                height: 400px;
-                width: 100%;
-            }
-        </style>
-        <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
-        <script src="https://js.arcgis.com/4.19/"></script>
-        <script>
-
-            require([
-                "esri/config",
-                "esri/Map",
-                "esri/views/MapView",
-
-                "esri/widgets/BasemapToggle",
-                "esri/widgets/BasemapGallery"
-
-            ], function (esriConfig, Map, MapView, BasemapToggle, BasemapGallery) {
-
-                esriConfig.apiKey = "AAPK4794dac93f2f4bfb9d5c5bc14c437164XR9J186t8cbfv7LaCox9yDhOY2MhlkPIatcbgP88-kkUORDpAZr1jen-wKBkGAhN";
-
-                const map = new Map({
-                    basemap: "arcgis-topographic" //Basemap layer service
-                });
-
-                const view = new MapView({
-                    map: map,
-                    center: [-8.293912, 41.450346], //Longitude, latitude
-                    zoom: 11,
-                    container: "viewDiv"
-                });
-
-                const basemapToggle = new BasemapToggle({
-                    view: view,
-                    nextBasemap: "arcgis-imagery"
-                });
-                view.ui.add(basemapToggle, "bottom-right");
-
-                const basemapGallery = new BasemapGallery({
-                    view: view,
-                    source: {
-                        query: {
-                            title: '"World Basemaps for Developers" AND owner:esri'
-                        }
-                    }
-                });
-
-                view.ui.add(basemapGallery, "top-right");
-
-                const point = { //Create a point
-                    type: "point",
-                    longitude: -8.293912,
-                    latitude: 41.450346
-                };
-                const simpleMarkerSymbol = {
-                    type: "simple-marker",
-                    color: [226, 119, 40],  // Orange
-                    outline: {
-                        color: [255, 255, 255], // White
-                        width: 1
-                    }
-                };
-
-                const pointGraphic = new Graphic({
-                    geometry: point,
-                    symbol: simpleMarkerSymbol
-                });
-                graphicsLayer.add(pointGraphic);
-
-
-            });
-        </script>
-
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card border-0" style="padding-top: 120px;">
-                        <div id="viewDiv"></div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="main" style="padding-top: 40px;">
-            <div class="card" style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px;">
+            <div id="main" style="padding-top: 140px;">
+              <div class="card" style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px;">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Pedidos</h3>
-                    <p class="text-sm mb-0">
-                        Tem ao seu dispor a listagem de todos os Pedidos realizados pelos Clientes.
-                    </p>
+                  <h3 class="mb-0">Projetos Aprovados</h3>
+                  <p class="text-sm mb-0">
+                    Tem ao seu dispor a listagem de todos os Projetos Aprovados pela Câmara.
+                  </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table id="eventosEnviron" class="table table-flush">
-                        <thead class="thead-light" id="thead">
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome do Pedido</th>
-                                <th>Localização</th>
-                                <th>Tipo</th>
-                                <th>Descrição</th>
-                                <th>Orçamento Cliente</th>
-                                <th>Data Limite</th>
-                                <th>Estado</th>
-                                <th>Detalhes</th>
-                            </tr>
-                        </thead>
-                        <tfoot id="tfoot">
-                            <tr>
-                                <th>#0123</th>
-                                <th>Pedido1</th>
-                                <th>Guimarães</th>
-                                <th>Obras rodoviárias</th>
-                                <th>Estrada</th>
-                                <th>20.000€</th>
-                                <th>14/07/2021</th>
-                                <th>Pendente</th>
-                                <th><button class="btn" style=" padding: 10px;border-radius: 50%;"
-                                        onclick="document.getElementById('id01').style.display='block'"
-                                        class="w3-button w3-black"><i class="fa fa-info-circle"></i></button></th>
-                                <div id="id01" class="w3-modal">
-                                    <div class="w3-modal-content" style="background:darkgrey; margin: 0 auto;">
-                                        <div class="w3-container">
-                                            <span onclick="document.getElementById('id01').style.display='none'"
-                                                class="w3-button w3-display-topright">&times;</span>
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" style="text-align: center;">Detalhes do Pedido
-                                                </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <div class="input-group input-group-merge input-group-alternative mb-3"
-                                                        style="width: 300px;">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-map-pin"></i></span>
-                                                        </div>
-                                                        <input class="form-control" placeholder="Area Do Terreno"
-                                                            type="text" id="registerLocation"
-                                                            style="display: inline-block;text-align: left;" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="input-group input-group-merge input-group-alternative mb-3"
-                                                        style="width: 300px;">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-euro-sign"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input class="form-control" placeholder="Orçamento do Arquiteto"
-                                                            type="text" id="registerDescription" />
-                                                    </div>
-                                                </div>
-                                                <div class="Anexar" style="padding: top 20px;">
-                                                    <i class="fas fa-paperclip"
-                                                        style="float: left; padding-right:15px; margin-top: 4px"></i>
-                                                    <li>Anexar</li>
-                                                </div>
-                                                <div class="Gerar" style="padding-left: 150px; margin-top: -22px;">
-                                                    <i class="fas fa-file-alt"
-                                                        style="float: left; padding-right:15px; margin-top: 4px"></i>
-                                                    <li>Gerar Documento</li>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal" id='getDocs'>Gerar Documento</button>
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Enviar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </tr>
-                        </tfoot>
-                        <tbody id="tbody">
-                        </tbody>
-                    </table>
+                  <table id="tabelaPedidos" class="table table-flush">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Id</th>
+                        <th>Nome do Projeto</th>
+                        <th>Documento</th>
+                        <th>Data de Aprovação</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bodyPedidos">
+        
+                    </tbody>
+                  </table>
                 </div>
-            </div>
+              </div>
+
+                <div id="main" style="padding-top: 40px;">
+                  <div class="card" style="margin-left: 40px; margin-right: 40px; margin-bottom: 40px;">
+                    <!-- Card header -->
+                    <div class="card-header">
+                      <h3 class="mb-0">Projetos Rejeitados</h3>
+                      <p class="text-sm mb-0">
+                        Tem ao seu dispor a listagem de todos os Projetos Rejeitados pela Câmara.
+                      </p>
+                    </div>
+                    <div class="table-responsive py-4">
+                      <table id="tabelaPedidos" class="table table-flush">
+                        <thead class="thead-light">
+                          <tr>
+                            <th>Id</th>
+                            <th>Nome do Projeto</th>
+                            <th>Documento???</th>
+                            <th>Data de Reprovação???</th>
+                          </tr>
+                        </thead>
+                        <tbody id="bodyPedidos">
+            
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
 
 
 
