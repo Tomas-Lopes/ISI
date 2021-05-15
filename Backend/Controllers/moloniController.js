@@ -159,10 +159,10 @@ function inserirDadosProjetos (dealId, res) {
                     property_id: 11633,
                     value: data
                 },
-                {
+                /*{
                     property_id: 11634,
                     value: address
-                },
+                }, */
                 {
                     property_id: 11634,
                     value: tipoPedido
