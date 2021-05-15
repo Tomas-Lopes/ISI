@@ -25,6 +25,8 @@ router.get("/arquitetos", userController.getArq)
 router.put("/associarArq", userController.associarArquiteto)
 router.put("/alterarEst", SF.alterarEstado)
 
+router.get("/pedidosCamara", moloniController.getProducts)
+
  /* router.get("/teste", async (req, res) => {
     const result = await con.sobject("TesteFDS__c").find({},{Id: 1, Name: 1, Texto__c: 1, Texto2__c:1});
     return res.send(result);

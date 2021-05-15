@@ -315,7 +315,7 @@ function changeState(req, res) {
   hubspot.updateDealState(id_pedido, newState, res);
 }
 
-function listarPedidosCamara(req, res) {
+function migrarPedidosCamara(req, res) {
   const id_pedido = req.body.dealId;
   moloni.inserirDadosProjetos(id_pedido, res);
 }
@@ -332,5 +332,5 @@ module.exports = {
   getPedidos: getPedidos,
   getArq: getArq,
   changeState: changeState,
-  listarPedidosCamara: listarPedidosCamara
+  migrarPedidosCamara: migrarPedidosCamara
 };
