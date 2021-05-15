@@ -240,7 +240,7 @@ function getClients(req, res) {
 }
 
 async function getArq(req, res) {
-  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1 });
+  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1});
   res.send(arqs);
 }
 

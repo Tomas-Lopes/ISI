@@ -7,12 +7,14 @@
         document.getElementById("associar").disabled = true;
 */
 async function associar() {
-        var pedidoInput = document.getElementById("tipoPedido").value;
-        var arquitetoInput = document.getElementById("tipoArquiteto").value;
+        var pedidoInput = document.getElementById("pedido").value;
+        var arquitetoInput = document.getElementById("arquiteto").value;
+
+        console.log(pedidoInput + arquitetoInput)
 
         let data = {
-            pedido: pedidoInput,
-            arquiteto: arquitetoInput,
+            dealId: pedidoInput,
+            arq_id: arquitetoInput,
         }
         //console.log("entrei")
         fetch(
@@ -22,7 +24,7 @@ async function associar() {
                     'Content-Type': 'application/json'
                 },
                 mode: 'cors',
-                method: 'POST',
+                method: 'PUT',
                 //credentials: 'include',
                 body: JSON.stringify(data)
             }).then(response => {

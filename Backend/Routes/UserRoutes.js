@@ -16,7 +16,7 @@ router.post("/register", userController.Register)
 router.post("/editUser", isLogged, userController.EditUser)
 router.post("/newProject", isLogged, userController.newProj)
 
-router.get("/pedidos", isLogged, userController.getPedidos)
+router.get("/pedidos", userController.getPedidos)
 router.get("/logout", userController.Logout)
 router.get("/clients", userController.getClients)
 router.get("/arquitetos", userController.getArq)
