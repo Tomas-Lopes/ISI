@@ -10,9 +10,9 @@ const requestOptions = {
 };
 
 //carregar pedidos
-getClientes();
+getClients();
 
-async function getClientes() {
+async function getClients() {
 
     try {
         let conteudo = "";
