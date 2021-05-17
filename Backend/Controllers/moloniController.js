@@ -1,31 +1,32 @@
 const request = require('request');
 const querystring = require('querystring');
+const con = require("../Config/ConnectionSF");
 
 var company_id = 182994;
 
 function getToken(callback) {
-  let options = {
-    url: `https://api.moloni.pt/v1/grant/?grant_type=password&client_id=buildhelper2021&client_secret=7def1d3f4e0cb75e6ae55269dc71a6552f6ca1a1&username=buildhelper2021isi@gmail.com&password=rumoao20`
-  }
-  request.get(options, (err, res) => {
-    if (!err && res.statusCode == 200) {
-      callback({
-        'access_token': JSON.parse(res.body).access_token
-      });
-      console.log("Token:" +  JSON.parse(res.body).access_token);
-    } else {
-      callback({
-        'statusCode': res.statusCode,
-        'body': JSON.parse(res.body)
-      });
-    }
-  })
-}
-
-function getAllDocuments (callback) {
     let options = {
         url: `https://api.moloni.pt/v1/grant/?grant_type=password&client_id=buildhelper2021&client_secret=7def1d3f4e0cb75e6ae55269dc71a6552f6ca1a1&username=buildhelper2021isi@gmail.com&password=rumoao20`
-      }
+    }
+    request.get(options, (err, res) => {
+        if (!err && res.statusCode == 200) {
+            callback({
+                'access_token': JSON.parse(res.body).access_token
+            });
+            console.log("Token:" + JSON.parse(res.body).access_token);
+        } else {
+            callback({
+                'statusCode': res.statusCode,
+                'body': JSON.parse(res.body)
+            });
+        }
+    })
+}
+
+function getAllDocuments(callback) {
+    let options = {
+        url: `https://api.moloni.pt/v1/grant/?grant_type=password&client_id=buildhelper2021&client_secret=7def1d3f4e0cb75e6ae55269dc71a6552f6ca1a1&username=buildhelper2021isi@gmail.com&password=rumoao20`
+    }
 
 
 }
@@ -72,123 +73,129 @@ function getPDFLink(document_id, callback) {
 
 function getCompany(callback) {
     getToken((res) => {
-      if (res.access_token) {
-          const access_token = res.access_token;
-          
-          let options = {
-              url: `https://api.moloni.pt/v1/companies/getAll/?access_token=${access_token}`
-          }
-          request.get(options, (err, res) => {
-              if (!err && res.statusCode == 200) {
-                  let resBody = JSON.parse(res.body);
-                  let company_id = -1;
-                  for (let i = 0; i < resBody.length; i++) {
-                      if (resBody[i].email == "buildhelper2021isi@gmail.com") {
-                          company_id = resBody[i].company_id;  
-                          console.log(company_id)        
-                      }
-                  }
-                  if (company_id != -1) {
-                      callback({
-                          'company_id': company_id,
-                          'access_token': access_token
-                      });
-                  } else {
-                      callback({
-                          'statusCode': 404,
-                          'body': {
-                              'message': 'Company not found'
-                          }
-                      });
-                  }
-              } else {
-                  callback({
-                      'statusCode': res.statusCode,
-                      'body': JSON.parse(res.body)
-                  });
-              }
-          })
-      } else {
-          callback({
-              'statusCode': res.statusCode,
-              'body': res.body
-          });
-      }
-  })
+        if (res.access_token) {
+            const access_token = res.access_token;
+
+            let options = {
+                url: `https://api.moloni.pt/v1/companies/getAll/?access_token=${access_token}`
+            }
+            request.get(options, (err, res) => {
+                if (!err && res.statusCode == 200) {
+                    let resBody = JSON.parse(res.body);
+                    let company_id = -1;
+                    for (let i = 0; i < resBody.length; i++) {
+                        if (resBody[i].email == "buildhelper2021isi@gmail.com") {
+                            company_id = resBody[i].company_id;
+                            console.log(company_id)
+                        }
+                    }
+                    if (company_id != -1) {
+                        callback({
+                            'company_id': company_id,
+                            'access_token': access_token
+                        });
+                    } else {
+                        callback({
+                            'statusCode': 404,
+                            'body': {
+                                'message': 'Company not found'
+                            }
+                        });
+                    }
+                } else {
+                    callback({
+                        'statusCode': res.statusCode,
+                        'body': JSON.parse(res.body)
+                    });
+                }
+            })
+        } else {
+            callback({
+                'statusCode': res.statusCode,
+                'body': res.body
+            });
+        }
+    })
 }
 
-function inserirDadosProjetos (dealId, res) {
-    var options = {
-        method: "GET",
-        url: "https://api.hubapi.com/crm/v3/objects/deals/5103044940",
-        qs: {
-          archived: "false",
-          hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
+function inserirDadosProjetos(dealId, res) {
+    const ID = await con.sobject("ProjetosARQ__c").find(
+        {
+            Enviado__c: "1",
         },
-        headers: { accept: "application/json" },
-      };
-
-    request(options, async (error, resp) => {
-        if (!error) {
-          let pedido = JSON.parse(resp.body);
-          let dados = pedido.properties;
-    
-          const id = {
-            dealId: dados.hs_object_id,
-          };
-          const propriedades = {
-            company_id: company_id,
-            category_id: 3759923,
-            type: 2,
-            price: dados.amount,
-            data: dados.closedate,
-            name: dados.dealname,
-            summary: dados.description,
-            tipoPedido: dados.project_type,
-            unit_id: 1076333,
-            has_stock: 1,
-            //exemption_reason: "M99",
-            stock: 1,
-            //address: dados.localizacao
-            properties: [
-                {
-                    property_id: 11543,
-                    value: "Suspenso"
-                },
-                {
-                    property_id: 11633,
-                    value: data
-                },
-                /*{
-                    property_id: 11634,
-                    value: address
-                }, */
-                {
-                    property_id: 11634,
-                    value: tipoPedido
-                }
-            ],
+        {
+            Amount__c: 1,
+            Closedate__c: 1,
+            Name: 1,
+            Dealname__c: 1,
+            Description__c: 1,
+            TipoProjeto__c: 1,
+            Localizacao__c: 1,
+            Latitude__c: 1,
+            Longitude__c: 1
         }
+    );
 
-        let moloniOptions = {
-            headers: {
-                'Content-Length': json.length,
-                'Content-Type': 'application/x-www-form-urlencoded'
+    const propriedades = {
+        company_id: company_id,
+        category_id: 3759923,
+        type: 2,
+        price: ID.Amount__c,
+        data: ID.Closedate__c,
+        name: ID.Name,
+        summary: ID.Description__c,
+        tipoPedido: ID.TipoProjeto__c,
+        localizacao: ID.Localizacao__c,
+        latitude: ID.Latitude__c,
+        longitude: ID.Longitude__c,
+        unit_id: 1076333,
+        has_stock: 1,
+        //exemption_reason: "M99",
+        stock: 1,
+        //address: dados.localizacao
+        properties: [
+            {
+                property_id: 11543,
+                value: "Pendente"
             },
-            url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
-            body: json
-        }
-        request.post(moloniOptions, (err, result) => {
-            if (!err && result.statusCode == 200) {
-                res.status(200).send(JSON.parse(params))
-            } else {
-                res.status(400).send("erro");
+            {
+                property_id: 11633,
+                value: data
+            },
+            {
+                property_id: 11634,
+                value: localizacao
+            },
+            {
+                property_id: 11634,
+                value: tipoPedido
+            },
+            {
+                property_id: 11623,
+                value: latitude
+            },
+            {
+                property_id: 11625,
+                value: longitude
             }
-        })
-    } else {
-        res.status(400).send("erro");
+        ],
     }
-})
+
+    let moloniOptions = {
+        headers: {
+            'Content-Length': json.length,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
+        body: json
+    }
+    request.post(moloniOptions, (err, result) => {
+        if (!err && result.statusCode == 200) {
+            res.status(200).send(JSON.parse(params))
+        } else {
+            res.status(400).send("erro");
+        }
+    })
 }
 
 function getCategory(callback) {
@@ -238,9 +245,9 @@ function getCategory(callback) {
             });
         }
     })
-  }
+}
 
-  function getProducts(request, response) {
+function getProducts(request, response) {
     getCategory((res) => {
         if (res.category_id) {
             const access_token = res.access_token;
@@ -271,10 +278,10 @@ function getCategory(callback) {
                 }
             })
         } else {
-          response.status(400).send("Erro");
+            response.status(400).send("Erro");
         }
     })
-  }
+}
 
 module.exports = {
     getToken: getToken,

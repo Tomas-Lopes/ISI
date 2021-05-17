@@ -23,7 +23,7 @@ router.get("/arquitetos", userController.getArq)
 
 
 router.put("/associarArq", userController.associarArquiteto)
-router.put("/alterarEst", SF.alterarEstado)
+router.put("/alterarEst", userController.changeState)
 
 router.get("/pedidosCamara", moloniController.getProducts)
 router.post("/pedidosEnviados", moloniController.inserirDadosProjetos)

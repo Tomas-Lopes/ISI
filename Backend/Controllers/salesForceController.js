@@ -9,7 +9,7 @@ function migrarDeals(req, dealId, arquitetoId, res) {
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`,
     qs: {
       properties:
-        "project_type, estado_do_pedido, closedate, dealname, amount, description",
+        "project_type, estado_do_pedido, closedate, dealname, amount, description, latitude, longitude",
       archived: "false",
       hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
     },
@@ -32,8 +32,12 @@ function migrarDeals(req, dealId, arquitetoId, res) {
         Dealstage__c: data.estado_do_pedido,
         Description__c: data.description,
         TipoProjeto__c: data.project_type,
+        Latitude__c: data.latitude,
+        Longitude__c: data.longitude,
+        Localizacao__c: data.localizacao,
         Arq_Id__c: arquitetoId,
         Gestor_Id__c: "1",
+        Enviado__c: "0"
       };
       const migrarDeal = await con
         .sobject("ProjetosARQ__c")
@@ -49,18 +53,19 @@ function migrarDeals(req, dealId, arquitetoId, res) {
   });
 }
 
-async function alterarEstado(req, res) {
-  const dealID = req.body.dealId;
-  const novoEstado = req.body.novoEstado;
+async function alterarEstado(dealId, novoEstado, res) {
+  //const dealID = req.body.dealId;
+  //const novoEstado = req.body.novoEstado;
 
   const ID = await con.sobject("ProjetosARQ__c").findOne(
     {
-      Dealname__c: req.body.dealId,
+      Dealname__c: dealId,
     },
     { Id: 1 }
   );
+  
   const updatedProj = await con.sobject("ProjetosARQ__c").update({
-    id: ID,
+    Id: ID.Id,
     Dealstage__c: novoEstado,
   });
   if (!updatedProj) return res.send("falhou em atualizar o estado");

@@ -9,7 +9,7 @@ conn.login(configFile.SF_USERNAME, configFile.SF_PASSWORD + configFile.SF_TOKEN,
         console.log("Error: " + err);
         return
     }
-    console.log("Connected to salesforce successful");
+    console.log("Connected to salesforce successfully");
 });
 
 module.exports = conn;

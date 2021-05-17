@@ -336,7 +336,7 @@ function updateDeal(dealId, id, res) {
 function updateDealState(dealId, state, res) {
 
   var options = {
-    method: 'PATCH',
+    method: 'PUT',
     url: `https://api.hubapi.com/deals/v1/deal/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json", 'content-type': 'application/json' },
     body: {

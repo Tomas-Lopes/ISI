@@ -176,29 +176,7 @@ async function getArq(req, res) {
   const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1 });
   res.send(arqs);
 }
-/*
-function getUsers(req, res) {
-  const user_id = req.user.email;
 
-  hubspot.getClients((resp) => {
-    if (resp.users) {
-      const users = resp.users;
-      let usersF = [];
-
-      for (let i = 0; i < users.length; i++) {
-        if (user_id != users[i].id) {
-          usersF.push(users[i]);
-        }
-      }
-      res.status(200).send({
-        users: usersF,
-      });
-    } else {
-      res.status(resp.statusCode).send(resp.body);
-    }
-  });
-}
-*/
 function getClients(req, res) {
   var request = require("request")
   const returnedContacts = [];
@@ -250,8 +228,7 @@ function newProj(req, res) {
   const dealname = req.body.dealname;
   const description = req.body.description;
   const project_type = req.body.project_type;
-  //console.log(res.body)
-  //const cliente_id = hubspot.getClientByID();
+  const localizacao = req.body.address;
 
   var options = {
     method: "POST",
@@ -269,6 +246,7 @@ function newProj(req, res) {
         { value: amount, name: 'amount' },
         { value: description, name: 'description' },
         { value: project_type, name: 'project_type' },
+        { value: localizacao, name: 'localizacao'},
         { value: '0', name: 'arq_id' },
         { value: '1', name: 'gestorid' }]
     },
@@ -312,6 +290,7 @@ function changeState(req, res) {
   const newState = req.body.state;
   const id_pedido = req.body.dealId;
 
+  SF.alterarEstado(id_pedido, newState, res);
   hubspot.updateDealState(id_pedido, newState, res);
 }
 
