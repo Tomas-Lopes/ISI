@@ -101,29 +101,43 @@ function printDocTitle(auth) {
 async function inserirDados(req,res){
 
   authorize(credentials,(auth)=>{
-    
-  let customerName = req.body.customerName;
-  let date = req.body.date;
+    console.log(res.body);
+    let orcamentoArquiteto = req.body.orcamentoArquiteto;
+    let area = req.body.area;
   let requests = [
-    {
-      replaceAllText: {
-        containsText: {
-          text: '{{customer-name}}',
-          matchCase: true,
-        },
-        replaceText: customerName,
+       {
+    replaceAllText: {
+      containsText: {
+        text: '{{orcamentoArquiteto}}',
+        matchCase: true,
       },
+      replaceText: orcamentoArquiteto,
     },
+  },
     {
-      replaceAllText: {
-        containsText: {
-          text: '{{date}}',
-          matchCase: true,
-        },
-        replaceText: date,
+    replaceAllText: {
+      containsText: {
+        text: ' {{area}}',
+        matchCase: true,
       },
+      replaceText: area,
     },
+  },
   ];
+ /* var data = new Date(),
+  dia = data.getDate().toString(),
+  diaNow = (dia.length == 1) ? '0' + dia : dia,
+  mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+  mesNow = (mes.length == 1) ? '0' + mes : mes,
+  anoNow = data.getFullYear(),
+  mesExtenso = mesNow;
+
+for (var i = 1; i < 13; i++) {
+  var nome = ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  if (mesExtenso.includes(i.toString())) {
+      mesExtenso = nome[i - 1];
+  }
+}*/
 
   google.options({auth: auth});
   google
