@@ -118,7 +118,7 @@ function getCompany(callback) {
     })
 }
 
-function inserirDadosProjetos(dealId, res) {
+async function inserirDadosProjetos(dealId, res) {
     const ID = await con.sobject("ProjetosARQ__c").find(
         {
             Enviado__c: "1",
@@ -141,7 +141,7 @@ function inserirDadosProjetos(dealId, res) {
         category_id: 3759923,
         type: 2,
         price: ID.Amount__c,
-        data: ID.Closedate__c,
+        closedate: ID.Closedate__c,
         name: ID.Name,
         summary: ID.Description__c,
         tipoPedido: ID.TipoProjeto__c,
@@ -160,7 +160,7 @@ function inserirDadosProjetos(dealId, res) {
             },
             {
                 property_id: 11633,
-                value: data
+                value: closedate
             },
             {
                 property_id: 11634,
@@ -187,7 +187,7 @@ function inserirDadosProjetos(dealId, res) {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
-        body: json
+        body: propriedades
     }
     request.post(moloniOptions, (err, result) => {
         if (!err && result.statusCode == 200) {
