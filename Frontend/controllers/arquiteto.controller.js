@@ -75,3 +75,33 @@ async function associar() {
             });
         }
 
+
+//Fetch da página arquiteto.html
+        getPedidosArquiteto();
+
+        async function getPedidosArquiteto() {
+        
+            try {
+                let conteudo = "";
+                //falta rota
+                const response = await fetch(`http://127.0.0.1:8080/`, requestOptions);
+                const pedidos = await response.json();
+                console.log(pedidos);
+                for (const pedido of pedidos.results) {
+                    conteudo += "<tr><td> " + pedido.id + "</td>";
+                    conteudo += "<td> " + pedido.properties.dealname + "</td>";
+                    conteudo += "<td> " + "pedido.localizacao" + "</td>";
+                    conteudo += "<td> " + pedido.project_type + "</td>";
+                    conteudo += "<td> " + "descricao" + "</td>";
+                    conteudo += "<td> " + pedido.properties.amount + "</td>";
+                    conteudo += "<td> " + getDate(pedido.properties.closedate) + "</td>";
+                    conteudo += "<td> " + "estado" + "</td></tr>";
+                }
+        
+                document.getElementById("tbodyArquiteto").innerHTML = conteudo;
+        
+            } catch (error) {
+                console.log("Erro:" + error);
+            }
+        }
+
