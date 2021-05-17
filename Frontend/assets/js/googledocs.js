@@ -7,8 +7,8 @@ window.onload=function() {
 //const {google} = require('googleapis');
 function getDocs() {
     let data={
-        customerName:document.getElementById("registerLocation").value,
-        date:document.getElementById("registerDescription").value
+        orcamentoArquiteto:document.getElementById("registerLocation").value,
+        area:document.getElementById("registerDescription").value
     }
 fetch(`http://localhost:8080/google/inserirDados`, {
     headers: {
