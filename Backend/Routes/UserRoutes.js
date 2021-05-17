@@ -18,7 +18,7 @@ router.post("/newProject", isLogged, userController.newProj)
 
 router.get("/pedidos", userController.getPedidos)
 router.get("/logout", userController.Logout)
-router.get("/clients", userController.getClients)
+router.get("/clients", userController.getClientes)
 router.get("/arquitetos", userController.getArq)
 
 

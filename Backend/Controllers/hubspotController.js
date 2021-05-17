@@ -6,31 +6,42 @@ const bcrypt = require("bcrypt");
 function getClients(res) {
   let options = {
     method: "GET",
-    url: `https://api.hubapi.com/crm/v3/objects/contacts?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    url: `https://api.hubapi.com/contacts/v1/lists/all/contacts/all?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
 
-  request(options, (error, resp) => {
+  request.get(options, (error, resp) => {
     if (!error) {
-      const users = JSON.parse(resp.body).contacts;
-      let usersF = [];
-      for (let i = 0; i < users.length; i++) {
-        usersF.push({
-          id: users[i].vid,
-          name:
-            users[i].properties.firstname.value +
-            " " +
-            users[i].properties.lastname.value,
+      if (resp.statusCode == 200) {
+        const users = JSON.parse(resp.body).contacts;
+        console.log(users);
+        let usersF = [];
+        for (let i = 0; i < users.length; i++) {
+          usersF.push({
+            'id': users[i].vid,
+            'name':
+              users[i].properties.firstname +
+              " " +
+              users[i].properties.lastname,
+          });
+        }
+        res({
+          users: usersF,
         });
+      } else {
+        res({
+          'statusCode': res.statusCode,
+          'body': JSON.parse(res.body)
+        })
       }
-      res({
-        users: usersF,
-      });
-      res.status(200).send(users);
     } else {
-      res.status(400).send(error);
+      console.log(err);
+      res({
+        'statusCode': 400,
+        'body': 'erro'
+      })
     }
   });
 }
@@ -263,7 +274,7 @@ function addDeal(properties, res) {
   const deal = {
     properties: properties,
   };
-  
+
   var options = {
     method: "POST",
     url: "https://api.hubapi.com/deals/v1/deal",
@@ -342,7 +353,7 @@ function updateDealState(dealId, state, res) {
     body: {
       properties:
         [
-          { name: "estado_do_pedido", value: state}
+          { name: "estado_do_pedido", value: state }
         ]
     },
     json: true
@@ -371,5 +382,5 @@ module.exports = {
   addDeal: addDeal,
   getDeal: getDeal,
   updateDeal: updateDeal,
-  updateDealState:  updateDealState,
+  updateDealState: updateDealState,
 };

@@ -177,7 +177,7 @@ async function getArq(req, res) {
   res.send(arqs);
 }
 
-function getClients(req, res) {
+/*function getClients(req, res) {
   var request = require("request")
   const returnedContacts = [];
   const API_KEY = 'ffdfdd87-f540-403c-8427-acc9eb296971'
@@ -215,6 +215,40 @@ function getClients(req, res) {
   };
 
   getContacts()
+} */
+
+function getClientes(req, res) {
+  //hubspot.getClients(res);
+  let options = {
+    method: "GET",
+    url: `https://api.hubapi.com/contacts/v1/lists/all/contacts/all?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  request.get(options, (error, resp) => {
+    if (!error) {
+        const users = JSON.parse(resp.body);
+        console.log(users);
+        let usersF = [];
+        for (let i = 0; i < users.length; i++) {
+          console.log(users[i].nif);
+          usersF.push({
+            'id': users[i].vid,
+            'name':
+              users[i].firstname +
+              " " +
+              users[i].lastname,
+            'nif': users[i].nif,
+          });
+        }
+        res.status(200).send(usersF)
+    } else {
+      console.log(err);
+      res.status(400).send(err)
+    }
+  });
 }
 
 async function getArq(req, res) {
@@ -305,7 +339,7 @@ module.exports = {
   EditUser: EditUser,
   Logout: Logout,
   //getUsers: getUsers,
-  getClients: getClients,
+  getClientes: getClientes,
   newProj: newProj,
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,
