@@ -50,11 +50,11 @@ async function Login(req, res) {
   var password = req.body.password;
 
   try {
-    const user = await User.findOne({ email: email });
-    const userpass = user.password;
+    const user = await User.findOne({ email: email });   
     if (!user) {
       return res.send("User doesnt exist in DataBase");
     } else {
+      const userpass = user.password;
       const validPassword = async function (userpass, password) {
         return await Bcrypt.compare(password, userpass);
       };
@@ -87,7 +87,9 @@ async function Login(req, res) {
       }
     }
   } catch (error) {
+    console.log("fodeu2")
     return res.send(error);
+
   }
 }
 
