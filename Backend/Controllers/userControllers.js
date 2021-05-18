@@ -12,32 +12,37 @@ async function loginMongo(req, res) {
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.send("User doesnt exist in DataBase");
+      return res.send({
+        message: "User doesnt exist in DataBase"
+      });
     } else {
       const userpass = user.password;
       const validPassword = async function (userpass, password) {
         return await Bcrypt.compare(password, userpass);
       };
       if (await validPassword(user.password, password)) {
-            let userF = {
-              id: user.user_id,
-              email: user.email,
-              firstname: user.nome,
-              lastname: user.apelido,
-              phone: user.telemovel,
-              address: user.morada,
-              nif: user.nif,
-              cargo: user.cargo,
-            };
-            //console.log("vou criar a cookie")
-            clientCookie.setCookie(req, res, user);
-            return res.send({
-              message: "Logged in sucessfully",
-              user: userF,
-            });
+        let userF = {
+          id: user.user_id,
+          email: user.email,
+          firstname: user.nome,
+          lastname: user.apelido,
+          phone: user.telemovel,
+          address: user.morada,
+          nif: user.nif,
+          cargo: user.cargo,
+        };
+        //console.log("vou criar a cookie")
+        clientCookie.setCookie(req, res, user);
+        return res.send({
+          message: "Logged in sucessfully",
+          user: userF,
+        });
+      } else {
+        return res.send({
+          message: "Password invalid"
+        });
       }
-        res.send("Password invalid");
-      }
+    }
   } catch (error) {
     //console.log("fodeu")
     return res.send(error);
@@ -50,9 +55,12 @@ async function Login(req, res) {
   var password = req.body.password;
 
   try {
-    const user = await User.findOne({ email: email });   
+    const user = await User.findOne({ email: email });
     if (!user) {
-      return res.send("User doesnt exist in DataBase");
+    
+      return res.send({
+        message: "User doesnt exist in DataBase"
+      });
     } else {
       const userpass = user.password;
       const validPassword = async function (userpass, password) {
@@ -71,6 +79,7 @@ async function Login(req, res) {
               nif: result.user.nif,
               cargo: result.user.cargo,
             };
+           
             clientCookie.setCookie(req, res, user);
             return res.send({
               message: "Logged in sucessfully",
@@ -79,11 +88,13 @@ async function Login(req, res) {
           } else {
             //res.send("User not found");
             //console.log("vou fazer o login do mongo")
-            loginMongo(req,res);
+            loginMongo(req, res);
           }
         });
       } else {
-        res.send("Password invalid");
+        return res.send({
+          message: "Password invalid"
+        });
       }
     }
   } catch (error) {
