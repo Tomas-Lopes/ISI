@@ -11,10 +11,10 @@ async function loginMongo(req, res) {
 
   try {
     const user = await User.findOne({ email: email });
-    const userpass = user.password;
     if (!user) {
       return res.send("User doesnt exist in DataBase");
     } else {
+      const userpass = user.password;
       const validPassword = async function (userpass, password) {
         return await Bcrypt.compare(password, userpass);
       };
@@ -29,7 +29,7 @@ async function loginMongo(req, res) {
               nif: user.nif,
               cargo: user.cargo,
             };
-            console.log("vou criar a cookie")
+            //console.log("vou criar a cookie")
             clientCookie.setCookie(req, res, user);
             return res.send({
               message: "Logged in sucessfully",
@@ -39,7 +39,7 @@ async function loginMongo(req, res) {
         res.send("Password invalid");
       }
   } catch (error) {
-    console.log("fodeu")
+    //console.log("fodeu")
     return res.send(error);
   }
 }
@@ -78,7 +78,7 @@ async function Login(req, res) {
             });
           } else {
             //res.send("User not found");
-            console.log("vou fazer o login do mongo")
+            //console.log("vou fazer o login do mongo")
             loginMongo(req,res);
           }
         });
@@ -87,7 +87,7 @@ async function Login(req, res) {
       }
     }
   } catch (error) {
-    console.log("fodeu2")
+    //console.log("fodeu2")
     return res.send(error);
 
   }
