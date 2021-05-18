@@ -437,5 +437,4 @@ module.exports = {
   getArq: getArq,
   changeState: changeState,
   migrarPedidosCamara: migrarPedidosCamara,
-  RegisterArquiteto: RegisterArquiteto,
 };

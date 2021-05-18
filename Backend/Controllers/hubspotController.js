@@ -146,6 +146,7 @@ function getClientByEmail(email, res) {
           password: data.password.value,
           company: "MCA Group",
           website: "vgbhjjk",
+          cargo: data.cargo.value
         }
         res({
           'user': result
@@ -154,7 +155,7 @@ function getClientByEmail(email, res) {
       } else {
         res({
           'statusCode': res.statusCode,
-          'body': JSON.parse(res.body)
+          'body': "Deu erro"
         })
       }
     } else {
