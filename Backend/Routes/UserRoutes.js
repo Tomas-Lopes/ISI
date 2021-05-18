@@ -13,6 +13,7 @@ const SF = require("../Controllers/salesForceController");
 
 router.post("/login", userController.Login)
 router.post("/register", userController.Register)
+//router.post("/registerArquiteto", userController.RegisterArquiteto)
 router.post("/editUser", isLogged, userController.EditUser)
 router.post("/newProject", isLogged, userController.newProj)
 
@@ -27,20 +28,6 @@ router.put("/alterarEst", userController.changeState)
 
 router.get("/pedidosCamara", moloniController.getProducts)
 router.post("/pedidosEnviados", moloniController.inserirDadosProjetos)
-
- /* router.get("/teste", async (req, res) => {
-    const result = await con.sobject("TesteFDS__c").find({},{Id: 1, Name: 1, Texto__c: 1, Texto2__c:1});
-    return res.send(result);
-})
-router.post("/teste", async (req, res) => {
-    const data = {
-        Texto__c: req.body.texto1,
-        Texto2__c:req.body.texto2
-    }
-    const createdTestFDS = await con.sobject("TesteFDS__c").create(data);
-    if (!createdTestFDS) return res.send("fodeu")
-    return res.send(createdTestFDS);
-} )*/
 
 router.get("/testezao", hubspotController.getDeal)
 

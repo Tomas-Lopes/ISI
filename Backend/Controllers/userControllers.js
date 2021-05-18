@@ -5,6 +5,46 @@ const hubspot = require("./hubspotController");
 const request = require("request");
 const SF = require("./salesForceController");
 
+async function loginMongo(req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
+
+  try {
+    const user = await User.findOne({ email: email });
+    const userpass = user.password;
+    if (!user) {
+      return res.send("User doesnt exist in DataBase");
+    } else {
+      const validPassword = async function (userpass, password) {
+        return await Bcrypt.compare(password, userpass);
+      };
+      if (await validPassword(user.password, password)) {
+            let userF = {
+              id: user.user_id,
+              email: user.email,
+              firstname: user.nome,
+              lastname: user.apelido,
+              phone: user.telemovel,
+              address: user.morada,
+              nif: user.nif,
+              cargo: user.cargo,
+            };
+            console.log("vou criar a cookie")
+            clientCookie.setCookie(req, res, user);
+            return res.send({
+              message: "Logged in sucessfully",
+              user: userF,
+            });
+      }
+        res.send("Password invalid");
+      }
+  } catch (error) {
+    console.log("fodeu")
+    return res.send(error);
+  }
+}
+
+
 async function Login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
@@ -24,20 +64,22 @@ async function Login(req, res) {
             let userF = {
               id: result.user.user_id,
               email: user.email,
-              firstname: result.user.firstname,
-              lastname: result.user.lastname,
-              phone: result.user.phone,
-              address: result.user.address,
+              firstname: result.user.nome,
+              lastname: result.user.apelido,
+              phone: result.user.telemovel,
+              address: result.user.morada,
               nif: result.user.nif,
+              cargo: result.user.cargo,
             };
-
             clientCookie.setCookie(req, res, user);
             return res.send({
               message: "Logged in sucessfully",
               user: userF,
             });
           } else {
-            res.send("User not found");
+            //res.send("User not found");
+            console.log("vou fazer o login do mongo")
+            loginMongo(req,res);
           }
         });
       } else {
@@ -48,6 +90,7 @@ async function Login(req, res) {
     return res.send(error);
   }
 }
+
 
 function Register(req, res) {
   const nome = req.body.firstname;
@@ -173,7 +216,10 @@ async function EditUser(req, res) {
 }
 
 async function getArq(req, res) {
-  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1 });
+  const arqs = await User.find(
+    { cargo: "arquiteto" },
+    { email: 1, nome: 1, id_build: 1 }
+  );
   res.send(arqs);
 }
 
@@ -229,30 +275,30 @@ function getClientes(req, res) {
 
   request.get(options, (error, resp) => {
     if (!error) {
-        const users = JSON.parse(resp.body);
-        console.log(users);
-        let usersF = [];
-        for (let i = 0; i < users.length; i++) {
-          console.log(users[i].nif);
-          usersF.push({
-            'id': users[i].vid,
-            'name':
-              users[i].firstname +
-              " " +
-              users[i].lastname,
-            'nif': users[i].nif,
-          });
-        }
-        res.status(200).send(usersF)
+      const users = JSON.parse(resp.body);
+      console.log(users);
+      let usersF = [];
+      for (let i = 0; i < users.length; i++) {
+        console.log(users[i].nif);
+        usersF.push({
+          id: users[i].vid,
+          name: users[i].firstname + " " + users[i].lastname,
+          nif: users[i].nif,
+        });
+      }
+      res.status(200).send(usersF);
     } else {
       console.log(err);
-      res.status(400).send(err)
+      res.status(400).send(err);
     }
   });
 }
 
 async function getArq(req, res) {
-  const arqs = await User.find({ cargo: "arquiteto" }, { email: 1, nome: 1, id_build: 1});
+  const arqs = await User.find(
+    { cargo: "arquiteto" },
+    { email: 1, nome: 1, id_build: 1 }
+  );
   res.send(arqs);
 }
 
@@ -271,20 +317,21 @@ function newProj(req, res) {
     headers: { accept: "application/json", "content-type": "application/json" },
     body: {
       //associations: { associatedVids: [51] },
-      properties:
-        [{ value: dealname, name: 'dealname' },
-        { value: 'appointmentscheduled', name: 'dealstage' },
-        { value: 'default', name: 'pipeline' },
-        { value: '69176641', name: 'hubspot_owner_id' },
-        { value: closedate, name: 'closedate' },
-        { value: amount, name: 'amount' },
-        { value: description, name: 'description' },
-        { value: project_type, name: 'project_type' },
-        { value: localizacao, name: 'localizacao'},
-        { value: '0', name: 'arq_id' },
-        { value: '1', name: 'gestorid' }]
+      properties: [
+        { value: dealname, name: "dealname" },
+        { value: "appointmentscheduled", name: "dealstage" },
+        { value: "default", name: "pipeline" },
+        { value: "69176641", name: "hubspot_owner_id" },
+        { value: closedate, name: "closedate" },
+        { value: amount, name: "amount" },
+        { value: description, name: "description" },
+        { value: project_type, name: "project_type" },
+        { value: localizacao, name: "localizacao" },
+        { value: "0", name: "arq_id" },
+        { value: "1", name: "gestorid" },
+      ],
     },
-    json: true
+    json: true,
   };
 
   request(options, function (error, response, body) {
@@ -301,7 +348,6 @@ function associarArquiteto(req, res) {
 
   hubspot.updateDeal(id_pedido, id_arquiteto, res);
   SF.migrarDeals(req, id_pedido, id_arquiteto, res);
-
 }
 
 function getPedidos(req, res) {
@@ -333,6 +379,51 @@ function migrarPedidosCamara(req, res) {
   moloni.inserirDadosProjetos(id_pedido, res);
 }
 
+
+
+/*function RegisterArquiteto(req, res) {
+  const nome = req.body.firstname;
+  const apelido = req.body.lastname;
+  const password = req.body.password;
+  const email = req.body.email;
+  const nif = req.body.nif;
+  const numTel = req.body.phone;
+  const morada = req.body.address;
+
+  if (req.body.password != req.body.passwordConf)
+    return res.send("Passwords do not match");
+  hubspot.existsClientByEmail(email, (result) => {
+    if (!result.exists) {
+      hubspot.existsClientNif(nif, (result) => {
+        if (!result.exists) {
+          let pass = "";
+          Bcrypt.genSalt(10, function (err, salt) {
+            Bcrypt.hash(password, salt, function (err, hash) {
+              pass = hash;
+              if (!err) {
+                const user = new User({
+                  nome: req.body.firstname,
+                  apelido: req.body.lastname,
+                  email: req.body.email,
+                  password: hash,
+                  cargo: "arquiteto",
+                  nif: req.body.nif,
+                  numTel: req.body.phone,
+                  morada: req.body.address,
+                });
+                user.save();
+                res.status(201).send(user);
+              } else {
+                res.status(400).send(err);
+              }
+            });
+          });
+        }
+      });
+    }
+  });
+}
+*/
 module.exports = {
   Login: Login,
   Register: Register,
@@ -345,5 +436,6 @@ module.exports = {
   getPedidos: getPedidos,
   getArq: getArq,
   changeState: changeState,
-  migrarPedidosCamara: migrarPedidosCamara
+  migrarPedidosCamara: migrarPedidosCamara,
+  RegisterArquiteto: RegisterArquiteto,
 };
