@@ -1,10 +1,12 @@
+//const User = require("../../Backend/Models/User");
+
 window.onload = function () {
 
     const formLogin = document.getElementById("formLogin");
 
 
     formLogin.addEventListener('submit', (event) => {
-        document.getElementById("login").disabled = true;
+        //  document.getElementById("login").disabled = true;
         event.preventDefault();
 
         var emailInput = document.getElementById("loginEmail").value;
@@ -15,8 +17,8 @@ window.onload = function () {
             password: passwordInput,
         }
 
-       fetch(`http://127.0.0.1:8080/user/login`, {
-           
+        fetch(`http://127.0.0.1:8080/user/login`, {
+
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -25,10 +27,13 @@ window.onload = function () {
             method: 'POST',
             body: JSON.stringify(data)
         }).then(response => {
+           
             return response.json();
         }).then(result => {
-            console.log(result);
+           
             if (result.message == "Logged in sucessfully") {
+
+                //if (result.message == "Logged in sucessfully") {
                 Swal.fire({
                     title: 'Login efetuado com sucesso!',
                     type: 'success',
@@ -36,39 +41,39 @@ window.onload = function () {
                     showConfirmButton: false,
                     showLoaderOnConfirm: false,
                     timer: 2000
-                }).then(result => {
-                    
-                    window.location.replace('./cliente.html')
+                }).then(() => {
+
+                    switch (result.user.cargo) {
+                        case 'cliente':
+                            window.location.replace('./cliente.html')
+                            break;
+                        case 'arquiteto':
+                            window.location.replace('./arquiteto.html')
+                            break;
+                        case 'camara':
+                            window.location.replace('./camara.html')
+                            break;
+                        case 'gestor':
+                            window.location.replace('./gp.html')
+                            break;
+                        default:
+                            console.log("Falhou");
+                            break;
+                    }
                 })
             } else {
-                if (result.error == "Estes e-mail e password não existem. Por favor, tente novamente!") {
-                    throw new Error(result.error);
+                console.log(result.message == "Password invalid");
+                if (result.message == "Password invalid") {
+
+                    Swal.fire('Password inválida')
+
+
                 } else {
-                    throw new Error(
-                        "Estes e-mail e password não existem. Por favor, tente novamente!"
-                    )
+                    Swal.fire('Este utilizador não existe')
                 }
             }
         }).catch(error => {
-            document.getElementById("login").disabled = false;
-            if (error.message == 'Este e-mail e password não existem. Por favor, tente novamente!') {
-                swal({
-                    html: '<strong><h3>Estes e-mail e password não existem. Por favor, tente novamente!</h3></strong>',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    type: 'error',
-                    timer: 2000
-                })
-            } else {
-               alert(error.message /*
-                    html: '<strong><h3>Ocorreu um erro! Tente mais tarde. Obrigado!</h3></strong>',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    type: 'error',
-                    timer: 2000
-                    */
-                )
-            }
+            console.log(error);
         });
     });
 }

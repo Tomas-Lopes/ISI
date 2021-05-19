@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="assets/img/mini.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
 
 
 
@@ -91,7 +91,8 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="projetos.html" style="padding-right:220px;font-size: 16px; ">Projetos</a></li>
+                                            <li><a href="projetos.html"
+                                                    style="padding-right:220px;font-size: 16px; ">Projetos</a></li>
                                             <!-- <li><a href="blog.html">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
@@ -311,10 +312,12 @@
                                                     <li>Gerar Documento</li>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal" id='getDocs'>Gerar Documento</button>
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Enviar</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                        id='getDocs'>Gerar Documento</button>
+                                                    <form action="/upload" method="post" enctype="multipart/form-data">
+                                                        <input type="file" name="avatar" multiple />
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Enviar</button>
                                                 </div>
                                             </div>
                                         </div>

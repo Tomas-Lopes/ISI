@@ -46,67 +46,161 @@ function checkTime(i) {
 //Fetch enviar doc camara
 window.onload = function () {
     const formNovoPedido = document.getElementById("formNovoPedido");
-    
-        
-        formNovoPedido.addEventListener('submit', (event) => {
-            event.preventDefault();
-            document.getElementById("register").disabled = true;
-            
-            console.log("tou");
-            //localizacao com api
-            var localizacaoInput = document.getSelection("registerLocation").value;
-            var descricaoInput = document.getElementById("registerDescription").value;
-            var tipoInput = document.getElementById("registerType").value;
-    
-            let data = {
-                location: localizacaoInput,
-                description: descricaoInput,
-                type: tipoInput,
-            }
-    
-            fetch(`http://127.0.0.1:8080/user/`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-                method: 'POST',
-                mode: 'cors',
-                body: JSON.stringify(data)
-            }).then(response => {
-                console.log(response);
-                if (response.status == 200) {
-                    Swal.fire({
-                        title: 'Documento enviado com sucesso!',
-                        type: 'success',
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        showLoaderOnConfirm: false,
-                        timer: 2000
-                    }).then(response => {
-                        
-                        window.location.replace('./camara.html')
-                    })
-    
-                    //document.getElementById('pedidocriado').click();
-                    /*setTimeout(function () {
-                        window.location.replace('./cliente.html');
-                    }, 2000);*/
+
+
+    formNovoPedido.addEventListener('submit', (event) => {
+        event.preventDefault();
+        document.getElementById("register").disabled = true;
+
+        console.log("tou");
+        //localizacao com api
+        var localizacaoInput = document.getSelection("registerLocation").value;
+        var descricaoInput = document.getElementById("registerDescription").value;
+        var tipoInput = document.getElementById("registerType").value;
+
+        let data = {
+            location: localizacaoInput,
+            description: descricaoInput,
+            type: tipoInput,
+        }
+
+        fetch(`http://127.0.0.1:8080/user/`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: "include",
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(data)
+        }).then(response => {
+            console.log(response);
+            if (response.status == 200) {
+                Swal.fire({
+                    title: 'Documento enviado com sucesso!',
+                    type: 'success',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    showLoaderOnConfirm: false,
+                    timer: 2000
+                }).then(response => {
+
+                    window.location.replace('./camara.html')
+                })
+
+                //document.getElementById('pedidocriado').click();
+                /*setTimeout(function () {
+                    window.location.replace('./cliente.html');
+                }, 2000);*/
+            } else {
+                if (response.error == "Tenta outra vez") {
+                    throw new Error(response.error);
                 } else {
-                    if (response.error == "Tenta outra vez") {
-                        throw new Error(response.error);
-                    } else {
-                        throw new Error(
-                            "Tenta outra vez"
-                        )
+                    throw new Error(
+                        "Tenta outra vez"
+                    )
                     //document.getElementById('pedidonaocriado').click();
                     /*setTimeout(function () {
                         location.reload();
                     }, 2000);*/
                 }
             }
-                return response.json();
-            }).catch(error => {
-                console.log(error);
-            })
+            return response.json();
+        }).catch(error => {
+            console.log(error);
         })
+    })
+}
+
+
+//fetch aprovar pedido
+function aprovarPedido() {
+            //preciso alterar isto
+        var idInput = document.getElementById("registerFirstname").value;
+        //var estadoInput = document.getElementById("registerLastname").value;
+
+        let data = {
+            //corrigir
+            dealid: idInput,
+            state: "Aprovado"
+        }
+
+        fetch(`http://localhost:8080/user/alterarEst`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            // mode: 'cors',
+            body: JSON.stringify(data)
+        }).then(response => {
+            return response.json();
+
+        }).then(result => {
+            console.log(result);
+            if (result.id) {
+                Swal.fire({
+                    title: 'Aprovado com sucesso!',
+                    type: 'success',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    showLoaderOnConfirm: false,
+                    timer: 2000
+                }).then(result => {
+                    window.location.replace('/camara.html')
+                })
+            } else {
+                throw new Error(
+                    "Ocorreu um erro! Tente novamente. Obrigado!"
+                );
+            }
+        })
+}
+
+
+//fetch rejeitar pedido
+function rejeitarPedido() {
+    //preciso alterar isto
+var idInput = document.getElementById("registerFirstname").value;
+//var estadoInput = document.getElementById("registerLastname").value;
+
+let data = {
+    //corrigir
+    dealid: idInput,
+    state: "Rejeitado"
+}
+
+fetch(`http://localhost:8080/user/alterarEst`, {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    // mode: 'cors',
+    body: JSON.stringify(data)
+}).then(response => {
+    return response.json();
+
+}).then(result => {
+    console.log(result);
+    if (result.id) {
+        Swal.fire({
+            title: 'Rejeitado com sucesso!',
+            type: 'success',
+            showCancelButton: false,
+            showConfirmButton: false,
+            showLoaderOnConfirm: false,
+            timer: 2000
+        }).then(result => {
+            window.location.replace('/camara.html')
+        })
+    } else {
+        throw new Error(
+            "Ocorreu um erro! Tente novamente. Obrigado!"
+        );
     }
+})
+}
+
+/*
+id="approved"
+id="rejected"
+id="dealsCamara"
+*/
