@@ -116,7 +116,7 @@
                       </p>
                     </div>
                     <div class="table-responsive py-4">
-                      <table id="eventosEnviron" class="table table-flush">
+                      <table id="dealsCamara" class="table table-flush">
                         <thead class="thead-light" id="thead">
                           <tr>
                             <th>Nome do Pedido</th>
@@ -183,8 +183,8 @@
                                         </div>
                                     </div>
                                  </div>-->
-                                 <th><button class="btn" style=" padding: 10px;border-radius: 50%;margin-left: 10px" class="w3-button w3-black"><i class="fas fa-check"></i></button>
-                                 <button class="btn" style=" padding: 10px;border-radius: 50%;margin-left: 20px;" class="w3-button w3-black"><i class="fas fa-times"></i></button></th>
+                                 <th><button id="approved" onclick="aprovarPedido()" class="btn" style=" padding: 10px;border-radius: 50%;margin-left: 10px" class="w3-button w3-black"><i class="fas fa-check"></i></button>
+                                 <button id="rejected" onclick="rejeitarPedido()" class="btn" style=" padding: 10px;border-radius: 50%;margin-left: 20px;" class="w3-button w3-black"><i class="fas fa-times"></i></button></th>
                             </tr>
                         </tfoot>
                         <tbody id="tbody">
