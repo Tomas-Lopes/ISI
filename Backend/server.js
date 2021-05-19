@@ -7,6 +7,9 @@ const connectDB = require("./Config/connection");
 const userRoutes = require("./Routes/UserRoutes");
 const cookieParser = require('cookie-parser');
 const googleapi=require("./Routes/googleapi");
+const multer = require('multer');
+const path = require('path');
+const uuid = require('uuid').v4;
 
 server.use(bp.json(), bp.urlencoded({ extended: true }));
 server.use(cookieParser());
@@ -22,7 +25,24 @@ server.use("/user", userRoutes);
 server.use("/google", googleapi);
 connectDB();
 
+//guardar documento na pasta da câmara
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'documents/câmara')
+  },
+  filename: (req, file, cb) => {
+      const { originalname } = file;
+      // or 
+      // uuid, or fieldname
+      cb(null, originalname);
+  }
+})
+const upload = multer({ storage }); // or simply { dest: 'uploads/' }
+app.use(express.static('public'))
 
+app.post('/upload', upload.array('avatar'), (req, res) => {
+  return res.json({ status: 'OK', uploaded: req.files.length });
+});
 
 server.listen(port, () => {
   console.log("O servidor esta a escuta na porta " + port);

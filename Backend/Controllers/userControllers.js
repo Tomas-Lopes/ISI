@@ -322,6 +322,8 @@ function newProj(req, res) {
   const description = req.body.description;
   const project_type = req.body.project_type;
   const localizacao = req.body.address;
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
 
   var options = {
     method: "POST",
@@ -342,6 +344,8 @@ function newProj(req, res) {
         { value: localizacao, name: "localizacao" },
         { value: "0", name: "arq_id" },
         { value: "1", name: "gestorid" },
+        { value: latitude, name: 'latitude'},
+        { value: longitude, name: 'longitude'}
       ],
     },
     json: true,

@@ -1,11 +1,11 @@
 window.onload = function () {
-const formNovoPedido = document.getElementById("formNovoPedido");
+    const formNovoPedido = document.getElementById("formNovoPedido");
 
-    
+
     formNovoPedido.addEventListener('submit', (event) => {
         event.preventDefault();
         document.getElementById("register").disabled = true;
-        
+
         console.log("tou");
         //localizacao com api
         var tipoInput = document.getSelection("tipoProjeto").value;
@@ -13,6 +13,18 @@ const formNovoPedido = document.getElementById("formNovoPedido");
         var orcamentoInput = document.getElementById("orcamento").value;
         var dataInput = document.getElementById("data").value;
         var nomeInput = document.getElementById("nome_pedido").value;
+        var latitude = marker.getPosition().lat().toString();
+        var longitude = marker.getPosition().lng().toString();
+
+        var dateISO;
+        // Create date object
+        var d = new Date(dataInput);
+        // Set to midnight
+        d.setUTCHours(0, 0, 0, 0);
+        // Convert to ISO
+        dateISO = d.toISOString();
+        // Create unix timestamp using Date.parse()
+        document.write(Date.parse(dateISO));
 
         let data = {
             dealname: nomeInput,
@@ -22,7 +34,9 @@ const formNovoPedido = document.getElementById("formNovoPedido");
             closedate: dataInput,
             dealstage: "appointmentscheduled",
             arq_id: "0",
-            gestorid: "1"
+            gestorid: "1",
+            latitude: latitude,
+            longitude: longitude
         }
 
         fetch(`http://127.0.0.1:8080/user/newProject`, {
@@ -44,14 +58,9 @@ const formNovoPedido = document.getElementById("formNovoPedido");
                     showLoaderOnConfirm: false,
                     timer: 2000
                 }).then(response => {
-                    
+
                     window.location.replace('./cliente.html')
                 })
-
-                //document.getElementById('pedidocriado').click();
-                /*setTimeout(function () {
-                    window.location.replace('./cliente.html');
-                }, 2000);*/
             } else {
                 if (response.error == "Tenta outra vez") {
                     throw new Error(response.error);
@@ -59,12 +68,8 @@ const formNovoPedido = document.getElementById("formNovoPedido");
                     throw new Error(
                         "Tenta outra vez"
                     )
-                //document.getElementById('pedidonaocriado').click();
-                /*setTimeout(function () {
-                    location.reload();
-                }, 2000);*/
+                }
             }
-        }
             return response.json();
         }).catch(error => {
             console.log(error);
