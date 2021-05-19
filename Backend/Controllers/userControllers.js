@@ -325,6 +325,7 @@ function newProj(req, res) {
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
 
+  //moment(closedate).utc().startOf('day').unix() * 1000;
   var options = {
     method: "POST",
     url: "https://api.hubapi.com/deals/v1/deal",

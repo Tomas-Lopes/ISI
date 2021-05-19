@@ -13,18 +13,11 @@ window.onload = function () {
         var orcamentoInput = document.getElementById("orcamento").value;
         var dataInput = document.getElementById("data").value;
         var nomeInput = document.getElementById("nome_pedido").value;
+        var localizacao = document.getElementById("address").value;
         var latitude = marker.getPosition().lat().toString();
         var longitude = marker.getPosition().lng().toString();
 
-        var dateISO;
-        // Create date object
-        var d = new Date(dataInput);
-        // Set to midnight
-        d.setUTCHours(0, 0, 0, 0);
-        // Convert to ISO
-        dateISO = d.toISOString();
-        // Create unix timestamp using Date.parse()
-        document.write(Date.parse(dateISO));
+        moment(dataInput).utc().startOf('day').unix() * 1000;
 
         let data = {
             dealname: nomeInput,
@@ -36,7 +29,8 @@ window.onload = function () {
             arq_id: "0",
             gestorid: "1",
             latitude: latitude,
-            longitude: longitude
+            longitude: longitude,
+            localizacao: localizacao
         }
 
         fetch(`http://127.0.0.1:8080/user/newProject`, {

@@ -27,10 +27,10 @@ window.onload = function () {
             method: 'POST',
             body: JSON.stringify(data)
         }).then(response => {
-           
+
             return response.json();
         }).then(result => {
-           
+
             if (result.message == "Logged in sucessfully") {
 
                 //if (result.message == "Logged in sucessfully") {
@@ -77,5 +77,8 @@ window.onload = function () {
         });
     });
 }
+
+
+
 
 
