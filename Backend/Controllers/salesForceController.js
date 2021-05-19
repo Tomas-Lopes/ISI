@@ -71,7 +71,38 @@ async function alterarEstado(dealId, novoEstado, res) {
   if (!updatedProj) return res.send("falhou em atualizar o estado");
   return res.send(updatedProj);
 }
+
+
+async function pedidosArquiteto(req, res){
+
+  const arqId =req.body.arquiteto
+  const projeto = await con.sobject("ProjetosARQ__c").find(
+    {
+      Arq_Id__c: arqId,
+    },
+    { 
+      Id: 1,
+      Amount__c: 1,
+      Closedate__c: 1,
+      Name: 1,
+      Dealname__c: 1,
+      Dealstage__c: 1,
+      Description__c: 1,
+      TipoProjeto__c: 1,
+      Latitude__c: 1,
+      Longitude__c: 1,
+      Localizacao__c: 1,
+      Arq_Id__c: 1,
+      Gestor_Id__c: 1
+     }
+     
+  );
+
+  if (!projeto) return res.send("Falha em na recolha dos projetos");
+  return res.send(projeto);
+}
 module.exports = {
   migrarDeals: migrarDeals,
   alterarEstado: alterarEstado,
+  pedidosArquiteto: pedidosArquiteto,
 };
