@@ -314,25 +314,15 @@ try {
     var options = {
       method: 'GET',
       url: 'https://api.hubapi.com/crm/v3/objects/contacts',
-      qs: {limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
+      qs: {limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971',
+      properties: 'firstname, lastname, email, nif, phone'},
       headers: {accept: 'application/json'}
     };
 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      //console.log(body);
-
       const users = JSON.parse(body);
-      console.log(users);
-      for (let i = 0; i < users.length; i++) {
-        console.log(users[i].nif);
-        usersF.push({
-          id: users[i].vid,
-          name: users[i].firstname + " " + users[i].lastname,
-          nif: users[i].nif,
-        });
-      }
-      res.status(200).send(usersF);
+      res.status(200).send(users);
     }) 
   };
 } catch (error) {
@@ -356,15 +346,15 @@ function newProj(req, res) {
   const localizacao = req.body.address;
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
-
-  //moment(closedate).utc().startOf('day').unix() * 1000;
+  const id = req.body.id;
+  
   var options = {
     method: "POST",
     url: "https://api.hubapi.com/deals/v1/deal",
     qs: { hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971" },
     headers: { accept: "application/json", "content-type": "application/json" },
     body: {
-      //associations: { associatedVids: [51] },
+      associations: { associatedVids: [id] },
       properties: [
         { value: dealname, name: "dealname" },
         { value: "appointmentscheduled", name: "dealstage" },
@@ -389,8 +379,8 @@ function newProj(req, res) {
     res.send("Projeto adicionado com sucesso");
     console.log(body);
   });
-  //hubspot.addDeal(properties, res);
 }
+
 
 function associarArquiteto(req, res) {
   const id_arquiteto = req.body.arq_id;

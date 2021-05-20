@@ -140,14 +140,9 @@ async function inserirDadosProjetos(dealId, res) {
         company_id: company_id,
         category_id: 3759923,
         type: 2,
-        price: ID.Amount__c,
-        closedate: ID.Closedate__c,
         name: ID.Name,
         summary: ID.Description__c,
-        tipoPedido: ID.TipoProjeto__c,
-        localizacao: ID.Localizacao__c,
-        latitude: ID.Latitude__c,
-        longitude: ID.Longitude__c,
+        price: ID.Amount__c,
         unit_id: 1076333,
         has_stock: 1,
         //exemption_reason: "M99",
@@ -155,45 +150,51 @@ async function inserirDadosProjetos(dealId, res) {
         //address: dados.localizacao
         properties: [
             {
-                property_id: 11543,
+                property_id: 20872,
                 value: "Pendente"
             },
             {
-                property_id: 11633,
-                value: closedate
+                property_id: 20886,
+                value: ID.Closedate__c.toString()
             },
-            {
+            /*{
                 property_id: 11634,
                 value: localizacao
-            },
+            },*/
             {
-                property_id: 11634,
-                value: tipoPedido
+                property_id: 20879,
+                value: ID.TipoProjeto__c.toString()
             },
-            {
+            /*{
                 property_id: 11623,
                 value: latitude
             },
             {
                 property_id: 11625,
                 value: longitude
-            }
+            }*/
         ],
     }
+    console.log(propriedades)
+    getToken((result) => {
+        if (result.access_token) {
+            const access_token = result.access_token;
 
-    let moloniOptions = {
-        headers: {
-            'Content-Length': json.length,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
-        body: propriedades
-    }
-    request.post(moloniOptions, (err, result) => {
-        if (!err && result.statusCode == 200) {
-            res.status(200).send(JSON.parse(params))
-        } else {
-            res.status(400).send("erro");
+            let moloniOptions = {
+                headers: {
+                    //'Content-Length': json.length,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
+                body: propriedades
+            }
+            request.post(moloniOptions, (err, result1) => {
+                if (!err && result1.statusCode == 200) {
+                    res.status(200).send(JSON.parse(params))
+                } else {
+                    res.status(400).send("erro");
+                }
+            })
         }
     })
 }

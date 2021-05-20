@@ -11,15 +11,15 @@ window.onload = function () {
         var tipoInput = document.getSelection("tipoProjeto").value;
         var descricaoInput = document.getElementById("description").value;
         var orcamentoInput = document.getElementById("orcamento").value;
-        var dataInput = document.getElementById("data").value;
+        var dataInput = new Date(document.getElementById("data").value).getTime();
         var nomeInput = document.getElementById("nome_pedido").value;
         var localizacao = document.getElementById("address").value;
         var latitude = marker.getPosition().lat().toString();
         var longitude = marker.getPosition().lng().toString();
-
-        moment(dataInput).utc().startOf('day').unix() * 1000;
-
+        var id = localStorage.getItem("id");
+    
         let data = {
+            id: id,
             dealname: nomeInput,
             project_type: tipoInput,
             description: descricaoInput,

@@ -61,6 +61,7 @@ window.onload = function () {
                             break;
                     }
                 })
+                localStorage.setItem("id", result.user.id);
             } else {
                 console.log(result.message == "Password invalid");
                 if (result.message == "Password invalid") {
