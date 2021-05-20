@@ -121,7 +121,7 @@ function getCompany(callback) {
 async function inserirDadosProjetos(dealId, res) {
     const ID = await con.sobject("ProjetosARQ__c").find(
         {
-            Enviado__c: "1",
+            Dealname__c: dealId
         },
         {
             Amount__c: 1,
@@ -133,9 +133,10 @@ async function inserirDadosProjetos(dealId, res) {
             Localizacao__c: 1,
             Latitude__c: 1,
             Longitude__c: 1
+            //Enviado__c: "1"
         }
     );
-
+        console.log(dealId + TipoProjeto__c + Closedate__c)
     const propriedades = {
         company_id: company_id,
         category_id: 3759923,
@@ -143,11 +144,10 @@ async function inserirDadosProjetos(dealId, res) {
         name: ID.Name,
         summary: ID.Description__c,
         price: ID.Amount__c,
-        unit_id: 1076333,
+        unit_id: 1595669,
         has_stock: 1,
         //exemption_reason: "M99",
         stock: 1,
-        //address: dados.localizacao
         properties: [
             {
                 property_id: 20872,
@@ -157,22 +157,22 @@ async function inserirDadosProjetos(dealId, res) {
                 property_id: 20886,
                 value: ID.Closedate__c.toString()
             },
-            /*{
-                property_id: 11634,
-                value: localizacao
-            },*/
+            {
+                property_id: 20963,
+                value: ID.Localizacao__c.toString()
+            },
             {
                 property_id: 20879,
                 value: ID.TipoProjeto__c.toString()
             },
-            /*{
-                property_id: 11623,
-                value: latitude
+            {
+                property_id: 20964,
+                value: ID.Latitude__c.toString()
             },
             {
-                property_id: 11625,
-                value: longitude
-            }*/
+                property_id: 20971,
+                value: ID.Longitude__c.toString()
+            }
         ],
     }
     console.log(propriedades)

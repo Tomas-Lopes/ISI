@@ -17,6 +17,8 @@ window.onload = function () {
         var latitude = marker.getPosition().lat().toString();
         var longitude = marker.getPosition().lng().toString();
         var id = localStorage.getItem("id");
+
+        console.log(tipoInput + localizacao);
     
         let data = {
             id: id,
@@ -30,7 +32,8 @@ window.onload = function () {
             gestorid: "1",
             latitude: latitude,
             longitude: longitude,
-            localizacao: localizacao
+            localizacao: localizacao,
+            estado: "Pendente"
         }
 
         fetch(`http://127.0.0.1:8080/user/newProject`, {
