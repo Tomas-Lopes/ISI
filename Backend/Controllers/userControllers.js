@@ -276,7 +276,7 @@ async function getArq(req, res) {
   getContacts()
 } */
 
-function getClientes(req, res) {
+/*function getClientes(req, res) {
   //hubspot.getClients(res);
   let options = {
     method: "GET",
@@ -289,6 +289,7 @@ function getClientes(req, res) {
   request.get(options, (error, resp) => {
     if (!error) {
       const users = JSON.parse(resp.body);
+      console.log("aqui?");
       console.log(users);
       let usersF = [];
       for (let i = 0; i < users.length; i++) {
@@ -305,6 +306,36 @@ function getClientes(req, res) {
       res.status(400).send(err);
     }
   });
+}*/
+
+try {
+  function getClientes(req, res) {
+    var options = {
+      method: 'GET',
+      url: 'https://api.hubapi.com/crm/v3/objects/contacts',
+      qs: {limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
+      headers: {accept: 'application/json'}
+    };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+      //console.log(body);
+
+      const users = JSON.parse(body);
+      console.log(users);
+      for (let i = 0; i < users.length; i++) {
+        console.log(users[i].nif);
+        usersF.push({
+          id: users[i].vid,
+          name: users[i].firstname + " " + users[i].lastname,
+          nif: users[i].nif,
+        });
+      }
+      res.status(200).send(usersF);
+    }) 
+  };
+} catch (error) {
+  console.log(error);
 }
 
 async function getArq(req, res) {
