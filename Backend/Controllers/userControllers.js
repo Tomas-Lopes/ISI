@@ -5,6 +5,7 @@ const hubspot = require("./hubspotController");
 const request = require("request");
 const SF = require("./salesForceController");
 
+
 async function loginMongo(req, res) {
   var email = req.body.email;
   var password = req.body.password;
@@ -402,16 +403,44 @@ function associarArquiteto(req, res) {
 function getPedidos(req, res) {
   let options = {
     method: "GET",
-    url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
-    //qs: {limit: '100', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'},
+    url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
 
-  request(options, function (error, body) {
+  request(options, function (error, _body) {
     if (error) throw new Error(error);
-    res.send(JSON.parse(body.body));
+    let array = [];
+    let body = JSON.parse(_body.body);
+    array = array.concat(body.results);
+    
+    /*let after = null;
+    let next = false;
+    if (body.paging){
+      after = body.paging.next.after;
+     
+      next = true;
+    }
+    
+
+    /*do{
+      
+      options.url = "https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&after="+after;
+
+      request(options, function (_error, _body) {
+        body = JSON.parse(_body.body);
+        array = array.concat(body.results);
+        console.log(body.paging);
+        if (body.paging){
+          after = body.paging.next.after;
+          next = true;
+        }else{next = false;}
+        console.log(body.next);
+      });
+    }while (next);*/
+    
+    res.send(JSON.parse(_body.body));
   });
 }
 

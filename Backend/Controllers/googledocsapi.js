@@ -1,26 +1,26 @@
-let {google}=require("googleapis");
+let { google } = require("googleapis");
 let path = require('path');
 
-let {authenticate} = require('@google-cloud/local-auth');
+let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
-let credentials={
+let credentials = {
   installed: {
-      client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com",
-      project_id: "turing-micron-312116",
-      auth_uri: "https://accounts.google.com/o/oauth2/auth",
-      token_uri: "https://oauth2.googleapis.com/token",
-      auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-      client_secret: "JXIrxCTLyCOOs2mHjFzF27nj",
-      redirect_uris: [
-          "http://localhost:5500"
-      ]
+    client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com",
+    project_id: "turing-micron-312116",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+    client_secret: "JXIrxCTLyCOOs2mHjFzF27nj",
+    redirect_uris: [
+      "http://localhost:5500"
+    ]
   }
 };
 
 
 // If modifying these scopes, delete token.json.
-let SCOPES = ['https://www.googleapis.com/auth/documents'];
+let SCOPES = ['https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -40,9 +40,9 @@ let TOKEN_PATH = 'token.json';
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-  let {client_secret, client_id, redirect_uris} = credentials.installed;
+  let { client_secret, client_id, redirect_uris } = credentials.installed;
   let oAuth2Client = new google.auth.OAuth2(
-      client_id, client_secret, redirect_uris[0]);
+    client_id, client_secret, redirect_uris[0]);
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
@@ -89,7 +89,7 @@ function getNewToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth 2.0 client.
  */
 function printDocTitle(auth) {
-  let docs = google.docs({version: 'v1', auth});
+  let docs = google.docs({ version: 'v1', auth });
   docs.documents.get({
     documentId: '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE',
   }, (err, res) => {
@@ -98,55 +98,65 @@ function printDocTitle(auth) {
   });
 }
 
-async function inserirDados(req,res){
+async function inserirDados(req, res) {
 
-  authorize(credentials,(auth)=>{
+  console.log(req.body);
+  authorize(credentials, (auth) => {
     console.log(res.body);
-    let orcamentoArquiteto = req.body.orcamentoArquiteto;
-    let area = req.body.area;
-  let requests = [
-       {
-    replaceAllText: {
-      containsText: {
-        text: '{{orcamentoArquiteto}}',
-        matchCase: true,
-      },
-      replaceText: orcamentoArquiteto,
-    },
-  },
-    {
-    replaceAllText: {
-      containsText: {
-        text: ' {{area}}',
-        matchCase: true,
-      },
-      replaceText: area,
-    },
-  },
-  ];
- /* var data = new Date(),
-  dia = data.getDate().toString(),
-  diaNow = (dia.length == 1) ? '0' + dia : dia,
-  mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
-  mesNow = (mes.length == 1) ? '0' + mes : mes,
-  anoNow = data.getFullYear(),
-  mesExtenso = mesNow;
+    const drive = google.drive({ version: 'v3', auth });
 
-for (var i = 1; i < 13; i++) {
-  var nome = ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  if (mesExtenso.includes(i.toString())) {
-      mesExtenso = nome[i - 1];
-  }
-}*/
+    drive.files.copy({
+      fileId: "148fCpUJj3SSTAaXWgKbI1tssYpELeEgDWLVLSvq_ldU",
+      resource: {
+        name: "documentoCopia" //campo -> nome do projeto req.body.nomeDoProjeto
+      }
+    }, (err, driveResponse) => {
+      let documentCopyId = driveResponse.data.id;
+      let orcamentoArquiteto = req.body.orcamentoArquiteto;
+      let area = req.body.area;
+      let requests = [
+        {
+          replaceAllText: {
+            containsText: {
+              text: '{{orcamentoArquiteto}}',
+              matchCase: true,
+            },
+            replaceText: orcamentoArquiteto,
+          },
+        },
+        {
+          replaceAllText: {
+            containsText: {
+              text: ' {{area}}',
+              matchCase: true,
+            },
+            replaceText: area,
+          },
+        },
+      ];
+      /* var data = new Date(),
+       dia = data.getDate().toString(),
+       diaNow = (dia.length == 1) ? '0' + dia : dia,
+       mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+       mesNow = (mes.length == 1) ? '0' + mes : mes,
+       anoNow = data.getFullYear(),
+       mesExtenso = mesNow;
+     
+     for (var i = 1; i < 13; i++) {
+       var nome = ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+       if (mesExtenso.includes(i.toString())) {
+           mesExtenso = nome[i - 1];
+       }
+     }*/
 
-  google.options({auth: auth});
-  google
-      .discoverAPI(
+      google.options({ auth: auth });
+      google
+        .discoverAPI(
           'https://docs.googleapis.com/$discovery/rest?version=v1&key=AIzaSyDRUuqylN2af7ZZtOQxBMMbLm8kJ5WTvEI')
-      .then(function(docs) {
-        docs.documents.batchUpdate(
+        .then(function (docs) {
+          docs.documents.batchUpdate(
             {
-              documentId: '148fCpUJj3SSTAaXWgKbI1tssYpELeEgDWLVLSvq_ldU',
+              documentId: documentCopyId,
               resource: {
                 requests,
               },
@@ -155,19 +165,16 @@ for (var i = 1; i < 13; i++) {
               console.log("1");
               if (err) return console.log('The API returned an error: ' + err);
               console.log(data);
-              res.send(JSON.stringify({status:"sucess"}))
+              res.send(JSON.stringify({ status: "sucess" }))
             });
-      })
+        })
+    });
   });
-
-
-} 
-
+}
 
 
 
+module.exports = {
 
-module.exports={
-    
-    inserirDados:inserirDados
+  inserirDados: inserirDados
 }

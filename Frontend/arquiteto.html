@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="assets/css/slick.css">
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
 
 </head>
 
@@ -111,13 +112,8 @@
 
                             <div class="col-xl-2 col-lg-2 col-md-3" style="left:10%">
                                 <div class="dropdown" style="left:-10%">
-                                    <button type="button" class="btn " data-toggle="dropdown"><i
-                                            class="fas fa-user"></i>
+                                    <button type="button" class="btn "><i class="fas fa-user"></i>
                                     </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"> Área Cliente</a>
-                                        <a class="dropdown-item" href="#">Terminar Sessão</a>
-                                    </div>
                                 </div>
                             </div>
 
@@ -147,74 +143,6 @@
                 width: 100%;
             }
         </style>
-        <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
-        <script src="https://js.arcgis.com/4.19/"></script>
-        <script>
-
-            require([
-                "esri/config",
-                "esri/Map",
-                "esri/views/MapView",
-
-                "esri/widgets/BasemapToggle",
-                "esri/widgets/BasemapGallery"
-
-            ], function (esriConfig, Map, MapView, BasemapToggle, BasemapGallery) {
-
-                esriConfig.apiKey = "AAPK4794dac93f2f4bfb9d5c5bc14c437164XR9J186t8cbfv7LaCox9yDhOY2MhlkPIatcbgP88-kkUORDpAZr1jen-wKBkGAhN";
-
-                const map = new Map({
-                    basemap: "arcgis-topographic" //Basemap layer service
-                });
-
-                const view = new MapView({
-                    map: map,
-                    center: [-8.293912, 41.450346], //Longitude, latitude
-                    zoom: 11,
-                    container: "viewDiv"
-                });
-
-                const basemapToggle = new BasemapToggle({
-                    view: view,
-                    nextBasemap: "arcgis-imagery"
-                });
-                view.ui.add(basemapToggle, "bottom-right");
-
-                const basemapGallery = new BasemapGallery({
-                    view: view,
-                    source: {
-                        query: {
-                            title: '"World Basemaps for Developers" AND owner:esri'
-                        }
-                    }
-                });
-
-                view.ui.add(basemapGallery, "top-right");
-
-                const point = { //Create a point
-                    type: "point",
-                    longitude: -8.293912,
-                    latitude: 41.450346
-                };
-                const simpleMarkerSymbol = {
-                    type: "simple-marker",
-                    color: [226, 119, 40],  // Orange
-                    outline: {
-                        color: [255, 255, 255], // White
-                        width: 1
-                    }
-                };
-
-                const pointGraphic = new Graphic({
-                    geometry: point,
-                    symbol: simpleMarkerSymbol
-                });
-                graphicsLayer.add(pointGraphic);
-
-
-            });
-        </script>
-
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -250,69 +178,64 @@
                                 <th>Detalhes</th>
                             </tr>
                         </thead>
-                        <tfoot id="tfoot">
-                            <button class="btn" style=" padding: 10px;border-radius: 50%;margin-left: 10px"
-                                        onclick="document.getElementById('id01').style.display='block'"
-                                        class="w3-button w3-black"><i class="fa fa-info-circle"></i></button></th>
-                                <div id="id01" class="w3-modal">
-                                    <div class="w3-modal-content" style="background:darkgrey; margin: 0 auto;">
-                                        <div class="w3-container">
-                                            <span onclick="document.getElementById('id01').style.display='none'"
-                                                class="w3-button w3-display-topright">&times;</span>
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" style="text-align: center;">Detalhes do Pedido
-                                                </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <div class="input-group input-group-merge input-group-alternative mb-3"
-                                                        style="width: 300px;">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-map-pin"></i></span>
-                                                        </div>
-                                                        <input class="form-control" placeholder="Area Do Terreno"
-                                                            type="text" id="registerLocation"
-                                                            style="display: inline-block;text-align: left;" />
-                                                    </div>
+
+                        <div id="id01" class="w3-modal">
+                            <div class="w3-modal-content" style="background:darkgrey; margin: 0 auto;">
+                                <div class="w3-container">
+                                    <span onclick="document.getElementById('id01').style.display='none'"
+                                        class="w3-button w3-display-topright">&times;</span>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align: center;">Detalhes do Pedido
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div class="input-group input-group-merge input-group-alternative mb-3"
+                                                style="width: 300px;">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <div class="input-group input-group-merge input-group-alternative mb-3"
-                                                        style="width: 300px;">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-euro-sign"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input class="form-control" placeholder="Orçamento do Arquiteto"
-                                                            type="text" id="registerDescription" />
-                                                    </div>
-                                                </div>
-                                                <div class="Anexar" style="padding: top 20px;">
-                                                    <i class="fas fa-paperclip"
-                                                        style="float: left; padding-right:15px; margin-top: 4px"></i>
-                                                    <li>Anexar</li>
-                                                </div>
-                                                <div class="Gerar" style="padding-left: 150px; margin-top: -22px;">
-                                                    <i class="fas fa-file-alt"
-                                                        style="float: left; padding-right:15px; margin-top: 4px"></i>
-                                                    <li>Gerar Documento</li>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal"
-                                                        id='getDocs'>Gerar Documento</button>
-                                                    <form action="/upload" method="post" enctype="multipart/form-data">
-                                                        <input type="file" name="avatar" multiple />
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Enviar</button>
-                                                </div>
+                                                <input class="form-control" placeholder="Area Do Terreno" type="text"
+                                                    id="registerLocation"
+                                                    style="display: inline-block;text-align: left;" />
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="input-group input-group-merge input-group-alternative mb-3"
+                                                style="width: 300px;">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-euro-sign"></i>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control" placeholder="Orçamento do Arquiteto"
+                                                    type="text" id="registerDescription" />
+                                            </div>
+                                        </div>
+                                        <div class="Anexar" style="padding: top 20px;">
+                                            <i class="fas fa-paperclip"
+                                                style="float: left; padding-right:15px; margin-top: 4px"></i>
+                                            <li>Anexar</li>
+                                        </div>
+                                        <div class="Gerar" style="padding-left: 150px; margin-top: -22px;">
+                                            <i class="fas fa-file-alt"
+                                                style="float: left; padding-right:15px; margin-top: 4px"></i>
+                                            <li>Gerar Documento</li>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                id='getDocs'>Gerar Documento</button>
+                                            <form action="/upload" method="post" enctype="multipart/form-data">
+                                                <input type="file" name="avatar" multiple />
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Enviar</button>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
                             </tr>
-                        </tfoot>
-                        <tbody id="bodyArquiteto"> 
-                        </tbody>
+                            </tfoot>
+                            <tbody id="bodyArquiteto">
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -441,7 +364,57 @@
     <script src="./controllers/arquiteto.controller.js"></script>
 
     <!--mapgis-->
+    <script src="https://js.arcgis.com/4.19/"></script>
+    <script>
 
+        require([
+            "esri/config",
+            "esri/Map",
+            "esri/views/MapView",
+
+            "esri/Graphic",
+            "esri/layers/GraphicsLayer"
+
+        ], function (esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+
+            esriConfig.apiKey = "AAPK4794dac93f2f4bfb9d5c5bc14c437164XR9J186t8cbfv7LaCox9yDhOY2MhlkPIatcbgP88-kkUORDpAZr1jen-wKBkGAhN";
+
+            const map = new Map({
+                basemap: "arcgis-topographic" //Basemap layer service
+            });
+
+            const view = new MapView({
+                map: map,
+                center: [-8.293912, 41.450346], //Longitude, latitude
+                zoom: 11,
+                container: "viewDiv"
+            });
+
+            const graphicsLayer = new GraphicsLayer();
+            map.add(graphicsLayer);
+
+            const point = { //azurem-entradaUM
+                type: "point",
+                longitude: -8.293909,
+                latitude: 41.450357
+            };
+
+            const simpleMarkerSymbol = {
+                type: "simple-marker",
+                color: [226, 119, 40],  // Orange
+                outline: {
+                    color: [255, 255, 255], // White
+                    width: 1
+                }
+            };
+
+            const pointGraphic = new Graphic({
+                geometry: point,
+                symbol: simpleMarkerSymbol
+            });
+            graphicsLayer.add(pointGraphic);
+        });
+    </script>
 
 </body>
 
