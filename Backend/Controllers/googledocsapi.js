@@ -127,7 +127,7 @@ async function inserirDados(req, res) {
         {
           replaceAllText: {
             containsText: {
-              text: ' {{area}}',
+              text: '{{area}}',
               matchCase: true,
             },
             replaceText: area,
