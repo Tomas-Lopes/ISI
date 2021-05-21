@@ -118,8 +118,10 @@ function getCompany(callback) {
     })
 }
 
-async function inserirDadosProjetos(dealId, res) {
-    const ID = await con.sobject("ProjetosARQ__c").find(
+async function inserirDadosProjetos(req, res) {
+
+    const dealId = req.body.dealId;
+    const ID = await con.sobject("ProjetosARQ__c").findOne(
         {
             Dealname__c: dealId
         },
@@ -136,7 +138,8 @@ async function inserirDadosProjetos(dealId, res) {
             //Enviado__c: "1"
         }
     );
-        console.log(dealId + TipoProjeto__c + Closedate__c)
+        console.log(ID)
+        //console.log(dealId + TipoProjeto__c + Closedate__c)
     const propriedades = {
         company_id: company_id,
         category_id: 3759923,
