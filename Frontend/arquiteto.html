@@ -176,6 +176,9 @@
                                 <th>Data Limite</th>
                                 <th>Estado</th>
                                 <th>Detalhes</th>
+                                <th><button class="btn" style=" padding: 10px;border-radius: 50%;"
+                                        onclick="document.getElementById('id01').style.display='block'"
+                                        class="w3-button w3-black"><i class="fa fa-info-circle"></i></button></th>
                             </tr>
                         </thead>
 
@@ -372,10 +375,13 @@
             "esri/Map",
             "esri/views/MapView",
 
+            "esri/widgets/BasemapToggle",
+            "esri/widgets/BasemapGallery",
+
             "esri/Graphic",
             "esri/layers/GraphicsLayer"
 
-        ], function (esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+        ], function (esriConfig, Map, MapView, BasemapToggle, BasemapGallery, Graphic, GraphicsLayer) {
 
             esriConfig.apiKey = "AAPK4794dac93f2f4bfb9d5c5bc14c437164XR9J186t8cbfv7LaCox9yDhOY2MhlkPIatcbgP88-kkUORDpAZr1jen-wKBkGAhN";
 
@@ -390,14 +396,24 @@
                 container: "viewDiv"
             });
 
+            const basemapToggle = new BasemapToggle({
+                view: view,
+                nextBasemap: "arcgis-imagery"
+            });
+
+            view.ui.add(basemapToggle, "bottom-right");
+
+            const basemapGallery = new BasemapGallery({
+                view: view,
+                source: {
+                    query: {
+                        title: '"World Basemaps for Developers" AND owner:esri'
+                    }
+                }
+            });
+
             const graphicsLayer = new GraphicsLayer();
             map.add(graphicsLayer);
-
-            const point = { //azurem-entradaUM
-                type: "point",
-                longitude: -8.293909,
-                latitude: 41.450357
-            };
 
             const simpleMarkerSymbol = {
                 type: "simple-marker",
@@ -408,11 +424,62 @@
                 }
             };
 
+            //azurem-entradaUMCoordenadas
+            const point = { 
+                type: "point",
+                longitude: -8.293909,
+                latitude: 41.450357
+            };
+
+            //famalicaoCoordenadas
+            const point1 = { 
+                type: "point",
+                longitude: -8.513961,
+                latitude: 41.421088
+            };
+
+            //celoricoCoordenadas
+            const point2 = { 
+                type: "point",
+                longitude: -8.002204,
+                latitude: 41.386894
+            };
+
+            //fafeCoordenadas
+            const point3 = { 
+                type: "point",
+                longitude: -8.1758034,
+                latitude: 41.491132
+            };
+
+
+            //ponto azurem
             const pointGraphic = new Graphic({
                 geometry: point,
                 symbol: simpleMarkerSymbol
             });
             graphicsLayer.add(pointGraphic);
+
+            //ponto famalicao
+            const pointGraphic1 = new Graphic({
+                geometry: point1,
+                symbol: simpleMarkerSymbol
+            });
+            graphicsLayer.add(pointGraphic1);
+
+            //ponto famalicao
+            const pointGraphic2 = new Graphic({
+                geometry: point2,
+                symbol: simpleMarkerSymbol
+            });
+            graphicsLayer.add(pointGraphic2);
+
+            //ponto fafe
+            const pointGraphic3 = new Graphic({
+                geometry: point3,
+                symbol: simpleMarkerSymbol
+            });
+            graphicsLayer.add(pointGraphic3);
         });
     </script>
 
