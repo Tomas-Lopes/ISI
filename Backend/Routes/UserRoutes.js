@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../Controllers/userControllers");
 const hubspotController = require("../Controllers/hubspotController");
-//const userController = require("../Controllers/hubspotController");
+const fileController = require("../Controllers/filesController");
+
 const isLogged = require("../Middleware/isLogged");
 const isArq = require("../Middleware/isArq");
 const isGes = require("../Middleware/isGes");
@@ -28,8 +29,10 @@ router.put("/associarArq", userController.associarArquiteto)
 router.put("/alterarEst", userController.changeState)
 
 router.get("/pedidosCamara", moloniController.getProducts)
-router.post("/pedidosEnviados", moloniController.inserirDadosProjetos)
+router.post("/pedidosEnviados", userController.migrarPedidosCamara)
 
 router.get("/testezao", hubspotController.getDeal)
+
+router.get("/downloadFile", fileController.sendPdf)
 
 module.exports = router;
