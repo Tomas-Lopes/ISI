@@ -28,7 +28,7 @@ router.put("/associarArq", userController.associarArquiteto)
 router.put("/alterarEst", userController.changeState)
 
 router.get("/pedidosCamara", moloniController.getProducts)
-router.post("/pedidosEnviados", moloniController.inserirDadosProjetos)
+router.post("/pedidosEnviados", userController.migrarPedidosCamara)
 
 router.get("/testezao", hubspotController.getDeal)
 
