@@ -5,7 +5,7 @@ async function pedidosCamara() {
 
     try {
         let conteudo = "";
-        const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
+        const response = await fetch(`http://127.0.0.1:8080/user/pedidosEnviados`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
         for (const pedido of pedidos.results) {
