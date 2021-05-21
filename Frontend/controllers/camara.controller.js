@@ -1,21 +1,29 @@
-//Fetch da pagina camara.html
-pedidosCamara();
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-async function pedidosCamara() {
+const requestOptions = {
+    mode: 'cors',
+    method: 'GET',
+    headers: myHeaders,
+    credentials: 'include'
+};
+//Fetch da pagina camara.html
+inserirDadosProjetos();
+
+async function inserirDadosProjetos() {
 
     try {
         let conteudo = "";
         const response = await fetch(`http://127.0.0.1:8080/user/pedidosEnviados`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
-        for (const pedido of pedidos.results) {
-            conteudo += "<tr><td> " + pedido.Dealname__c + "</td>";
-            conteudo += "<td> " + pedido.Name + "</td>";
-            conteudo += "<td> " + pedido.Localizacao__c + "</td>";
-            conteudo += "<td> " + pedido.TipoProjeto__c + "</td>";
-            conteudo += "<td> " + pedido.Description__c + "</td>";
-            conteudo += "<td> " + pedido.Amount__c + "</td>";
-            conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
+        for (const pedido of pedidos) {
+            conteudo += "<td> " + pedido.name + "</td>";
+            conteudo += "<td> " + pedido.properties.localizacao + "</td>";
+            conteudo += "<td> " + pedido.properties.tipoPedido + "</td>";
+            conteudo += "<td> " + pedido.summary + "</td>";
+            conteudo += "<td> " + pedido.price + "</td>";
+            conteudo += "<td> " + getDate(pedido.properties.CloseDate) + "</td>";
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;
