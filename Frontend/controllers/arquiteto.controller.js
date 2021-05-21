@@ -104,7 +104,8 @@ async function pedidosArquiteto() {
             conteudo += "<td> " + pedido.Description__c + "</td>";
             conteudo += "<td> " + pedido.Amount__c + "</td>";
             conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
-            conteudo += "<td> " + pedido.Dealstage__c + "</td></tr>";
+            conteudo += "<td> " + pedido.Dealstage__c + "</td>";
+            conteudo += '<td> <input type="button" id="btn"  style=" padding: 15px; border-radius: 50%;" class="btn" >'+ "</td></tr>";
         }
 
         document.getElementById("bodyArquiteto").innerHTML = conteudo;

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../Controllers/userControllers");
 const hubspotController = require("../Controllers/hubspotController");
-const fileController = require("../Controllers/filesController");
+//const fileController = require("../Controllers/filesController");
 
 const isLogged = require("../Middleware/isLogged");
 const isArq = require("../Middleware/isArq");
@@ -14,7 +14,6 @@ const SF = require("../Controllers/salesForceController");
 
 router.post("/login", userController.Login)
 router.post("/register", userController.Register)
-//router.post("/registerArquiteto", userController.RegisterArquiteto)
 router.post("/editUser", isLogged, userController.EditUser)
 router.post("/newProject", isLogged, userController.newProj)
 
@@ -33,6 +32,6 @@ router.post("/pedidosEnviados", userController.migrarPedidosCamara)
 
 router.get("/testezao", hubspotController.getDeal)
 
-router.get("/downloadFile", fileController.sendPdf)
+//router.get("/downloadFile", fileController.)
 
 module.exports = router;
