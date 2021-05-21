@@ -61,7 +61,7 @@ window.onload = function () {
                         showLoaderOnConfirm: false,
                         timer: 2000
                     }).then(result => {
-                        window.location.replace('/login.html')
+                        window.location.replace('./login.html')
                     })
                 } else {
                     if (result.error == "CONTACT_EXISTS") {
