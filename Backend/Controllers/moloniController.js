@@ -139,18 +139,20 @@ async function inserirDadosProjetos(req, res) {
         }
     );
         console.log(ID)
+        //console.log(res)
         //console.log(dealId + TipoProjeto__c + Closedate__c)
-    const propriedades = {
+    const propriedades = querystring.stringify({
         company_id: company_id,
         category_id: 3759923,
         type: 2,
         name: ID.Name,
+        reference: ID.Name,
         summary: ID.Description__c,
         price: ID.Amount__c,
         unit_id: 1595669,
         has_stock: 1,
-        //exemption_reason: "M99",
         stock: 1,
+        exemption_reason: 0,
         properties: [
             {
                 property_id: 20872,
@@ -177,25 +179,27 @@ async function inserirDadosProjetos(req, res) {
                 value: ID.Longitude__c.toString()
             }
         ],
-    }
-    console.log(propriedades)
+    });
+    //console.log(propriedades)
+   
     getToken((result) => {
         if (result.access_token) {
             const access_token = result.access_token;
 
             let moloniOptions = {
                 headers: {
-                    //'Content-Length': json.length,
+                    'Content-Length': propriedades.length,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
                 body: propriedades
             }
-            request.post(moloniOptions, (err, result1) => {
-                if (!err && result1.statusCode == 200) {
-                    res.status(200).send(JSON.parse(params))
+            request.post(moloniOptions, (err, result) => {
+                console.log(result.statusCode)
+                if (!err && result.statusCode == 200) {
+                    res.status(200).send(JSON.parse(result.body))
                 } else {
-                    res.status(400).send("erro");
+                    res.status(400).send(err);
                 }
             })
         }

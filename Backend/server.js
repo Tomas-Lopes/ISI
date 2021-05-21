@@ -32,16 +32,19 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
       const { originalname } = file;
+      //cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
       // or 
       // uuid, or fieldname
       cb(null, originalname);
   }
 })
-const upload = multer({ storage }); // or simply { dest: 'uploads/' }
+
+const upload = multer({ storage: storage }); // or simply { dest: 'uploads/' }
 server.use(express.static('public'))
 
-server.post('/upload', upload.array('avatar'), (req, res) => {
-  return res.json({ status: 'OK', uploaded: req.files.length });
+server.post('/upload', upload.single('file'), (req, res) => {
+  //return res.json({ status: 'OK', uploaded: req.files.length });
+  return res.send(req.file);
 });
 
 server.listen(port, () => {
