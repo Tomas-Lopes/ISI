@@ -6,10 +6,12 @@ const port = 8080;
 const connectDB = require("./Config/connection");
 const userRoutes = require("./Routes/UserRoutes");
 const cookieParser = require('cookie-parser');
-const googleapi=require("./Routes/googleapi");
+const googleapi = require("./Routes/googleapi");
 const multer = require('multer');
+const debug = require('debug')('myapp:server');
 const path = require('path');
-const uuid = require('uuid').v4;
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
 
 server.use(bp.json(), bp.urlencoded({ extended: true }));
 server.use(cookieParser());
@@ -28,22 +30,25 @@ connectDB();
 //guardar documento na pasta da câmara
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'documents/câmara')
+    cb(null, './documents/câmara')
   },
   filename: (req, file, cb) => {
-      const { originalname } = file;
-      //cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-      // or 
-      // uuid, or fieldname
-      cb(null, originalname);
+    const { originalname } = file;
+    //cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    // or 
+    // uuid, or fieldname
+    cb(null, originalname + '-' + Date.now());
   }
 })
 
 const upload = multer({ storage: storage }); // or simply { dest: 'uploads/' }
-server.use(express.static('public'))
 
 server.post('/upload', upload.single('file'), (req, res) => {
-  //return res.json({ status: 'OK', uploaded: req.files.length });
+  debug(req.file);
+  /*let pdfDoc = new PDFDocument;
+  pdfDoc.pipe(fs.createWriteStream('SampleDocument.pdf'));
+  pdfDoc.text("My Sample PDF Document");
+  pdfDoc.end();*/
   return res.send(req.file);
 });
 

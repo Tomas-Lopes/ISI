@@ -136,9 +136,9 @@ async function inserirDadosProjetos(dealId, res) {
             //Enviado__c: "1"
         }
     );
-        console.log(ID)
-        //console.log(res)
-        //console.log(dealId + TipoProjeto__c + Closedate__c)
+    console.log(ID)
+    //console.log(res)
+    //console.log(dealId + TipoProjeto__c + Closedate__c)
     const propriedades = querystring.stringify({
         company_id: company_id,
         category_id: 3759923,
@@ -179,7 +179,7 @@ async function inserirDadosProjetos(dealId, res) {
         ],
     });
     //console.log(propriedades)
-   
+
     getToken((result) => {
         if (result.access_token) {
             const access_token = result.access_token;
@@ -258,16 +258,13 @@ function getProducts(request, response) {
         if (res.category_id) {
             const access_token = res.access_token;
             const company_id = res.company_id;
-            //182994
             const category_id = res.category_id;
-            //3759923
+
             let json = querystring.stringify({
                 company_id: company_id,
-                category_id: category_id,
-                qty: 0,
-                offset: 0,
-                with_invisible: 0
+                category_id: category_id
             });
+
             let options = {
                 headers: {
                     'Content-Length': json.length,
@@ -276,7 +273,7 @@ function getProducts(request, response) {
                 url: `https://api.moloni.pt/v1/products/getAll/?access_token=${access_token}`,
                 body: json
             }
-            req.post(options, (err, result) => {
+            request.get(options, (err, result) => {
                 if (!err && result.statusCode == 200) {
                     response.status(200).send(JSON.parse(result.body))
                 } else {
