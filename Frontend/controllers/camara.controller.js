@@ -1,26 +1,24 @@
 //Fetch da pagina camara.html
-getPedidosCamara();
+pedidosCamara();
 
-async function getPedidosCamara() {
+async function pedidosCamara() {
 
     try {
         let conteudo = "";
-        //falta rota
         const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
         for (const pedido of pedidos.results) {
-            conteudo += "<tr><td> " + pedido.id + "</td>";
-            conteudo += "<td> " + pedido.properties.dealname + "</td>";
-            conteudo += "<td> " + "pedido.localizacao" + "</td>";
-            conteudo += "<td> " + pedido.project_type + "</td>";
-            conteudo += "<td> " + "descricao" + "</td>";
-            conteudo += "<td> " + pedido.properties.amount + "</td>";
-            conteudo += "<td> " + getDate(pedido.properties.closedate) + "</td>";
-
+            conteudo += "<tr><td> " + pedido.Dealname__c + "</td>";
+            conteudo += "<td> " + pedido.Name + "</td>";
+            conteudo += "<td> " + pedido.Localizacao__c + "</td>";
+            conteudo += "<td> " + pedido.TipoProjeto__c + "</td>";
+            conteudo += "<td> " + pedido.Description__c + "</td>";
+            conteudo += "<td> " + pedido.Amount__c + "</td>";
+            conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
         }
 
-        document.getElementById("tbodyCamara").innerHTML = conteudo;
+        document.getElementById("bodyCamara").innerHTML = conteudo;
 
     } catch (error) {
         console.log("Erro:" + error);
