@@ -43,7 +43,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // or simply { dest: 'uploads/' }
 
-server.post('/upload', upload.single('file'), (req, res) => {
+server.post('/upload', upload.single('fileUpload'), (req, res) => {
   debug(req.file);
   /*let pdfDoc = new PDFDocument;
   pdfDoc.pipe(fs.createWriteStream('SampleDocument.pdf'));

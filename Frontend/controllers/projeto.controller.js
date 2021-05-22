@@ -6,9 +6,10 @@ window.onload = function () {
         event.preventDefault();
         document.getElementById("register").disabled = true;
 
-        console.log("tou");
-        //localizacao com api
-        var tipoInput = document.getSelection("tipoProjeto").value;
+        var tipoInput = document.getElementById("tipoPedido");
+        var selectedText = tipoInput.options[tipoInput.selectedIndex].text;
+        console.log(selectedText);
+
         var descricaoInput = document.getElementById("description").value;
         var orcamentoInput = document.getElementById("orcamento").value;
         var dataInput = new Date(document.getElementById("data").value).getTime();
@@ -18,12 +19,12 @@ window.onload = function () {
         var longitude = marker.getPosition().lng().toString();
         var id = localStorage.getItem("id");
 
-        console.log(tipoInput + localizacao);
-    
+        console.log(selectedText + localizacao);
+
         let data = {
             id: id,
             dealname: nomeInput,
-            project_type: tipoInput,
+            project_type: selectedText,
             description: descricaoInput,
             amount: orcamentoInput,
             closedate: dataInput,
@@ -33,7 +34,7 @@ window.onload = function () {
             latitude: latitude,
             longitude: longitude,
             localizacao: localizacao,
-            estado: "Pendente"
+            estado_do_pedido: "Pendente"
         }
 
         fetch(`http://127.0.0.1:8080/user/newProject`, {
