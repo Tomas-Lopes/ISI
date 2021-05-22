@@ -3,7 +3,7 @@ myHeaders.append("Content-Type", "application/json");
 
 const requestOptions = {
     mode: 'cors',
-    method: 'GET',
+    method: 'POST',
     headers: myHeaders,
     credentials: 'include'
 };
@@ -14,14 +14,14 @@ async function inserirDadosProjetos() {
 
     try {
         let conteudo = "";
-        const response = await fetch(`http://127.0.0.1:8080/user/pedidosEnviados`, requestOptions);
+        const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
         for (const pedido of pedidos) {
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties.localizacao + "</td>";
             conteudo += "<td> " + pedido.properties.tipoPedido + "</td>";
-            conteudo += "<td> " + pedido.summary + "</td>";
+            //conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties.CloseDate) + "</td>";
         }
@@ -50,7 +50,7 @@ function checkTime(i) {
 
 
 //Fetch enviar doc camara
-window.onload = function () {
+/*window.onload = function () {
     const formNovoPedido = document.getElementById("formNovoPedido");
 
 
@@ -92,11 +92,6 @@ window.onload = function () {
 
                     window.location.replace('./camara.html')
                 })
-
-                //document.getElementById('pedidocriado').click();
-                /*setTimeout(function () {
-                    window.location.replace('./cliente.html');
-                }, 2000);*/
             } else {
                 if (response.error == "Tenta outra vez") {
                     throw new Error(response.error);
@@ -104,10 +99,6 @@ window.onload = function () {
                     throw new Error(
                         "Tenta outra vez"
                     )
-                    //document.getElementById('pedidonaocriado').click();
-                    /*setTimeout(function () {
-                        location.reload();
-                    }, 2000);*/
                 }
             }
             return response.json();
@@ -116,7 +107,7 @@ window.onload = function () {
         })
     })
 }
-
+*/
 
 //fetch aprovar pedido
 function aprovarPedido() {
