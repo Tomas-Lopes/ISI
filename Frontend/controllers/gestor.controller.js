@@ -25,12 +25,12 @@ async function getPedidos() {
         for (const pedido of pedidos.results) {
             conteudo += "<tr><td> " + pedido.id + "</td>";
             conteudo += "<td> " + pedido.properties.dealname + "</td>";
-            conteudo += "<td> " + "pedido.localizacao" + "</td>";
-            conteudo += "<td> " + pedido.project_type + "</td>";
-            conteudo += "<td> " + pedido.description + "</td>";
+            conteudo += "<td> " + pedido.properties.localizacao + "</td>";
+            conteudo += "<td> " + pedido.properties.project_type + "</td>";
+            conteudo += "<td> " + pedido.properties.description + "</td>";
             conteudo += "<td> " + pedido.properties.amount + "</td>";
             conteudo += "<td> " + getDate(pedido.properties.closedate) + "</td>";
-            conteudo += "<td> " + "estado" + "</td></tr>";
+            conteudo += "<td> " + pedido.properties.estado_do_pedido + "</td></tr>";
         }
 
         document.getElementById("bodyPedidos").innerHTML = conteudo;

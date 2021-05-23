@@ -58,7 +58,7 @@ async function Login(req, res) {
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
-    
+
       return res.send({
         message: "User doesnt exist in DataBase"
       });
@@ -80,7 +80,7 @@ async function Login(req, res) {
               nif: result.user.nif,
               cargo: result.user.cargo,
             };
-           
+
             clientCookie.setCookie(req, res, user);
             return res.send({
               message: "Logged in sucessfully",
@@ -314,16 +314,18 @@ try {
     var options = {
       method: 'GET',
       url: 'https://api.hubapi.com/crm/v3/objects/contacts',
-      qs: {limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971',
-      properties: 'firstname, lastname, email, nif, phone'},
-      headers: {accept: 'application/json'}
+      qs: {
+        limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971',
+        properties: 'firstname, lastname, email, nif, phone'
+      },
+      headers: { accept: 'application/json' }
     };
 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
       const users = JSON.parse(body);
       res.status(200).send(users);
-    }) 
+    })
   };
 } catch (error) {
   console.log(error);
@@ -347,7 +349,7 @@ function newProj(req, res) {
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
   const id = req.body.id;
-  
+
   var options = {
     method: "POST",
     url: "https://api.hubapi.com/deals/v1/deal",
@@ -367,8 +369,8 @@ function newProj(req, res) {
         { value: localizacao, name: "localizacao" },
         { value: "0", name: "arq_id" },
         { value: "1", name: "gestorid" },
-        { value: latitude, name: 'latitude'},
-        { value: longitude, name: 'longitude'}
+        { value: latitude, name: 'latitude' },
+        { value: longitude, name: 'longitude' }
       ],
     },
     json: true,
@@ -394,6 +396,9 @@ function getPedidos(req, res) {
   let options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
+    qs: {
+      properties: 'project_type, description, localizacao, latitude, longitude, estado_do_pedido, amount, dealname, closedate'
+  },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -404,7 +409,7 @@ function getPedidos(req, res) {
     let array = [];
     let body = JSON.parse(_body.body);
     array = array.concat(body.results);
-    
+
     /*let after = null;
     let next = false;
     if (body.paging){
@@ -429,7 +434,7 @@ function getPedidos(req, res) {
         console.log(body.next);
       });
     }while (next);*/
-    
+
     res.send(JSON.parse(_body.body));
   });
 }

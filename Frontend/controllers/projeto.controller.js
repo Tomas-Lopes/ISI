@@ -8,18 +8,17 @@ window.onload = function () {
 
         var tipoInput = document.getElementById("tipoPedido");
         var selectedText = tipoInput.options[tipoInput.selectedIndex].text;
-        console.log(selectedText);
 
         var descricaoInput = document.getElementById("description").value;
         var orcamentoInput = document.getElementById("orcamento").value;
         var dataInput = new Date(document.getElementById("data").value).getTime();
         var nomeInput = document.getElementById("nome_pedido").value;
-        var localizacao = document.getElementById("address").value;
+        var localizacao = document.getElementById("address").text;
         var latitude = marker.getPosition().lat().toString();
         var longitude = marker.getPosition().lng().toString();
         var id = localStorage.getItem("id");
 
-        console.log(selectedText + localizacao);
+        console.log(localizacao);
 
         let data = {
             id: id,
