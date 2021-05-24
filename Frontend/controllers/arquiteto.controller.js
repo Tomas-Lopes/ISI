@@ -105,24 +105,24 @@ async function pedidosArquiteto() {
             conteudo += "<td> " + pedido.Amount__c + "</td>";
             conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
             conteudo += "<td> " + pedido.Dealstage__c + "</td>";
-            conteudo += '<td> <button data-target="#myModal" data-backdrop="false" type="button" id=".btn"  style=" padding: 15px; border-radius: 50%;" class="btn" >'+ "</td></tr>";
+            conteudo += '<td> <button data-target="#myModal" data-backdrop="false" type="button" id="modal"  style=" padding: 15px; border-radius: 50%;" class="btn"  class="fa fa-info-circle" >' + "</td></tr>";
         }
-       
+
 
         document.getElementById("bodyArquiteto").innerHTML = conteudo;
+      
 
     } catch (error) {
         console.log("Erro:" + error);
     }
-    $(document).ready(function(){
-        $(".btn").click(function(){
-            $("#myModal").modal('show');
-            $('.modal-backdrop').remove();
+  $(document).ready(function () {
+            $("#modal").click(function () {
+                $("#myModal").modal('show');
+                $('.modal-backdrop').remove();
+            });
         });
-    });
-    
 }
- 
+
 function getDate(date) {
     var FormattedDate = new Date(date);
     var d = FormattedDate.getDate();
