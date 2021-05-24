@@ -105,7 +105,7 @@ async function pedidosArquiteto() {
             conteudo += "<td> " + pedido.Amount__c + "</td>";
             conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
             conteudo += "<td> " + pedido.Dealstage__c + "</td>";
-            conteudo += '<td> <button data-target="#myModal" data-backdrop="false" type="button" id="modal"  style=" padding: 15px; border-radius: 50%;" class="btn"  class="fa fa-info-circle" >' + "</td></tr>";
+            conteudo += '<td> <button data-target="#myModal" data-backdrop="false" type="button" id="modal"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-info-circle"></i></button>' + "</td></tr>";
         }
 
 
