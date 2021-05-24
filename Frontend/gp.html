@@ -143,8 +143,8 @@
           src="assets/img/arquiteto.png" alt="some text" width=20% height=20% padding-right=10px>Arquitetos </a>
       <a href="associar.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
           src="assets/img/associar.png" alt="some text" width=20% height=20% padding-right=10px>Associar Arquiteto </a>
-          <a href="listaclientes.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
-            src="assets/img/listaclientes.png" alt="some text" width=20% height=20% padding-right=10px>Clientes </a>
+      <a href="listaclientes.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
+          src="assets/img/listaclientes.png" alt="some text" width=20% height=20% padding-right=10px>Clientes </a>
       <button class="dropdown-btn" style="color:white;"><img src="assets/img/user.png" alt="some text" width=20%
           height=20% style=" padding-right: 10px; padding-right: 2px;">Utilizador
         <i class="fa fa-caret-down"></i>
@@ -238,8 +238,11 @@
           </div>
         </div>
       </div>
-      <div style="padding-top: 20px;">
-        <h5>5</h5>
+      <div style="padding-top: 100px; padding-left: 200px;">
+        <!-- 3D donut Chart-->
+        <figure class="highcharts-figure">
+          <div id="container" style="height: 80%; width: 400px;"></div>
+        </figure>
       </div>
 
 
@@ -381,6 +384,13 @@
   <script src="./assets/js/main.js"></script>
   <script src="./controllers/pedidos.controller.js"></script>
 
+  <!-- 3D donut Chart-->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="./assets/js/3ddonut.js"></script>
+  <script src="./assets/css/3ddonut.css"></script>
+
   <script>
     window.onload = function () {
       GetPedidos()
@@ -402,7 +412,7 @@
 
         totalPedidos = array.length
         document.getElementById("numPedidos").innerText = array.length;
-        
+
       });
     }
   </script>
