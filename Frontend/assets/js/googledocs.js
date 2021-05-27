@@ -8,7 +8,12 @@ window.onload=function() {
 function getDocs() {
     let data={
         orcamentoArquiteto:document.getElementById("registerLocation").value,
-        area:document.getElementById("registerDescription").value
+        area:document.getElementById("registerDescription").value,
+        Dealname__c: document.getElementById("Dealname__c").value,
+        Localizacao__c: document.getElementById("Localizacao__c").value,
+        TipoProjeto__c: document.getElementById("TipoProjeto__c").value,
+        Description__c: document.getElementById("Description__c").value,
+        Closedate__c: document.getElementById("Closedate__c").value
     }
 fetch(`http://localhost:8080/google/inserirDados`, {
     headers: {

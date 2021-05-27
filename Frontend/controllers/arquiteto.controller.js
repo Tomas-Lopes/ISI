@@ -6,6 +6,7 @@ console.log("ola nuno");
     event.preventDefault();
     document.getElementById("associar").disabled = true;
 */
+let _pedidos = null;
 async function associar() {
     var pedidoInput = document.getElementById("pedido").value;
     var arquitetoInput = document.getElementById("arquiteto").value;
@@ -95,8 +96,9 @@ async function pedidosArquiteto() {
         let conteudo = "";
         const response = await fetch(`http://127.0.0.1:8080/user/projetosArquiteto`, requestOptions);
         const pedidos = await response.json();
+        _pedidos = pedidos;
         console.log(pedidos);
-        for (const pedido of pedidos) {
+        pedidos.forEach( (pedido, index) => {
             conteudo += "<tr><td> " + pedido.Dealname__c + "</td>";
             conteudo += "<td> " + pedido.Name + "</td>";
             conteudo += "<td> " + pedido.Localizacao__c + "</td>";
@@ -105,8 +107,9 @@ async function pedidosArquiteto() {
             conteudo += "<td> " + pedido.Amount__c + "</td>";
             conteudo += "<td> " + getDate(pedido.Closedate__c) + "</td>";
             conteudo += "<td> " + pedido.Dealstage__c + "</td>";
-            conteudo += '<td> <button data-target="#myModal" data-backdrop="false" type="button" id="modal"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-info-circle"></i></button>' + "</td></tr>";
-        }
+            conteudo += '<td> <button onclick="openModal('+ index +')" data-backdrop="false" type="button" id="modal"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-info-circle"></i></button>' + "</td></tr>";
+        
+        });
 
 
         document.getElementById("bodyArquiteto").innerHTML = conteudo;
@@ -115,12 +118,17 @@ async function pedidosArquiteto() {
     } catch (error) {
         console.log("Erro:" + error);
     }
-  $(document).ready(function () {
-            $("#modal").click(function () {
-                $("#myModal").modal('show');
-                $('.modal-backdrop').remove();
-            });
-        });
+ 
+}
+
+function openModal (index) {
+    $("#myModal").modal('show');
+    $("#Dealname__c").val(_pedidos[index].Dealname__c);
+    $("#Localizacao__c").val(_pedidos[index].Localizacao__c);
+    $("#TipoProjeto__c").val(_pedidos[index].TipoProjeto__c);
+    $("#Description__c").val(_pedidos[index].Description__c);
+    $("#Closedate__c").val(_pedidos[index].Closedate__c);
+    $('.modal-backdrop').remove();
 }
 
 function getDate(date) {

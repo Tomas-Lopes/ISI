@@ -15,6 +15,15 @@ let credentials = {
     redirect_uris: [
       "http://localhost:5500"
     ]
+  },
+  web: { 
+    client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com", 
+    project_id: "turing-micron-312116", 
+    auth_uri: "https://accounts.google.com/o/oauth2/auth", 
+    token_uri: "https://oauth2.googleapis.com/token", 
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs", 
+    client_secret: "JXIrxCTLyCOOs2mHjFzF27nj", 
+    redirect_uris: ["http://localhost:5500"] 
   }
 };
 
@@ -40,7 +49,7 @@ let TOKEN_PATH = 'token.json';
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-  let { client_secret, client_id, redirect_uris } = credentials.installed;
+  let { client_secret, client_id, redirect_uris } = credentials.web;
   let oAuth2Client = new google.auth.OAuth2(
     client_id, client_secret, redirect_uris[0]);
 
@@ -102,72 +111,120 @@ async function inserirDados(req, res) {
 
   console.log(req.body);
   authorize(credentials, (auth) => {
-    console.log(res.body);
     const drive = google.drive({ version: 'v3', auth });
 
     drive.files.copy({
       fileId: "148fCpUJj3SSTAaXWgKbI1tssYpELeEgDWLVLSvq_ldU",
       resource: {
-        name: "documentoCopia" //campo -> nome do projeto req.body.nomeDoProjeto
+        name: req.body.Dealname__c        //campo -> nome do projeto req.body.nomeDoProjeto
       }
     }, (err, driveResponse) => {
-      let documentCopyId = driveResponse.data.id;
-      let orcamentoArquiteto = req.body.orcamentoArquiteto;
-      let area = req.body.area;
-      let requests = [
-        {
-          replaceAllText: {
-            containsText: {
-              text: '{{orcamentoArquiteto}}',
-              matchCase: true,
-            },
-            replaceText: orcamentoArquiteto,
-          },
-        },
-        {
-          replaceAllText: {
-            containsText: {
-              text: '{{area}}',
-              matchCase: true,
-            },
-            replaceText: area,
-          },
-        },
-      ];
-      /* var data = new Date(),
-       dia = data.getDate().toString(),
-       diaNow = (dia.length == 1) ? '0' + dia : dia,
-       mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
-       mesNow = (mes.length == 1) ? '0' + mes : mes,
-       anoNow = data.getFullYear(),
-       mesExtenso = mesNow;
-     
-     for (var i = 1; i < 13; i++) {
-       var nome = ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-       if (mesExtenso.includes(i.toString())) {
-           mesExtenso = nome[i - 1];
-       }
-     }*/
+      if (err) {
+        console.log(err);
+      } else {
 
-      google.options({ auth: auth });
-      google
-        .discoverAPI(
-          'https://docs.googleapis.com/$discovery/rest?version=v1&key=AIzaSyDRUuqylN2af7ZZtOQxBMMbLm8kJ5WTvEI')
-        .then(function (docs) {
-          docs.documents.batchUpdate(
-            {
-              documentId: documentCopyId,
-              resource: {
-                requests,
+        console.log(driveResponse);
+        let documentCopyId = driveResponse.data.id; // id do documento
+        let orcamentoArquiteto = req.body.orcamentoArquiteto;
+        let area = req.body.area;
+        let TipoProjeto__c = req.body.TipoProjeto__c;
+        let Description__c = req.body.Description__c;
+        let Localizacao__c = req.body.Localizacao__c;
+        let Closedate__c = req.body.Closedate__c;
+        let requests = [
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{orcamentoArquiteto}}',
+                matchCase: true,
               },
+              replaceText: orcamentoArquiteto,
             },
-            (err, data) => {
-              console.log("1");
-              if (err) return console.log('The API returned an error: ' + err);
-              console.log(data);
-              res.send(JSON.stringify({ status: "sucess" }))
-            });
-        })
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{area}}',
+                matchCase: true,
+              },
+              replaceText: area,
+            },
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{tipoConstrucao}}',
+                matchCase: true,
+              },
+              replaceText: TipoProjeto__c,
+            },
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{descricao}}',
+                matchCase: true,
+              },
+              replaceText: Description__c,
+            },
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{localizacao}}',
+                matchCase: true,
+              },
+              replaceText: Localizacao__c,
+            },
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{data}}',
+                matchCase: true,
+              },
+              replaceText: Closedate__c,
+            },
+          },
+        ];
+        /* var data = new Date(),
+         dia = data.getDate().toString(),
+         diaNow = (dia.length == 1) ? '0' + dia : dia,
+         mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+         mesNow = (mes.length == 1) ? '0' + mes : mes,
+         anoNow = data.getFullYear(),
+         mesExtenso = mesNow;
+       
+       for (var i = 1; i < 13; i++) {
+         var nome = ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+         if (mesExtenso.includes(i.toString())) {
+             mesExtenso = nome[i - 1];
+         }
+       }*/
+
+        google.options({ auth: auth });
+        google
+          .discoverAPI(
+            'https://docs.googleapis.com/$discovery/rest?version=v1&key=AIzaSyDRUuqylN2af7ZZtOQxBMMbLm8kJ5WTvEI')
+          .then(function (docs) {
+            docs.documents.batchUpdate(
+              {
+                documentId: documentCopyId,
+                resource: {
+                  requests,
+                },
+              },
+              (err, data) => {
+                console.log("1");
+                if (err) return console.log('The API returned an error: ' + err);
+
+                //gravar/associar ao projeto no erp o id e nome do doc 
+                //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
+                console.log(data);
+                res.send(JSON.stringify({ status: "sucess" }))
+              });
+          })
+      }
     });
   });
 }
