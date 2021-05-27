@@ -21,12 +21,13 @@ async function getClients() {
         const clientes = await response.json();
         console.log("aqui:");
         console.log(clientes);
-        for (const clientes of clientes.results) {
-            conteudo += "<tr><td> " + clientes.vid + "</td>";
-            conteudo += "<td> " + clientes.properties.firstname + "</td>";
-            conteudo += "<td> " + clientes.properties.email + "</td>";
-            conteudo += "<td> " + clientes.properties.nif + "</td>";
-            conteudo += "<td> " + clientes.properties.phone + "</td>";
+        for (const cliente of clientes.results) {
+            conteudo += "<tr><td> " + cliente.id + "</td>";
+            conteudo += "<td> " + cliente.properties.firstname + "</td>";
+            conteudo += "<td> " + cliente.properties.lastname + "</td>";
+            conteudo += "<td> " + cliente.properties.email + "</td>";
+            conteudo += "<td> " + cliente.properties.nif + "</td>";
+            conteudo += "<td> " + cliente.properties.phone + "</td>";
         }
 
         document.getElementById("bodyClientes").innerHTML = conteudo;

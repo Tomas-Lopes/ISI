@@ -271,16 +271,18 @@ async function getArq(req, res) {
   });
 }*/
 
-try {
-  function getClientes(req, res) {
+
+ async function getClientes(req, res) {
     var options = {
       method: 'GET',
       url: 'https://api.hubapi.com/crm/v3/objects/contacts',
       qs: {
-        limit: '50', archived: 'false', hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971',
-        properties: 'firstname, lastname, email, nif, phone'
+        limit: '30',
+        properties: 'nif,email,phone,lastname,firstname',
+        archived: 'false',
+        hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'
       },
-      headers: { accept: 'application/json' }
+      headers: {accept: 'application/json'}
     };
 
     request(options, function (error, response, body) {
@@ -289,9 +291,7 @@ try {
       res.status(200).send(users);
     })
   };
-} catch (error) {
-  console.log(error);
-}
+
 
 async function getArq(req, res) {
   const arqs = await User.find(
