@@ -28,10 +28,9 @@ router.put("/associarArq", userController.associarArquiteto)
 router.put("/alterarEst", userController.changeState)
 
 router.post("/pedidosCamara", moloniController.getProducts)
-//router.post("/pedidosEnviados", userController.migrarPedidosCamara)
+router.post("/projetos", userController.getProjetos);
+router.get("/pedidosCliente", userController.getClientePedidos)
 
 router.get("/testezao", hubspotController.getDeal)
-
-//router.get("/downloadFile", fileController.)
 
 module.exports = router;

@@ -392,13 +392,38 @@ function associarArquiteto(req, res) {
   SF.migrarDeals(req, id_pedido, id_arquiteto, res);
 }
 
+function getProjetos(req, res) {
+
+  let options = {
+    method: 'POST',
+    url: 'https://api.hubapi.com/crm/v3/objects/deals/search',
+    qs: { hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971' },
+    headers: { accept: 'application/json', 'content-type': 'application/json' },
+    body: {
+      filterGroups: [{ filters: [{ value: 'appointmentscheduled', propertyName: 'dealstage', operator: 'EQ' }] }],
+      sorts: ['string'],
+      query: 'string',
+      properties: ['string'],
+      limit: 0,
+      after: 0
+    },
+    json: true
+  };
+
+  request(options, function (error, body) {
+    if (error) throw new Error(error);
+    //res.send(body);
+    console.log(body);
+  })
+}
+
 function getPedidos(req, res) {
   let options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
     qs: {
       properties: 'project_type, description, localizacao, latitude, longitude, estado_do_pedido, amount, dealname, closedate'
-  },
+    },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -437,6 +462,29 @@ function getPedidos(req, res) {
 
     res.send(JSON.parse(_body.body));
   });
+}
+
+function getClientePedidos(req, res) {
+  const contactId = req.body.contactId;
+  let options = {
+    method: "GET",
+    url: `https://api.hubapi.com/crm/v3/objects/contacts/${contactId}/associations/DEALS?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
+    qs: {
+      properties: 'latitude, longitude, dealname'
+    },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  request(options, function (error, _body) {
+    if (error) throw new Error(error);
+    let array = [];
+    let body = JSON.parse(_body.body);
+    array = array.concat(body.results);
+
+    res.send(JSON.parse(_body.body));
+  })
 }
 
 function changeState(req, res) {
@@ -502,7 +550,6 @@ module.exports = {
   Register: Register,
   EditUser: EditUser,
   Logout: Logout,
-  //getUsers: getUsers,
   getClientes: getClientes,
   newProj: newProj,
   associarArquiteto: associarArquiteto,
@@ -510,4 +557,6 @@ module.exports = {
   getArq: getArq,
   changeState: changeState,
   migrarPedidosCamara: migrarPedidosCamara,
+  getProjetos: getProjetos,
+  getClientePedidos: getClientePedidos
 };
