@@ -27,10 +27,10 @@ window.onload = function () {
             method: 'POST',
             body: JSON.stringify(data)
         }).then(response => {
-
+         
             return response.json();
         }).then(result => {
-
+            
             if (result.message == "Logged in sucessfully") {
 
                 //if (result.message == "Logged in sucessfully") {
@@ -42,7 +42,7 @@ window.onload = function () {
                     showLoaderOnConfirm: false,
                     timer: 2000
                 }).then(() => {
-
+                    
                     switch (result.user.cargo) {
                         case 'cliente':
                             window.location.replace('./cliente.html')

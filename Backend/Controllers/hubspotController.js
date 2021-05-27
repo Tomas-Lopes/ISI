@@ -293,10 +293,14 @@ function addDeal(properties, res) {
 }
 
 function getDeal(dealId, res) {
+  //const dealId = req.body.dealId;
   var options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971`,
     headers: { accept: "application/json" },
+    qs: {
+      properties: 'latitude, longitude, dealname, project_type'
+    }
   };
 
   request(options, (error, resp) => {

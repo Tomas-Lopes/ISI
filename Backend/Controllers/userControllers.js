@@ -5,6 +5,7 @@ const hubspot = require("./hubspotController");
 const request = require("request");
 const SF = require("./salesForceController");
 const moloni = require("./moloniController");
+const con = require("../Config/ConnectionSF");
 
 async function loginMongo(req, res) {
   var email = req.body.email;
@@ -237,45 +238,6 @@ async function getArq(req, res) {
   res.send(arqs);
 }
 
-/*function getClients(req, res) {
-  var request = require("request")
-  const returnedContacts = [];
-  const API_KEY = 'ffdfdd87-f540-403c-8427-acc9eb296971'
-  const count = 10;
-
-  async function getContacts(offset) {
-    if (typeof offset == 'undefined') {
-      offsetParam = null;
-    } else {
-      offsetParam = `vidOffset=${offset}`;
-    }
-    const hapikeyParam = `hapikey=${API_KEY}`
-    const paramsString = `?count=${count}&${hapikeyParam}&${offsetParam}`;
-
-    const finalUrl = `https://api.hubapi.com/contacts/v1/lists/all/contacts/all${paramsString}`
-    request(finalUrl, (error, response, body) => {
-      if (error) {
-        console.log('error', error)
-        throw new Error
-      }
-      const parsedBody = JSON.parse(body)
-      parsedBody.contacts.forEach(contact => {
-        returnedContacts.push(contact);
-      });
-      if (parsedBody['has-more']) {
-        getContacts(parsedBody['vid-offset'])
-      } else {
-        //print out all contacts
-        console.log(returnedContacts)
-        res.status(200).send({
-          clients: returnedContacts,
-        });
-      }
-    })
-  };
-
-  getContacts()
-} */
 
 /*function getClientes(req, res) {
   //hubspot.getClients(res);
@@ -345,10 +307,13 @@ function newProj(req, res) {
   const dealname = req.body.dealname;
   const description = req.body.description;
   const project_type = req.body.project_type;
-  const localizacao = req.body.address;
+  const localizacao = req.body.localizacao;
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
+  const estado_do_pedido = req.body.estado_do_pedido;
   const id = req.body.id;
+
+  console.log(localizacao);
 
   var options = {
     method: "POST",
@@ -370,7 +335,8 @@ function newProj(req, res) {
         { value: "0", name: "arq_id" },
         { value: "1", name: "gestorid" },
         { value: latitude, name: 'latitude' },
-        { value: longitude, name: 'longitude' }
+        { value: longitude, name: 'longitude' },
+        { value: estado_do_pedido, name: 'estado_do_pedido' }
       ],
     },
     json: true,
@@ -392,6 +358,7 @@ function associarArquiteto(req, res) {
   SF.migrarDeals(req, id_pedido, id_arquiteto, res);
 }
 
+/*
 function getProjetos(req, res) {
 
   let options = {
@@ -415,6 +382,63 @@ function getProjetos(req, res) {
     //res.send(body);
     console.log(body);
   })
+}
+*/
+
+async function getProjetos(req, res) {
+  const estado = "aceite";
+  const projeto = await con.sobject("ProjetosARQ__c").find(
+    {
+      Dealstage__c: estado,
+    },
+    {
+      Id: 1,
+      Amount__c: 1,
+      Closedate__c: 1,
+      Name: 1,
+      Dealname__c: 1,
+      Dealstage__c: 1,
+      Description__c: 1,
+      TipoProjeto__c: 1,
+      Latitude__c: 1,
+      Longitude__c: 1,
+      Localizacao__c: 1,
+      Arq_Id__c: 1,
+      Gestor_Id__c: 1
+    }
+
+  );
+
+  if (!projeto) return res.send("Falha em na recolha dos projetos");
+  return res.send(projeto);
+}
+
+async function getPedidosRejeitados(req, res) {
+  const estado = "rejeitado";
+  const projeto = await con.sobject("ProjetosARQ__c").find(
+    {
+      Dealstage__c: estado,
+    },
+    {
+      Id: 1,
+      Amount__c: 1,
+      Closedate__c: 1,
+      Name: 1,
+      Dealname__c: 1,
+      Dealstage__c: 1,
+      Description__c: 1,
+      TipoProjeto__c: 1,
+      Latitude__c: 1,
+      Longitude__c: 1,
+      Localizacao__c: 1,
+      Arq_Id__c: 1,
+      Gestor_Id__c: 1
+    }
+
+  );
+
+  if (!projeto) return res.send("Falha em na recolha dos projetos");
+  return res.send(projeto);
 }
 
 function getPedidos(req, res) {
@@ -469,9 +493,6 @@ function getClientePedidos(req, res) {
   let options = {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/contacts/${contactId}/associations/DEALS?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
-    qs: {
-      properties: 'latitude, longitude, dealname'
-    },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -479,12 +500,21 @@ function getClientePedidos(req, res) {
 
   request(options, function (error, _body) {
     if (error) throw new Error(error);
-    let array = [];
+    
     let body = JSON.parse(_body.body);
-    array = array.concat(body.results);
-
-    res.send(JSON.parse(_body.body));
+    let resul = body.results;
+    //res.send(JSON.parse(_body.body));
+    let array = [];
+    
+    for (let i = 0; i < resul.length; i++) {
+      console.log(resul[i].id);
+      array.push({
+        dealId: resul[i].id,
+      });
+    hubspot.getDeal(resul[i].id, res);
+    }
   })
+
 }
 
 function changeState(req, res) {
@@ -558,5 +588,6 @@ module.exports = {
   changeState: changeState,
   migrarPedidosCamara: migrarPedidosCamara,
   getProjetos: getProjetos,
-  getClientePedidos: getClientePedidos
+  getClientePedidos: getClientePedidos,
+  getPedidosRejeitados: getPedidosRejeitados
 };
