@@ -164,6 +164,10 @@ async function inserirDadosProjetos(dealId, res) {
             {
                 property_id: 20971,
                 value: ID.Longitude__c.toString()
+            },
+            {
+                property_id: 21216,
+                value: ""
             }
         ],
     });
