@@ -459,31 +459,6 @@ function getPedidos(req, res) {
     let body = JSON.parse(_body.body);
     array = array.concat(body.results);
 
-    /*let after = null;
-    let next = false;
-    if (body.paging){
-      after = body.paging.next.after;
-     
-      next = true;
-    }
-    
-
-    /*do{
-      
-      options.url = "https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&after="+after;
-
-      request(options, function (_error, _body) {
-        body = JSON.parse(_body.body);
-        array = array.concat(body.results);
-        console.log(body.paging);
-        if (body.paging){
-          after = body.paging.next.after;
-          next = true;
-        }else{next = false;}
-        console.log(body.next);
-      });
-    }while (next);*/
-
     res.send(JSON.parse(_body.body));
   });
 }
