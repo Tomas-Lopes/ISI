@@ -3,11 +3,11 @@ async function logout() {
             method: 'GET',
             credentials: 'include'
         }).then(response => {
-            console.log(response.user.id)
+           
             if (response.ok) {
+                localStorage.removeItem("id");
                 window.location.assign("./index.html")
-                localStorage.removeItem("id", response.user.id);
-                //sessionStorage.removeItem('user');
+                
             }
         })
     }

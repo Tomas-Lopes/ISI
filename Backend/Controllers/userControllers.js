@@ -24,7 +24,7 @@ async function loginMongo(req, res) {
       };
       if (await validPassword(user.password, password)) {
         let userF = {
-          id: user.user_id,
+          id: user._id,
           email: user.email,
           firstname: user.nome,
           lastname: user.apelido,
