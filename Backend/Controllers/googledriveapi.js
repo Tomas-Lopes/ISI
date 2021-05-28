@@ -5,13 +5,13 @@ let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
 let credentials = {
-    installed: {
-        client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com",
-        project_id: "turing-micron-312116",
+    web: {
+        client_id: "468962987081-gr6hv87s03485ea0jtmdqt1k34c9i89n.apps.googleusercontent.com",
+        project_id: "golden-toolbox-315021",
         auth_uri: "https://accounts.google.com/o/oauth2/auth",
         token_uri: "https://oauth2.googleapis.com/token",
         auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-        client_secret: "JXIrxCTLyCOOs2mHjFzF27nj",
+        client_secret: "Vdva0EIqiovUxKb31HjmwucL",
         redirect_uris: [
             "http://localhost:5500"
         ]
@@ -19,7 +19,7 @@ let credentials = {
 };
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -39,7 +39,7 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-    const { client_secret, client_id, redirect_uris } = credentials.installed;
+    const { client_secret, client_id, redirect_uris } = credentials.web;
     const oAuth2Client = new google.auth.OAuth2(
         client_id, client_secret, redirect_uris[0]);
 

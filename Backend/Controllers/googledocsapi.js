@@ -5,26 +5,17 @@ let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
 let credentials = {
-  installed: {
-    client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com",
-    project_id: "turing-micron-312116",
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_secret: "JXIrxCTLyCOOs2mHjFzF27nj",
+  web: {
+    client_id: "468962987081-gr6hv87s03485ea0jtmdqt1k34c9i89n.apps.googleusercontent.com",
+    project_id: "golden-toolbox-315021",
+    auth_uri: "https://accounts.google.com/o/oauth2/autclsh",
+    token_uri: "https://oauth2.googleapis.com/token", 
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs", 
+    client_secret: "Vdva0EIqiovUxKb31HjmwucL",
     redirect_uris: [
       "http://localhost:5500"
     ]
   },
-  web: { 
-    client_id: "993016191366-3tndakb0dcmiofe9kgi9crmngoipjrh9.apps.googleusercontent.com", 
-    project_id: "turing-micron-312116", 
-    auth_uri: "https://accounts.google.com/o/oauth2/auth", 
-    token_uri: "https://oauth2.googleapis.com/token", 
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs", 
-    client_secret: "JXIrxCTLyCOOs2mHjFzF27nj", 
-    redirect_uris: ["http://localhost:5500"] 
-  }
 };
 
 
@@ -205,7 +196,7 @@ async function inserirDados(req, res) {
         google.options({ auth: auth });
         google
           .discoverAPI(
-            'https://docs.googleapis.com/$discovery/rest?version=v1&key=AIzaSyDRUuqylN2af7ZZtOQxBMMbLm8kJ5WTvEI')
+            'https://docs.googleapis.com/$discovery/rest?version=v1&key=AIzaSyC79qLi5mu64nRKCzDc2KHxX1LOL8-U9So')
           .then(function (docs) {
             docs.documents.batchUpdate(
               {
