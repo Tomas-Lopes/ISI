@@ -143,10 +143,10 @@
           src="assets/img/associar.png" alt="some text" width=20% height=20% padding-right=10px>Associar Arquiteto </a>
       <a href="listaclientes.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;"><img
           src="assets/img/listaclientes.png" alt="some text" width=20% height=20% padding-right=10px>Clientes </a>
-     <a href="index.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;" onclick="logout()"><img
-            src="assets/img/logout.png" alt="some text" width=20% height=20% padding-right=10px>Logout </a>
+      <a href="index.html" class="w3-bar-item w3-button" style="color:white;font-size: 20px;" onclick="logout()"><img
+          src="assets/img/logout.png" alt="some text" width=20% height=20% padding-right=10px>Logout </a>
 
-  
+
     </div>
     <!-- Header Start -->
 
@@ -236,11 +236,12 @@
           </div>
         </div>
       </div>
-      <div style="padding-top: 100px; padding-left: 200px;">
-        <!-- 3D donut Chart-->
-        <figure class="highcharts-figure">
-          <div id="container" style="height: 80%; width: 400px;"></div>
-        </figure>
+      <div class="container">
+        <div class="row" style="padding-top: 130px; padding-bottom: 100px;">
+          <div class="col-md-6" id="donut" style="height: 80%; padding-right: 40px;"></div>
+          <div class="col-md-6" id="column" style="height: 80%; padding-left: 40px;">
+          </div>
+        </div>
       </div>
 
 
@@ -389,6 +390,13 @@
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="./assets/js/3ddonut.js"></script>
   <script src="./assets/css/3ddonut.css"></script>
+
+  <!--column chart-->
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="./assets/js/columnChart.js"></script>
+  <script src="./assets/js/columnChart.css"></script>
 
   <script>
     window.onload = function () {
