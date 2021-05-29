@@ -551,12 +551,11 @@ function migrarPedidosCamara(req, res) {
 }
 */
 
-function guardarURL(req, res){
+async function guardarURL(req, res){
   const dealId = req.body.dealId
   const URL = req.body.URL
-
-  SF.adicionarDocumento(dealId, URL)
-  moloni.inserirDadosProjetos(dealId)
+  await SF.adicionarDocumento(dealId, URL, res)
+  moloni.inserirDadosProjetos(dealId, res)
 }
 
 
