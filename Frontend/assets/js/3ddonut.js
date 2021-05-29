@@ -1,4 +1,4 @@
-Highcharts.chart('container', {
+Highcharts.chart('donut', {
     chart: {
       type: 'pie',
       options3d: {
