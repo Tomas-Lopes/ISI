@@ -23,8 +23,11 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.properties[1].value + "</td>";
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
-            conteudo += "<td> " + getDate(pedido.properties.CloseDate) + "</td>";
+            conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
             conteudo += "<td> " + pedido.properties[6].value + "</td>";
+            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id="approved"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id="rejected"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+           
+        
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;

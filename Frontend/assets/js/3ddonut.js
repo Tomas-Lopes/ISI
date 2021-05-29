@@ -1,3 +1,4 @@
+
 Highcharts.chart('donut', {
     chart: {
       type: 'pie',
@@ -28,4 +29,3 @@ Highcharts.chart('donut', {
       ]
     }]
   });
-  
