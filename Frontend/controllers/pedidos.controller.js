@@ -75,4 +75,46 @@ function checkTime(i) {
     return i;
 }
 
+getCountAceites("contadorAceites");
 
+async function getCountAceites(elemento) {
+
+    try {
+        let conteudo = "";
+        //Fetch
+        const response = await fetch(`http://127.0.0.1:8080/user/projetos`, requestOptions);
+        const pedidos = await response.json();
+        console.log(pedidos);
+        var contadorProjectos=0;
+        for (const pedido of pedidos.results) {
+               contadorProjectos=contadorProjectos+1; 
+        }
+
+        document.getElementById(elemento).innerHTML = contadorProjectos;
+
+    } catch (error) {
+        console.log("Erro:" + error);
+    }
+}
+
+getCountRejeitados("contadorRejeitados");
+
+async function getCountRejeitados(elemento) {
+
+    try {
+        let conteudo = "";
+        //Fetch
+        const response = await fetch(`http://127.0.0.1:8080/user/rejeitados`, requestOptions);
+        const pedidos = await response.json();
+        console.log(pedidos);
+        var contadorRejeitados=0;
+        for (const pedido of pedidos.results) {
+               contadorRejeitados=contadorRejeitados+1; 
+        }
+
+        document.getElementById(elemento).innerHTML = contadorRejeitados;
+
+    } catch (error) {
+        console.log("Erro:" + error);
+    }
+}
