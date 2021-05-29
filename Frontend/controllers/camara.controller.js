@@ -19,11 +19,12 @@ async function inserirDadosProjetos() {
         console.log(pedidos);
         for (const pedido of pedidos) {
             conteudo += "<td> " + pedido.name + "</td>";
-            conteudo += "<td> " + pedido.properties.localizacao + "</td>";
-            conteudo += "<td> " + pedido.properties.tipoPedido + "</td>";
-            //conteudo += "<td> " + pedido.summary + "</td>";
+            conteudo += "<td> " + pedido.properties[3].value + "</td>";
+            conteudo += "<td> " + pedido.properties[1].value + "</td>";
+            conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties.CloseDate) + "</td>";
+            conteudo += "<td> " + pedido.properties[6].value + "</td>";
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;
