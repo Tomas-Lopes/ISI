@@ -17,14 +17,17 @@ async function inserirDadosProjetos() {
         const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
+        const url = new URL(pedidos[0].properties[6].value);
+            console.log(pedidos[0].properties[6].value);
         for (const pedido of pedidos) {
+            automatic_url_conversion=true
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties[3].value + "</td>";
             conteudo += "<td> " + pedido.properties[1].value + "</td>";
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
-            conteudo += "<td> " + pedido.properties[6].value + "</td>";
+            conteudo += '<td>'+ '<a href="'+pedido.properties[6].value+'">Ver Documento </a>'+"</td>";
             conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id="approved"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id="rejected"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
            
         
