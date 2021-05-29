@@ -12,30 +12,6 @@ const requestOptions = {
 };
 
 
-getCountProjetos("contadorProjectos");
-
-async function getCountProjetos(elemento) {
-
-    try {
-        let conteudo = "";
-        //Fetch
-        const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
-        const pedidos = await response.json();
-        console.log(pedidos);
-        var contador=0;
-        for (const pedido of pedidos.results) {
-               contador=contador+1; 
-        }
-
-        
-        //  contador=Object.keys(pedidos).length;
-
-        document.getElementById(elemento).innerHTML = contador;
-
-    } catch (error) {
-        console.log("Erro:" + error);
-    }
-}
 
 
 
@@ -86,7 +62,7 @@ async function getCountAceites(elemento) {
         const pedidos = await response.json();
         console.log(pedidos);
         var contadorProjectos=0;
-        for (const pedido of pedidos.results) {
+        for (const pedido of pedidos) {
                contadorProjectos=contadorProjectos+1; 
         }
 
@@ -108,7 +84,7 @@ async function getCountRejeitados(elemento) {
         const pedidos = await response.json();
         console.log(pedidos);
         var contadorRejeitados=0;
-        for (const pedido of pedidos.results) {
+        for (const pedido of pedidos) {
                contadorRejeitados=contadorRejeitados+1; 
         }
 
