@@ -124,7 +124,8 @@ async function inserirDadosProjetos(dealId, res) {
             TipoProjeto__c: 1,
             Localizacao__c: 1,
             Latitude__c: 1,
-            Longitude__c: 1
+            Longitude__c: 1,
+            URL__c: 1
         }
     );
 
@@ -167,7 +168,7 @@ async function inserirDadosProjetos(dealId, res) {
             },
             {
                 property_id: 21216,
-                value: ""
+                value: ID.URL__c.toString()
             }
         ],
     });

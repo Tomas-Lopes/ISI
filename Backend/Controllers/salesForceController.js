@@ -101,8 +101,28 @@ async function pedidosArquiteto(req, res){
   if (!projeto) return res.send("Falha em na recolha dos projetos");
   return res.send(projeto);
 }
+
+async function adicionarDocumento(dealId, URL, res) {
+  //const dealID = req.body.dealId;
+  //const URL = req.body.URL;
+
+  const ID = await con.sobject("ProjetosARQ__c").findOne(
+    {
+      Dealname__c: dealId,
+    },
+    { Id: 1 }
+  );
+  
+  const updatedProj = await con.sobject("ProjetosARQ__c").update({
+    Id: ID.Id,
+    URL__c: URL,
+  });
+  if (!updatedProj) return res.send("falhou em atualizar o estado");
+  return res.send(updatedProj);
+}
 module.exports = {
   migrarDeals: migrarDeals,
   alterarEstado: alterarEstado,
   pedidosArquiteto: pedidosArquiteto,
+  adicionarDocumento:  adicionarDocumento,
 };

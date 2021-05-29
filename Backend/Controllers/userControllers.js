@@ -550,6 +550,16 @@ function migrarPedidosCamara(req, res) {
   });
 }
 */
+
+function guardarURL(req, res){
+  const dealId = req.body.dealId
+  const URL = req.body.URL
+
+  SF.adicionarDocumento(dealId, URL)
+  moloni.inserirDadosProjetos(dealId)
+}
+
+
 module.exports = {
   Login: Login,
   Register: Register,
@@ -564,5 +574,6 @@ module.exports = {
   migrarPedidosCamara: migrarPedidosCamara,
   getProjetos: getProjetos,
   getClientePedidos: getClientePedidos,
-  getPedidosRejeitados: getPedidosRejeitados
+  getPedidosRejeitados: getPedidosRejeitados,
+  guardarURL: guardarURL
 };
