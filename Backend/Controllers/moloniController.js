@@ -129,62 +129,65 @@ async function inserirDadosProjetos(dealId, res) {
         }
     );
 
-    const propriedades = querystring.stringify({
-        company_id: company_id,
-        category_id: 3759923,
-        type: 2,
-        name: ID.Name,
-        reference: ID.Name,
-        summary: ID.Description__c,
-        price: ID.Amount__c,
-        unit_id: 1595669,
-        has_stock: 1,
-        stock: 1,
-        exemption_reason: 0,
-        properties: [
-            {
-                property_id: 20872,
-                value: "Pendente"
-            },
-            {
-                property_id: 20886,
-                value: ID.Closedate__c.toString()
-            },
-            {
-                property_id: 20963,
-                value: ID.Localizacao__c.toString()
-            },
-            {
-                property_id: 20879,
-                value: ID.TipoProjeto__c.toString()
-            },
-            {
-                property_id: 20964,
-                value: ID.Latitude__c.toString()
-            },
-            {
-                property_id: 20971,
-                value: ID.Longitude__c.toString()
-            },
-            {
-                property_id: 21216,
-                value: ID.URL__c.toString()
-            }
-        ],
-    });
-
-    getToken((result) => {
-        if (result.access_token) {
+    getCategory((result) => {
+        if (result.company_id) {
+            const company_id = result.company_id;
             const access_token = result.access_token;
+            const category_id = result.category_id;
+         
+            let propriedades = {
+                company_id: company_id,
+                category_id: category_id,
+                type: 2,
+                name: ID.Name,
+                reference: ID.Name,
+                summary: ID.Description__c,
+                price: ID.Amount__c,
+                unit_id: 1595669,
+                has_stock: 1,
+                stock: 1,
+                exemption_reason: 0,
+                properties: [
+                    {
+                        property_id: 20872,
+                        value: "Pendente"
+                    },
+                    {
+                        property_id: 20886,
+                        value: ID.Closedate__c
+                    },
+                    {
+                        property_id: 20963,
+                        value: ID.Localizacao__c
+                    },
+                    {
+                        property_id: 20879,
+                        value: ID.TipoProjeto__c
+                    },
+                    {
+                        property_id: 20964,
+                        value: ID.Latitude__c
+                    },
+                    {
+                        property_id: 20971,
+                        value: ID.Longitude__c
+                    },
+                    {
+                        property_id: 21216,
+                        value: ID.URL__c
+                    }
+                ],
+            };
 
             let moloniOptions = {
                 headers: {
-                    'Content-Length': propriedades.length,
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    //'Content-Length': propriedades.length,
+                    'Content-Type': 'application/json'
                 },
                 url: `https://api.moloni.pt/v1/products/insert/?access_token=${access_token}`,
-                body: propriedades
+                body: propriedades,
             }
+            console.log(moloniOptions)
             request.post(moloniOptions, (err, result) => {
                 console.log(result.statusCode)
                 if (!err && result.statusCode == 200) {

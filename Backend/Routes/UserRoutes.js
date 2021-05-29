@@ -32,6 +32,7 @@ router.post("/pedidosCamara", moloniController.getProducts)
 router.get("/projetos", userController.getProjetos);
 router.get("/rejeitados", userController.getPedidosRejeitados);
 router.get("/pedidosCliente", userController.getClientePedidos)
+router.post("/inserirDadosCamara", userController.migrarPedidosCamara)
 
 router.get("/getDeal", hubspotController.getDeal)
 
