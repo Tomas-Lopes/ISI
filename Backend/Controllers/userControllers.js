@@ -551,10 +551,15 @@ function migrarPedidosCamara(req, res) {
 }
 */
 
-async function guardarURL(req, res){
+async function guardarURLSf(req, res){
   const dealId = req.body.dealId
   const URL = req.body.URL
   await SF.adicionarDocumento(dealId, URL, res)
+  //moloni.inserirDadosProjetos(dealId, res)
+}
+
+function guardarURLMoloni (req, res){
+  const dealId = req.body.dealId
   moloni.inserirDadosProjetos(dealId, res)
 }
 
@@ -574,5 +579,6 @@ module.exports = {
   getProjetos: getProjetos,
   getClientePedidos: getClientePedidos,
   getPedidosRejeitados: getPedidosRejeitados,
-  guardarURL: guardarURL
+  guardarURLSf: guardarURLSf,
+  guardarURLMoloni: guardarURLMoloni
 };
