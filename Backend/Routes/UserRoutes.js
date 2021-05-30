@@ -27,7 +27,8 @@ router.get("/projetosArquiteto", SF.pedidosArquiteto)
 
 
 router.put("/associarArq", userController.associarArquiteto)
-router.put("/alterarEst", userController.changeState)
+router.put("/alterarEstSF", userController.changeStateSF)
+router.put("/alterarEstHubspot", userController.changeStateHubspot)
 
 router.post("/pedidosCamara", moloniController.getProducts)
 router.get("/projetos", userController.getProjetos);

@@ -492,11 +492,19 @@ function getClientePedidos(req, res) {
 
 }
 
-function changeState(req, res) {
+function changeStateSF(req, res) {
   const newState = req.body.state;
   const id_pedido = req.body.dealId;
 
   SF.alterarEstado(id_pedido, newState, res);
+  //hubspot.updateDealState(id_pedido, newState, res);
+}
+
+function changeStateHubspot(req, res) {
+  const newState = req.body.state;
+  const id_pedido = req.body.dealId;
+
+  //SF.alterarEstado(id_pedido, newState, res);
   hubspot.updateDealState(id_pedido, newState, res);
 }
 
@@ -574,7 +582,8 @@ module.exports = {
   associarArquiteto: associarArquiteto,
   getPedidos: getPedidos,
   getArq: getArq,
-  changeState: changeState,
+  changeStateSF: changeStateSF,
+  changeStateHubspot: changeStateHubspot,
   migrarPedidosCamara: migrarPedidosCamara,
   getProjetos: getProjetos,
   getClientePedidos: getClientePedidos,
