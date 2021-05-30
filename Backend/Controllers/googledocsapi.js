@@ -210,7 +210,7 @@ async function inserirDados(req, res) {
                 if (err) return console.log('The API returned an error: ' + err);
                 
                 let dealId = req.body.Dealname__c
-                let URL = "https://docs.google.com/document/d/&{documentCopyId}/edit"
+                let URL = `https://docs.google.com/document/d/${documentCopyId}/edit/`
                 await SF.adicionarDocumento(dealId, URL, res)
                 moloni.inserirDadosProjetos(dealId, res)
 
