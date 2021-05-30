@@ -2,6 +2,7 @@ const request = require("request");
 const querystring = require("querystring");
 const con = require("../Config/ConnectionSF");
 var { moloni } = require('../config/moloniConfig.js');
+const { identity } = require("../Config/ConnectionSF");
 
 var company_id = 182994;
 
@@ -161,7 +162,7 @@ async function inserirDadosProjetos(dealId, res) {
         reference: ID.Name,
         summary: ID.Description__c,
         price: ID.Amount__c,
-        unit_id: 1595669,
+        unit_id: ID.Dealname__c,
         has_stock: 1,
         stock: 1,
         exemption_reason: 0,

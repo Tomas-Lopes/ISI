@@ -18,19 +18,19 @@ async function inserirDadosProjetos() {
         const pedidos = await response.json();
         console.log(pedidos);
         const url = new URL(pedidos[0].properties[6].value);
-            //console.log(pedidos[0].properties[2].value);
+        //console.log(pedidos[0].properties[2].value);
         for (const pedido of pedidos) {
-            automatic_url_conversion=true
+            automatic_url_conversion = true
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties[3].value + "</td>";
             conteudo += "<td> " + pedido.properties[1].value + "</td>";
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
-            conteudo += '<td>'+ '<a href="'+pedido.properties[6].value+'">Ver Documento </a>'+"</td>";
+            conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
             conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id="approved"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id="rejected"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
-           
-        
+
+
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;
@@ -118,89 +118,93 @@ function checkTime(i) {
 
 //fetch aprovar pedido
 function aprovarPedido() {
-            //preciso alterar isto
-        var idInput = document.getElementById("registerFirstname").value;
-        //var estadoInput = document.getElementById("registerLastname").value;
+    
+   // const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
+   // const pedidos = await response.json();
+    console.log(pedidos.id);
+    var idInput = pedidos.id;
+    console.log(document.getElementById("bodyCamara").innerHTML);
+    //var estadoInput = document.getElementById("registerLastname").value;
 
-        let data = {
-            //corrigir
-            dealid: idInput,
-            state: "Aprovado"
+    let data = {
+        //corrigir
+        dealid: idInput,
+        state: "Aprovado"
+    }
+
+    fetch(`http://localhost:8080/user/alterarEst`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        // mode: 'cors',
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+
+    }).then(result => {
+        console.log(result);
+        if (result.id) {
+            Swal.fire({
+                title: 'Aprovado com sucesso!',
+                type: 'success',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showLoaderOnConfirm: false,
+                timer: 2000
+            }).then(result => {
+                window.location.replace('/camara.html')
+            })
+        } else {
+            throw new Error(
+                "Ocorreu um erro! Tente novamente. Obrigado!"
+            );
         }
-
-        fetch(`http://localhost:8080/user/alterarEst`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'PUT',
-            // mode: 'cors',
-            body: JSON.stringify(data)
-        }).then(response => {
-            return response.json();
-
-        }).then(result => {
-            console.log(result);
-            if (result.id) {
-                Swal.fire({
-                    title: 'Aprovado com sucesso!',
-                    type: 'success',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    showLoaderOnConfirm: false,
-                    timer: 2000
-                }).then(result => {
-                    window.location.replace('/camara.html')
-                })
-            } else {
-                throw new Error(
-                    "Ocorreu um erro! Tente novamente. Obrigado!"
-                );
-            }
-        })
+    })
 }
 
 
 //fetch rejeitar pedido
 function rejeitarPedido() {
     //preciso alterar isto
-var idInput = document.getElementById("registerFirstname").value;
-//var estadoInput = document.getElementById("registerLastname").value;
+    var idInput = document.getElementById("registerFirstname").value;
+    //var estadoInput = document.getElementById("registerLastname").value;
 
-let data = {
-    //corrigir
-    dealid: idInput,
-    state: "Rejeitado"
-}
-
-fetch(`http://localhost:8080/user/alterarEst`, {
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    method: 'PUT',
-    // mode: 'cors',
-    body: JSON.stringify(data)
-}).then(response => {
-    return response.json();
-
-}).then(result => {
-    console.log(result);
-    if (result.id) {
-        Swal.fire({
-            title: 'Rejeitado com sucesso!',
-            type: 'success',
-            showCancelButton: false,
-            showConfirmButton: false,
-            showLoaderOnConfirm: false,
-            timer: 2000
-        }).then(result => {
-            window.location.replace('/camara.html')
-        })
-    } else {
-        throw new Error(
-            "Ocorreu um erro! Tente novamente. Obrigado!"
-        );
+    let data = {
+        //corrigir
+        dealid: idInput,
+        state: "Rejeitado"
     }
-})
+
+    fetch(`http://localhost:8080/user/alterarEst`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        // mode: 'cors',
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+
+    }).then(result => {
+        console.log(result);
+        if (result.id) {
+            Swal.fire({
+                title: 'Rejeitado com sucesso!',
+                type: 'success',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showLoaderOnConfirm: false,
+                timer: 2000
+            }).then(result => {
+                window.location.replace('/camara.html')
+            })
+        } else {
+            throw new Error(
+                "Ocorreu um erro! Tente novamente. Obrigado!"
+            );
+        }
+    })
 }
 
 /*
