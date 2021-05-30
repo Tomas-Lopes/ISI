@@ -6,6 +6,7 @@ let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
 const con = require("../Config/ConnectionSF");
+const moment = require ('moment');
 let credentials = {
   web: {
     client_id: "468962987081-gr6hv87s03485ea0jtmdqt1k34c9i89n.apps.googleusercontent.com",
@@ -124,6 +125,8 @@ async function inserirDados(req, res) {
         let Description__c = req.body.Description__c;
         let Localizacao__c = req.body.Localizacao__c;
         let Closedate__c = req.body.Closedate__c;
+        const dataCorrente = moment();
+
         let requests = [
           {
             replaceAllText: {
@@ -177,6 +180,15 @@ async function inserirDados(req, res) {
                 matchCase: true,
               },
               replaceText: Closedate__c,
+            },
+          },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{dataCorrente}}',
+                matchCase: true,
+              },
+              replaceText: dataCorrente.format('DD-MM-YYYY'),
             },
           },
         ];
