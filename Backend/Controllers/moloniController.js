@@ -111,7 +111,7 @@ function getCompany(callback) {
   });
 }
 
-async function inserirDadosProjetos(dealId, res) {
+async function inserirDadosProjetos(dealId, URL, res) {
   const ID = await con.sobject("ProjetosARQ__c").findOne(
     {
       Dealname__c: dealId,
@@ -125,8 +125,7 @@ async function inserirDadosProjetos(dealId, res) {
       TipoProjeto__c: 1,
       Localizacao__c: 1,
       Latitude__c: 1,
-      Longitude__c: 1,
-      URL__c: 1
+      Longitude__c: 1
     }
   );
 
@@ -141,7 +140,7 @@ async function inserirDadosProjetos(dealId, res) {
       let longitude = ID.Longitude__c;
       let localizacao = ID.Localizacao__c;
       let tipoPedido = ID.TipoProjeto__c;
-      let URLFile = ID.URL__c;
+      let URLFile = URL;
 
       let costumProperties = {
         summary: ID.Description__c,

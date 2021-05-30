@@ -215,7 +215,7 @@ async function inserirDados(req, res) {
                 let URL = `https://docs.google.com/document/d/${documentCopyId}/edit/`
 
                 
-                  const ID = await con.sobject("ProjetosARQ__c").findOne(
+                 /* const ID = await con.sobject("ProjetosARQ__c").findOne(
                     {
                       Dealname__c: dealId,
                     },
@@ -227,9 +227,9 @@ async function inserirDados(req, res) {
                     URL__c: URL,
                   });
                   if (!updatedProj) res.send("falhou em atualizar o estado");
-                  res.send(updatedProj)
+                  res.send(updatedProj)*/
                 
-                 moloni.inserirDadosProjetos(dealId, res)
+                 moloni.inserirDadosProjetos(dealId, URL, res)
 
                 //gravar/associar ao projeto no erp o id e nome do doc 
                 //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
