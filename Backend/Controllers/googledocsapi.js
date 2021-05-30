@@ -208,6 +208,11 @@ async function inserirDados(req, res) {
               (err, data) => {
                 console.log("1");
                 if (err) return console.log('The API returned an error: ' + err);
+                
+                let dealId = req.body.Dealname__c
+                let URL = "https://docs.google.com/document/d/&{documentCopyId}/edit"
+                await SF.adicionarDocumento(dealId, URL, res)
+                moloni.inserirDadosProjetos(dealId, res)
 
                 //gravar/associar ao projeto no erp o id e nome do doc 
                 //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
