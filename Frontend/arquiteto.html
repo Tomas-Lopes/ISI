@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
+   
 
 </head>
 
@@ -77,8 +78,7 @@
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
                                     <!-- logo-1 -->
-                                    <a class="big-logo"><img src="assets/img/logo/logo.png"
-                                            alt=""></a>
+                                    <a class="big-logo"><img src="assets/img/logo/logo.png" alt=""></a>
                                     <!-- logo-2 -->
                                     <!--<a href="index.html" class="small-logo"><img src="assets/img/logo/loder-logo.png" alt=""></a> -->
                                 </div>
@@ -88,8 +88,7 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="projetos.html"
-                                                    style="padding-right:220px;font-size: 16px; ">Projetos</a></li>
+                                            <li><a style="padding-right:220px;font-size: 16px; "></a></li>
                                             <!-- <li><a href="blog.html">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
@@ -215,31 +214,38 @@
                                         id="registerDescription" />
                                 </div>
                             </div>
-                            <input type="text" id="Dealname__c" hidden/>
-                            <input type="text" id="Localizacao__c" hidden/>
-                            <input type="text" id="TipoProjeto__c" hidden/>
-                            <input type="text" id="Description__c" hidden/>
-                            <input type="text" id="Closedate__c" hidden/>
+                            <input type="text" id="Dealname__c" hidden />
+                            <input type="text" id="Localizacao__c" hidden />
+                            <input type="text" id="TipoProjeto__c" hidden />
+                            <input type="text" id="Description__c" hidden />
+                            <input type="text" id="Closedate__c" hidden />
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id='getDocs'>Gerar
+
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id='getDocs' onclick=myFunction()>Gerar e Enviar
                                     Documento</button>
-                                <form action="/upload" method="post" enctype="multipart/form-data">
-                                    <input type="file" name="fileUpload" multiple />
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Enviar</button>
-                                    </form>
+
+                                    <script>
+                                        function myFunction() {
+                                          alert("Documento gerado e enviado com sucesso!");
+                                        }
+                                        </script>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
 
 
-                <!-- slider Area End-->
-                <!-- Services Area Start -->
+        <!-- slider Area End-->
+        <!-- Services Area Start -->
 
-                <!-- Services Area End -->
-                <!-- About Area Start -->
+        <!-- Services Area End -->
+        <!-- About Area Start -->
 
 
     </main>
@@ -253,7 +259,7 @@
                             <div class="single-footer-caption mb-30">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a ><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a><img src="assets/img/logo/logo2_footer.png" alt=""></a>
                                 </div>
                                 <!--   <div class="footer-tittle">
                                         <div class="footer-pera">
@@ -354,6 +360,7 @@
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/googledocs.js"></script>
     <script src="./controllers/arquiteto.controller.js"></script>
+    
 
     <!--mapgis-->
     <script src="https://js.arcgis.com/4.19/"></script>

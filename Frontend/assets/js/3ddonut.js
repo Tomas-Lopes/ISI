@@ -19,13 +19,15 @@ Highcharts.chart('donut', {
         depth: 45
       }
     },
-    colors: ['#08d334', '#e4cd05', '#e00404'],
+    colors: ['#d6743c', '#3c5c74', '#808080'],
     series: [{
       name: 'Nº de Projetos',
       data: [
-        ['Aceites', 8],
-        ['Pendentes', 3],
-        ['Recusados', 1]
+        ['Aceites', 5],
+        ['Total', 8],
+        ['Recusados', 3]
+        
+        
       ]
     }]
   });

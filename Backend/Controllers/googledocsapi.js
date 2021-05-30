@@ -1,9 +1,11 @@
 let { google } = require("googleapis");
 let path = require('path');
-
+const SF = require("./salesForceController");
+const moloni = require("./moloniController");
 let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
+const con = require("../Config/ConnectionSF");
 let credentials = {
   web: {
     client_id: "468962987081-gr6hv87s03485ea0jtmdqt1k34c9i89n.apps.googleusercontent.com",
@@ -211,8 +213,23 @@ async function inserirDados(req, res) {
                 
                 let dealId = req.body.Dealname__c
                 let URL = `https://docs.google.com/document/d/${documentCopyId}/edit/`
-                await SF.adicionarDocumento(dealId, URL, res)
-                moloni.inserirDadosProjetos(dealId, res)
+
+                
+                  const ID = await con.sobject("ProjetosARQ__c").findOne(
+                    {
+                      Dealname__c: dealId,
+                    },
+                    { Id: 1 }
+                  );
+                  
+                  const updatedProj = await con.sobject("ProjetosARQ__c").update({
+                    Id: ID.Id,
+                    URL__c: URL,
+                  });
+                  if (!updatedProj) res.send("falhou em atualizar o estado");
+                  res.send(updatedProj)
+                
+                 moloni.inserirDadosProjetos(dealId, res)
 
                 //gravar/associar ao projeto no erp o id e nome do doc 
                 //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
