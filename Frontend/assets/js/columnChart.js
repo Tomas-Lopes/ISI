@@ -53,27 +53,27 @@ Highcharts.chart('column', {
           },
           {
             name: "Obras Maritimas",
-            y: 50,
+            y: 1,
             drilldown: "Obras Maritimas"
           },
           {
             name: "Habitacao e construcao civil",
-            y: 20,
+            y: 6,
             drilldown: "Habitacao e construcao civil"
           },
           {
             name: "Requalificacao urbana",
-            y: 35,
+            y: 2,
             drilldown: "Requalificacao urbana"
           },
           {
             name: "Centros logisticos",
-            y: 37,
+            y: 3,
             drilldown: "Centros logisticos"
           },
           {
             name: "Complexos desportivos",
-            y: 15,
+            y: 2,
             drilldown: "Complexos desportivos"
           }
         ]
