@@ -18,7 +18,7 @@ async function inserirDadosProjetos() {
         const pedidos = await response.json();
         console.log(pedidos);
         const url = new URL(pedidos[0].properties[6].value);
-            console.log(pedidos[0].properties[6].value);
+            //console.log(pedidos[0].properties[2].value);
         for (const pedido of pedidos) {
             automatic_url_conversion=true
             conteudo += "<td> " + pedido.name + "</td>";

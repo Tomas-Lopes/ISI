@@ -159,7 +159,7 @@ async function inserirDadosProjetos(dealId, res) {
         type: 2,
         name: ID.Name,
         reference: ID.Name,
-        summary: JSON.stringify(costumProperties),
+        summary: ID.Description__c,
         price: ID.Amount__c,
         unit_id: 1595669,
         has_stock: 1,

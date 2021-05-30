@@ -223,10 +223,12 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" id='getDocs'>Gerar
                                     Documento</button>
-                                <form action="/upload" method="post" enctype="multipart/form-data">
-                                    <input type="file" name="fileUpload" multiple />
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Enviar</button>
-                                    </form>
+                                    <button style="display: none;" id="getDocs" class="btn btn-success"
+                              data-toggle="notify" data-message="Pedido de projeto registado"
+                              data-title="O seu pedido de projeto foi registado com sucesso" data-placement="top"
+                              data-align="center" data-type="success" data-icon="ni ni-bell-55">
+                              Gerar Documento
+                            </button>
                             </div>
                         </div>
                     </div>
