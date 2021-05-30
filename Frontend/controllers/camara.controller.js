@@ -28,7 +28,7 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
             conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
-            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id="approved"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id="rejected"  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
 
 
         }
@@ -56,82 +56,24 @@ function checkTime(i) {
 }
 
 
-//Fetch enviar doc camara
-/*window.onload = function () {
-    const formNovoPedido = document.getElementById("formNovoPedido");
-
-
-    formNovoPedido.addEventListener('submit', (event) => {
-        event.preventDefault();
-        document.getElementById("register").disabled = true;
-
-        console.log("tou");
-        //localizacao com api
-        var localizacaoInput = document.getSelection("registerLocation").value;
-        var descricaoInput = document.getElementById("registerDescription").value;
-        var tipoInput = document.getElementById("registerType").value;
-
-        let data = {
-            location: localizacaoInput,
-            description: descricaoInput,
-            type: tipoInput,
-        }
-
-        fetch(`http://127.0.0.1:8080/user/`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: "include",
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(data)
-        }).then(response => {
-            console.log(response);
-            if (response.status == 200) {
-                Swal.fire({
-                    title: 'Documento enviado com sucesso!',
-                    type: 'success',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    showLoaderOnConfirm: false,
-                    timer: 2000
-                }).then(response => {
-
-                    window.location.replace('./camara.html')
-                })
-            } else {
-                if (response.error == "Tenta outra vez") {
-                    throw new Error(response.error);
-                } else {
-                    throw new Error(
-                        "Tenta outra vez"
-                    )
-                }
-            }
-            return response.json();
-        }).catch(error => {
-            console.log(error);
-        })
-    })
-}
-*/
-
 //fetch aprovar pedido
 function aprovarPedido() {
-    
-   // const response = await fetch(`http://127.0.0.1:8080/user/pedidosCamara`, requestOptions);
-   // const pedidos = await response.json();
-    console.log(pedidos.id);
-    var idInput = pedidos.id;
-    console.log(document.getElementById("bodyCamara").innerHTML);
+
     //var estadoInput = document.getElementById("registerLastname").value;
+    const btn = document.getElementsByClassName("btn");
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", () => {
+            let id = btn[i].getAttribute("id")
+            console.log(id);
+        })
+    }
 
     let data = {
         //corrigir
-        dealid: idInput,
-        state: "Aprovado"
+        dealid: btn,
+        state: "aceite"
     }
-
+    
     fetch(`http://localhost:8080/user/alterarEst`, {
         headers: {
             'Content-Type': 'application/json'
@@ -161,18 +103,23 @@ function aprovarPedido() {
             );
         }
     })
+    
 }
 
 
 //fetch rejeitar pedido
 function rejeitarPedido() {
-    //preciso alterar isto
-    var idInput = document.getElementById("registerFirstname").value;
-    //var estadoInput = document.getElementById("registerLastname").value;
+    const btn = document.getElementsByClassName("btn");
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", () => {
+            let id = btn[i].getAttribute("id")
+            console.log(id);
+        })
+    }
 
     let data = {
         //corrigir
-        dealid: idInput,
+        dealid: btn,
         state: "Rejeitado"
     }
 
