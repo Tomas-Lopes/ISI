@@ -18,8 +18,9 @@ async function inserirDadosProjetos() {
         const pedidos = await response.json();
         console.log(pedidos);
         const url = new URL(pedidos[0].properties[6].value);
-        //console.log(pedidos[0].properties[2].value);
+
         for (const pedido of pedidos) {
+            console.log(pedido.properties[7].value)
             automatic_url_conversion = true
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties[3].value + "</td>";
@@ -28,9 +29,8 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
             conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
-            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
-
-
+            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+            
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;

@@ -212,7 +212,7 @@ async function inserirDados(req, res) {
                 if (err) return console.log('The API returned an error: ' + err);
                 
                 let dealId = req.body.Dealname__c
-                let URL = `https://docs.google.com/document/d/${documentCopyId}/edit/`
+                let URL = `https://docs.google.com/document/d/${documentCopyId}/edit?usp=sharing`
 
                 
                  /* const ID = await con.sobject("ProjetosARQ__c").findOne(
@@ -234,7 +234,7 @@ async function inserirDados(req, res) {
                 //gravar/associar ao projeto no erp o id e nome do doc 
                 //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
                 console.log(data);
-                res.send(JSON.stringify({ status: "sucess" }))
+                //res.send(JSON.stringify({ status: "sucess" }))
               });
           })
       }
