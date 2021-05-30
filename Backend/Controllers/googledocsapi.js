@@ -205,7 +205,7 @@ async function inserirDados(req, res) {
                   requests,
                 },
               },
-              (err, data) => {
+              async (err, data) => {
                 console.log("1");
                 if (err) return console.log('The API returned an error: ' + err);
                 
