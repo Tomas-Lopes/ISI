@@ -40,7 +40,7 @@ Highcharts.chart('column', {
       headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
       pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> pedidos<br/>'
     },
-  
+    colors: ['#e6e8e8','#3c5c74', '#808080', '#7c949c', '#d6743c', '#04344c'],
     series: [
       {
         name: "",
@@ -48,7 +48,7 @@ Highcharts.chart('column', {
         data: [
           {
             name: "Obras rodoviarias",
-            y: 0,
+            y: 4,
             drilldown: "Obras rodoviarias"
           },
           {
@@ -73,7 +73,7 @@ Highcharts.chart('column', {
           },
           {
             name: "Complexos desportivos",
-            y: 0,
+            y: 15,
             drilldown: "Complexos desportivos"
           }
         ]
