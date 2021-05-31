@@ -30,7 +30,7 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
             conteudo += '<td>' + '<a href="' + pedido.properties[5].value + '">Ver Documento </a>' + "</td>";
-            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+            conteudo += '<td> <button onclick="aprovarPedido(this.id)"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido(this.id)"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
             
         }
 
@@ -58,9 +58,10 @@ function checkTime(i) {
 
 
 //fetch aprovar pedido
-function aprovarPedido() {
-    aprovarPedidoSF();
-    aprovarPedidoHB();
+function aprovarPedido(id) {
+    console.log(id)
+    aprovarPedidoSF(id);
+    aprovarPedidoHB(id);
     deleteRow();
 }
 
@@ -69,22 +70,26 @@ function deleteRow() {
     document.getElementById("myTable").remove();
   }
 
-function aprovarPedidoSF() {
+function aprovarPedidoSF(id) {
+
+ 
 
     //var estadoInput = document.getElementById("registerLastname").value;
     const btn = document.getElementsByClassName("btn");
     for (let i = 0; i < btn.length; i++) {
         btn[i].addEventListener("click", () => {
-            let id = btn[i].getAttribute("id")
+           // id = btn[i].getAttribute("id")
             console.log(id);
         })
     }
 
     let data = {
         //corrigir
-        dealid: btn,
-        state: "aceite"
+        "dealId": id,
+        "state": "aceite"
     }
+
+    console.log("data: " + data.dealId)
     
     fetch(`http://localhost:8080/user/alterarEstSF`, {
         headers: {
@@ -103,25 +108,25 @@ function aprovarPedidoSF() {
     
 }
 
-function rejeitarPedido() {
-    rejeitarPedidoSF();
-    rejeitarPedidoHB();
+function rejeitarPedido(id) {
+    rejeitarPedidoSF(id);
+    rejeitarPedidoHB(id);
 }
 
 //fetch rejeitar pedido
-function rejeitarPedidoSF() {
+function rejeitarPedidoSF(id) {
     const btn = document.getElementsByClassName("btn");
     for (let i = 0; i < btn.length; i++) {
         btn[i].addEventListener("click", () => {
-            let id = btn[i].getAttribute("id")
+            //let id = btn[i].getAttribute("id")
             console.log(id);
         })
     }
 
     let data = {
         //corrigir
-        dealid: btn,
-        state: "Rejeitado"
+        "dealId": id,
+        "state": "rejeitado"
     }
 
     fetch(`http://localhost:8080/user/alterarEstSF`, {
@@ -155,21 +160,21 @@ function rejeitarPedidoSF() {
     })
 }
 
-function aprovarPedidoHB() {
+function aprovarPedidoHB(id) {
 
     //var estadoInput = document.getElementById("registerLastname").value;
     const btn = document.getElementsByClassName("btn");
     for (let i = 0; i < btn.length; i++) {
         btn[i].addEventListener("click", () => {
-            let id = btn[i].getAttribute("id")
+            //let id = btn[i].getAttribute("id")
             console.log(id);
         })
     }
 
     let data = {
         //corrigir
-        dealid: btn,
-        state: "aceite"
+        "dealId": id,
+        "state": "aceite"
     }
     
     fetch(`http://localhost:8080/user/alterarEstHubspot`, {
@@ -204,19 +209,19 @@ function aprovarPedidoHB() {
     
 }
 
-function rejeitarPedidoHB() {
+function rejeitarPedidoHB(id) {
     const btn = document.getElementsByClassName("btn");
     for (let i = 0; i < btn.length; i++) {
         btn[i].addEventListener("click", () => {
-            let id = btn[i].getAttribute("id")
+            //let id = btn[i].getAttribute("id")
             console.log(id);
         })
     }
 
     let data = {
         //corrigir
-        dealid: btn,
-        state: "Rejeitado"
+        "dealId": id,
+        "state": "rejeitado"
     }
 
     fetch(`http://localhost:8080/user/alterarEstHubspot`, {
