@@ -20,7 +20,8 @@ async function inserirDadosProjetos() {
         const url = new URL(pedidos[0].properties[6].value);
 
         for (const pedido of pedidos) {
-            console.log(pedido.properties[7].value)
+            console.log(pedido);
+            console.log(pedido.properties[6].value)
             automatic_url_conversion = true
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties[3].value + "</td>";
@@ -28,8 +29,8 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
-            conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
-            conteudo += '<td> <button onclick="aprovarPedidoSF(); aprovarPedidosHB()"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedidoSF(); rejeitarPedidoHB())"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+            conteudo += '<td>' + '<a href="' + pedido.properties[5].value + '">Ver Documento </a>' + "</td>";
+            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
             
         }
 
@@ -57,6 +58,17 @@ function checkTime(i) {
 
 
 //fetch aprovar pedido
+function aprovarPedido() {
+    aprovarPedidoSF();
+    aprovarPedidoHB();
+    deleteRow();
+}
+
+function deleteRow() {
+    var i =  HTMLTableRowElement.rowIndex;
+    document.getElementById("myTable").remove();
+  }
+
 function aprovarPedidoSF() {
 
     //var estadoInput = document.getElementById("registerLastname").value;
@@ -86,26 +98,15 @@ function aprovarPedidoSF() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
-            Swal.fire({
-                title: 'Aprovado com sucesso!',
-                type: 'success',
-                showCancelButton: false,
-                showConfirmButton: false,
-                showLoaderOnConfirm: false,
-                timer: 2000
-            }).then(result => {
-                window.location.replace('/camara.html')
-            })
-        } else {
-            throw new Error(
-                "Ocorreu um erro! Tente novamente. Obrigado!"
-            );
-        }
+        
     })
     
 }
 
+function rejeitarPedido() {
+    rejeitarPedidoSF();
+    rejeitarPedidoHB();
+}
 
 //fetch rejeitar pedido
 function rejeitarPedidoSF() {
@@ -135,7 +136,7 @@ function rejeitarPedidoSF() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
+        if (result) {
             Swal.fire({
                 title: 'Rejeitado com sucesso!',
                 type: 'success',
@@ -144,7 +145,7 @@ function rejeitarPedidoSF() {
                 showLoaderOnConfirm: false,
                 timer: 2000
             }).then(result => {
-                window.location.replace('/camara.html')
+                window.location.replace('/Frontend/camara.html')
             })
         } else {
             throw new Error(
@@ -183,7 +184,7 @@ function aprovarPedidoHB() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
+        if (result) {
             Swal.fire({
                 title: 'Aprovado com sucesso!',
                 type: 'success',
@@ -192,7 +193,7 @@ function aprovarPedidoHB() {
                 showLoaderOnConfirm: false,
                 timer: 2000
             }).then(result => {
-                window.location.replace('/camara.html')
+                window.location.replace('/Frontend/camara.html')
             })
         } else {
             throw new Error(
@@ -230,22 +231,7 @@ function rejeitarPedidoHB() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
-            Swal.fire({
-                title: 'Rejeitado com sucesso!',
-                type: 'success',
-                showCancelButton: false,
-                showConfirmButton: false,
-                showLoaderOnConfirm: false,
-                timer: 2000
-            }).then(result => {
-                window.location.replace('/camara.html')
-            })
-        } else {
-            throw new Error(
-                "Ocorreu um erro! Tente novamente. Obrigado!"
-            );
-        }
+  
     })
 }
 
