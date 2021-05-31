@@ -15,7 +15,7 @@ async function loginMongo(req, res) {
     const user = await User.findOne({ email: email });
     if (!user) {
       return res.send({
-        message: "User doesnt exist in DataBase"
+        message: "User doesnt exist in DataBase",
       });
     } else {
       const userpass = user.password;
@@ -41,7 +41,7 @@ async function loginMongo(req, res) {
         });
       } else {
         return res.send({
-          message: "Password invalid"
+          message: "Password invalid",
         });
       }
     }
@@ -51,7 +51,6 @@ async function loginMongo(req, res) {
   }
 }
 
-
 async function Login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
@@ -59,9 +58,8 @@ async function Login(req, res) {
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
-
       return res.send({
-        message: "User doesnt exist in DataBase"
+        message: "User doesnt exist in DataBase",
       });
     } else {
       const userpass = user.password;
@@ -95,17 +93,15 @@ async function Login(req, res) {
         });
       } else {
         return res.send({
-          message: "Password invalid"
+          message: "Password invalid",
         });
       }
     }
   } catch (error) {
     //console.log("fodeu2")
     return res.send(error);
-
   }
 }
-
 
 function Register(req, res) {
   const nome = req.body.firstname;
@@ -238,7 +234,6 @@ async function getArq(req, res) {
   res.send(arqs);
 }
 
-
 /*function getClientes(req, res) {
   //hubspot.getClients(res);
   let options = {
@@ -271,27 +266,25 @@ async function getArq(req, res) {
   });
 }*/
 
-
- async function getClientes(req, res) {
-    var options = {
-      method: 'GET',
-      url: 'https://api.hubapi.com/crm/v3/objects/contacts',
-      qs: {
-        limit: '30',
-        properties: 'nif,email,phone,lastname,firstname',
-        archived: 'false',
-        hapikey: 'ffdfdd87-f540-403c-8427-acc9eb296971'
-      },
-      headers: {accept: 'application/json'}
-    };
-
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-      const users = JSON.parse(body);
-      res.status(200).send(users);
-    })
+async function getClientes(req, res) {
+  var options = {
+    method: "GET",
+    url: "https://api.hubapi.com/crm/v3/objects/contacts",
+    qs: {
+      limit: "30",
+      properties: "nif,email,phone,lastname,firstname",
+      archived: "false",
+      hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
+    },
+    headers: { accept: "application/json" },
   };
 
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    const users = JSON.parse(body);
+    res.status(200).send(users);
+  });
+}
 
 async function getArq(req, res) {
   const arqs = await User.find(
@@ -334,9 +327,9 @@ function newProj(req, res) {
         { value: localizacao, name: "localizacao" },
         { value: "0", name: "arq_id" },
         { value: "1", name: "gestorid" },
-        { value: latitude, name: 'latitude' },
-        { value: longitude, name: 'longitude' },
-        { value: estado_do_pedido, name: 'estado_do_pedido' }
+        { value: latitude, name: "latitude" },
+        { value: longitude, name: "longitude" },
+        { value: estado_do_pedido, name: "estado_do_pedido" },
       ],
     },
     json: true,
@@ -348,7 +341,6 @@ function newProj(req, res) {
     console.log(body);
   });
 }
-
 
 function associarArquiteto(req, res) {
   const id_arquiteto = req.body.arq_id;
@@ -404,9 +396,8 @@ async function getProjetos(req, res) {
       Longitude__c: 1,
       Localizacao__c: 1,
       Arq_Id__c: 1,
-      Gestor_Id__c: 1
+      Gestor_Id__c: 1,
     }
-
   );
 
   if (!projeto) return res.send("Falha em na recolha dos projetos");
@@ -432,9 +423,8 @@ async function getPedidosRejeitados(req, res) {
       Longitude__c: 1,
       Localizacao__c: 1,
       Arq_Id__c: 1,
-      Gestor_Id__c: 1
+      Gestor_Id__c: 1,
     }
-
   );
 
   if (!projeto) return res.send("Falha em na recolha dos projetos");
@@ -446,7 +436,8 @@ function getPedidos(req, res) {
     method: "GET",
     url: `https://api.hubapi.com/crm/v3/objects/deals?hapikey=ffdfdd87-f540-403c-8427-acc9eb296971&limit=30`,
     qs: {
-      properties: 'project_type, description, localizacao, latitude, longitude, estado_do_pedido, amount, dealname, closedate'
+      properties:
+        "project_type, description, localizacao, latitude, longitude, estado_do_pedido, amount, dealname, closedate",
     },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -463,7 +454,7 @@ function getPedidos(req, res) {
   });
 }
 
-function getClientePedidos(req, res) {
+async function getClientePedidos(req, res) {
   const contactId = req.body.contactId;
   let options = {
     method: "GET",
@@ -473,23 +464,29 @@ function getClientePedidos(req, res) {
     },
   };
 
-  request(options, function (error, _body) {
+  let x = await request(options, function (error, _body) {
     if (error) throw new Error(error);
-    
+
     let body = JSON.parse(_body.body);
     let resul = body.results;
     //res.send(JSON.parse(_body.body));
     let array = [];
-    
+    let arrayPedidos = [];
+
     for (let i = 0; i < resul.length; i++) {
       console.log(resul[i].id);
       array.push({
         dealId: resul[i].id,
       });
-    hubspot.getDeal(resul[i].id, res);
+        hubspot.getDeal(resul[i].id, (data) => {
+        arrayPedidos.push({
+          data: data,
+        });
+      });
     }
-  })
-
+    console.log(arrayPedidos);
+    res.send(arrayPedidos);
+  });
 }
 
 function changeStateSF(req, res) {
@@ -512,8 +509,6 @@ function migrarPedidosCamara(req, res) {
   const id_pedido = req.body.dealId;
   moloni.inserirDadosProjetos(id_pedido, res);
 }
-
-
 
 /*function RegisterArquiteto(req, res) {
   const nome = req.body.firstname;
@@ -559,18 +554,17 @@ function migrarPedidosCamara(req, res) {
 }
 */
 
-async function guardarURLSf(req, res){
-  const dealId = req.body.dealId
-  const URL = req.body.URL
-  await SF.adicionarDocumento(dealId, URL, res)
+async function guardarURLSf(req, res) {
+  const dealId = req.body.dealId;
+  const URL = req.body.URL;
+  await SF.adicionarDocumento(dealId, URL, res);
   //moloni.inserirDadosProjetos(dealId, res)
 }
 
-function guardarURLMoloni (req, res){
-  const dealId = req.body.dealId
-  moloni.inserirDadosProjetos(dealId, res)
+function guardarURLMoloni(req, res) {
+  const dealId = req.body.dealId;
+  moloni.inserirDadosProjetos(dealId, res);
 }
-
 
 module.exports = {
   Login: Login,
@@ -589,5 +583,5 @@ module.exports = {
   getClientePedidos: getClientePedidos,
   getPedidosRejeitados: getPedidosRejeitados,
   guardarURLSf: guardarURLSf,
-  guardarURLMoloni: guardarURLMoloni
+  guardarURLMoloni: guardarURLMoloni,
 };
