@@ -9,7 +9,7 @@ function migrarDeals(req, dealId, arquitetoId, res) {
     url: `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`,
     qs: {
       properties:
-        "project_type, estado_do_pedido, closedate, dealname, amount, description, latitude, longitude",
+        "project_type, estado_do_pedido, closedate, dealname, amount, description, latitude, longitude, localizacao",
       archived: "false",
       hapikey: "ffdfdd87-f540-403c-8427-acc9eb296971",
     },

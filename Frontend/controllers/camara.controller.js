@@ -29,7 +29,7 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
-            conteudo += '<td>' + '<a href="' + pedido.properties[5].value + '">Ver Documento </a>' + "</td>";
+            conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
             conteudo += '<td> <button onclick="aprovarPedido(this.id)"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido(this.id)"  type="button" id=' + pedido.properties[7].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
             
         }
