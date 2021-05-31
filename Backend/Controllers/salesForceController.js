@@ -74,7 +74,6 @@ async function alterarEstado(dealId, novoEstado, res) {
 
 
 async function pedidosArquiteto(req, res){
-
   const arqId =req.body.arquiteto
   const projeto = await con.sobject("ProjetosARQ__c").find(
     {

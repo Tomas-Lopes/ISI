@@ -292,7 +292,7 @@ function addDeal(properties, res) {
   });
 }
 
-function getDeal(dealId, res) {
+function getDeal(dealId, callback) {
   //const dealId = req.body.dealId;
   var options = {
     method: "GET",
@@ -307,12 +307,7 @@ function getDeal(dealId, res) {
     if (!error) {
       let pedido = JSON.parse(resp.body);
       let data = pedido.properties;
-
-      const id = {
-        dealId: data.hs_object_id
-      }
-      console.log(data)
-      res.send(data);
+      callback(data)
     } else {
       res({
         'statusCode': res.statusCode,
