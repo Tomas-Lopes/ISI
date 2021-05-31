@@ -6,6 +6,7 @@ let { authenticate } = require('@google-cloud/local-auth');
 let fs = require('fs');
 let readline = require('readline');
 const con = require("../Config/ConnectionSF");
+const moment = require ('moment');
 let credentials = {
   web: {
     client_id: "468962987081-gr6hv87s03485ea0jtmdqt1k34c9i89n.apps.googleusercontent.com",
@@ -124,6 +125,8 @@ async function inserirDados(req, res) {
         let Description__c = req.body.Description__c;
         let Localizacao__c = req.body.Localizacao__c;
         let Closedate__c = req.body.Closedate__c;
+        const dataCorrente = moment();
+
         let requests = [
           {
             replaceAllText: {
@@ -179,6 +182,15 @@ async function inserirDados(req, res) {
               replaceText: Closedate__c,
             },
           },
+          {
+            replaceAllText: {
+              containsText: {
+                text: '{{dataCorrente}}',
+                matchCase: true,
+              },
+              replaceText: dataCorrente.format('DD-MM-YYYY'),
+            },
+          },
         ];
         /* var data = new Date(),
          dia = data.getDate().toString(),
@@ -212,7 +224,7 @@ async function inserirDados(req, res) {
                 if (err) return console.log('The API returned an error: ' + err);
                 
                 let dealId = req.body.Dealname__c
-                let URL = `https://docs.google.com/document/d/${documentCopyId}/edit/`
+                let URL = `https://docs.google.com/document/d/${documentCopyId}/edit?usp=sharing`
 
                 
                  /* const ID = await con.sobject("ProjetosARQ__c").findOne(
@@ -234,7 +246,7 @@ async function inserirDados(req, res) {
                 //gravar/associar ao projeto no erp o id e nome do doc 
                 //esta função que voces invocarem tem de ir ao erp da camara e guardar os dados que precisam, inclusive o nome e o id do documento
                 console.log(data);
-                res.send(JSON.stringify({ status: "sucess" }))
+                //res.send(JSON.stringify({ status: "sucess" }))
               });
           })
       }

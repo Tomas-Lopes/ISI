@@ -18,8 +18,10 @@ async function inserirDadosProjetos() {
         const pedidos = await response.json();
         console.log(pedidos);
         const url = new URL(pedidos[0].properties[6].value);
-        //console.log(pedidos[0].properties[2].value);
+
         for (const pedido of pedidos) {
+            console.log(pedido);
+            console.log(pedido.properties[6].value)
             automatic_url_conversion = true
             conteudo += "<td> " + pedido.name + "</td>";
             conteudo += "<td> " + pedido.properties[3].value + "</td>";
@@ -27,10 +29,9 @@ async function inserirDadosProjetos() {
             conteudo += "<td> " + pedido.summary + "</td>";
             conteudo += "<td> " + pedido.price + "</td>";
             conteudo += "<td> " + getDate(pedido.properties[2].value) + "</td>";
-            conteudo += '<td>' + '<a href="' + pedido.properties[6].value + '">Ver Documento </a>' + "</td>";
-            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.unit_id + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
-
-
+            conteudo += '<td>' + '<a href="' + pedido.properties[5].value + '">Ver Documento </a>' + "</td>";
+            conteudo += '<td> <button onclick="aprovarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-check"></i></button>' + ' <button onclick="rejeitarPedido()"  type="button" id=' + pedido.properties[6].value + '  style=" padding: 15px; border-radius: 50%;margin-left: 07px;" class="btn" ><i class="fas fa-times"></i></button>' + "</td></tr>";
+            
         }
 
         document.getElementById("bodyCamara").innerHTML = conteudo;
@@ -58,6 +59,17 @@ function checkTime(i) {
 
 //fetch aprovar pedido
 function aprovarPedido() {
+    aprovarPedidoSF();
+    aprovarPedidoHB();
+    deleteRow();
+}
+
+function deleteRow() {
+    var i =  HTMLTableRowElement.rowIndex;
+    document.getElementById("myTable").remove();
+  }
+
+function aprovarPedidoSF() {
 
     //var estadoInput = document.getElementById("registerLastname").value;
     const btn = document.getElementsByClassName("btn");
@@ -74,7 +86,7 @@ function aprovarPedido() {
         state: "aceite"
     }
     
-    fetch(`http://localhost:8080/user/alterarEst`, {
+    fetch(`http://localhost:8080/user/alterarEstSF`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -86,29 +98,18 @@ function aprovarPedido() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
-            Swal.fire({
-                title: 'Aprovado com sucesso!',
-                type: 'success',
-                showCancelButton: false,
-                showConfirmButton: false,
-                showLoaderOnConfirm: false,
-                timer: 2000
-            }).then(result => {
-                window.location.replace('/camara.html')
-            })
-        } else {
-            throw new Error(
-                "Ocorreu um erro! Tente novamente. Obrigado!"
-            );
-        }
+        
     })
     
 }
 
+function rejeitarPedido() {
+    rejeitarPedidoSF();
+    rejeitarPedidoHB();
+}
 
 //fetch rejeitar pedido
-function rejeitarPedido() {
+function rejeitarPedidoSF() {
     const btn = document.getElementsByClassName("btn");
     for (let i = 0; i < btn.length; i++) {
         btn[i].addEventListener("click", () => {
@@ -123,7 +124,7 @@ function rejeitarPedido() {
         state: "Rejeitado"
     }
 
-    fetch(`http://localhost:8080/user/alterarEst`, {
+    fetch(`http://localhost:8080/user/alterarEstSF`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -135,7 +136,7 @@ function rejeitarPedido() {
 
     }).then(result => {
         console.log(result);
-        if (result.id) {
+        if (result) {
             Swal.fire({
                 title: 'Rejeitado com sucesso!',
                 type: 'success',
@@ -144,7 +145,7 @@ function rejeitarPedido() {
                 showLoaderOnConfirm: false,
                 timer: 2000
             }).then(result => {
-                window.location.replace('/camara.html')
+                window.location.replace('/Frontend/camara.html')
             })
         } else {
             throw new Error(
@@ -153,6 +154,87 @@ function rejeitarPedido() {
         }
     })
 }
+
+function aprovarPedidoHB() {
+
+    //var estadoInput = document.getElementById("registerLastname").value;
+    const btn = document.getElementsByClassName("btn");
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", () => {
+            let id = btn[i].getAttribute("id")
+            console.log(id);
+        })
+    }
+
+    let data = {
+        //corrigir
+        dealid: btn,
+        state: "aceite"
+    }
+    
+    fetch(`http://localhost:8080/user/alterarEstHubspot`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        // mode: 'cors',
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+
+    }).then(result => {
+        console.log(result);
+        if (result) {
+            Swal.fire({
+                title: 'Aprovado com sucesso!',
+                type: 'success',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showLoaderOnConfirm: false,
+                timer: 2000
+            }).then(result => {
+                window.location.replace('/Frontend/camara.html')
+            })
+        } else {
+            throw new Error(
+                "Ocorreu um erro! Tente novamente. Obrigado!"
+            );
+        }
+    })
+    
+}
+
+function rejeitarPedidoHB() {
+    const btn = document.getElementsByClassName("btn");
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].addEventListener("click", () => {
+            let id = btn[i].getAttribute("id")
+            console.log(id);
+        })
+    }
+
+    let data = {
+        //corrigir
+        dealid: btn,
+        state: "Rejeitado"
+    }
+
+    fetch(`http://localhost:8080/user/alterarEstHubspot`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        // mode: 'cors',
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+
+    }).then(result => {
+        console.log(result);
+  
+    })
+}
+
 
 /*
 id="approved"

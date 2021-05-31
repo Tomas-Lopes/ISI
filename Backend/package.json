@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "googleapis": "^39.2.0",
     "highcharts": "^9.1.0",
+    "jsforce": "^1.10.1",
     "jsonwebtoken": "^8.5.1",
     "moloni": "0.0.10",
     "moment": "^2.29.1",

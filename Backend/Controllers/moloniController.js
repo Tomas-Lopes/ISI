@@ -141,6 +141,7 @@ async function inserirDadosProjetos(dealId, URL, res) {
       let localizacao = ID.Localizacao__c;
       let tipoPedido = ID.TipoProjeto__c;
       let URLFile = URL;
+      let deal_id = ID.Dealname__c;
 
       let costumProperties = {
         summary: ID.Description__c,
@@ -193,6 +194,10 @@ async function inserirDadosProjetos(dealId, URL, res) {
           {
             property_id: 21216,
             value: URLFile.toString()
+          },
+          {
+            property_id: 21224,
+            value: deal_id.toString()
           }
         ],
       };
