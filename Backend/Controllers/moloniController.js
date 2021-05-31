@@ -111,7 +111,7 @@ function getCompany(callback) {
   });
 }
 
-async function inserirDadosProjetos(dealId, URL, res) {
+async function inserirDadosProjetos(dealId, res) {
   const ID = await con.sobject("ProjetosARQ__c").findOne(
     {
       Dealname__c: dealId,
