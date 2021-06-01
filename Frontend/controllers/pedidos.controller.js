@@ -10,9 +10,7 @@ const requestOptions = {
     headers: myHeaders,
     credentials: 'include'
 };
-var contador=0;
-var contadorProjectos=0;
-var contadorRejeitados=0;
+
 
 
 
@@ -27,7 +25,7 @@ async function getCountPedidos(elemento) {
         const response = await fetch(`http://127.0.0.1:8080/user/pedidos`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
-        //var contador=0;
+        var contador=0;
         for (const pedido of pedidos.results) {
                contador=contador+1; 
         }
@@ -63,7 +61,7 @@ async function getCountAceites(elemento) {
         const response = await fetch(`http://127.0.0.1:8080/user/projetos`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
-        //var contadorProjectos=0;
+        var contadorProjectos=0;
         for (const pedido of pedidos) {
                contadorProjectos=contadorProjectos+1; 
         }
@@ -85,7 +83,7 @@ async function getCountRejeitados(elemento) {
         const response = await fetch(`http://127.0.0.1:8080/user/rejeitados`, requestOptions);
         const pedidos = await response.json();
         console.log(pedidos);
-        //var contadorRejeitados=0;
+        var contadorRejeitados=0;
         for (const pedido of pedidos) {
                contadorRejeitados=contadorRejeitados+1; 
         }

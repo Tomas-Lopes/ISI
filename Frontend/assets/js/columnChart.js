@@ -48,32 +48,32 @@ Highcharts.chart('column', {
         data: [
           {
             name: "Obras rodoviarias",
-            y: 4,
+            y: 1,
             drilldown: "Obras rodoviarias"
           },
           {
             name: "Obras Maritimas",
-            y: 1,
+            y: 0,
             drilldown: "Obras Maritimas"
           },
           {
             name: "Habitacao e construcao civil",
-            y: 6,
+            y: 4,
             drilldown: "Habitacao e construcao civil"
           },
           {
             name: "Requalificacao urbana",
-            y: 2,
+            y: 1,
             drilldown: "Requalificacao urbana"
           },
           {
             name: "Centros logisticos",
-            y: 3,
+            y: 2,
             drilldown: "Centros logisticos"
           },
           {
             name: "Complexos desportivos",
-            y: 2,
+            y: 1,
             drilldown: "Complexos desportivos"
           }
         ]
